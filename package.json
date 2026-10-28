@@ -13,10 +13,10 @@
     "agent-skills"
   ],
   "author": "dsh-skill-market",
-  "homepage": "https://github.com/YOUR_NAME/dsh-skill-market#readme",
+  "homepage": "https://github.com/zhao1722676538-cmd/dsh-skill-market#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/YOUR_NAME/dsh-skill-market"
+    "url": "https://github.com/zhao1722676538-cmd/dsh-skill-market"
   },
   "main": "src/index.js",
   "exports": {
