@@ -1,0 +1,56 @@
+{
+  "name": "dsh-skill-market",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Skill marketplace for DeepSeek Harness: search skillsmp / skillstore / skills.sh / GitHub, install and uninstall skills.",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "skills",
+    "skill-marketplace",
+    "agent-skills"
+  ],
+  "author": "dsh-skill-market",
+  "homepage": "https://github.com/YOUR_NAME/dsh-skill-market#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YOUR_NAME/dsh-skill-market"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./client": "./client/client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "engines": {
+    "dsh": ">=0.2.1-rc.3 <0.3.0"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-settings",
+        "@deepseek-ai/dsh-client-ui-theme"
+      ],
+      "platform": "web"
+    }
+  },
+  "files": [
+    "src",
+    "client",
+    "locale",
+    "cordis.patch.yml",
+    "icon.svg",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test test/",
+    "build:index": "node scripts/build-index.mjs"
+  }
+}

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="Skill Market">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4d6bfe"/>
+      <stop offset="1" stop-color="#9b5cff"/>
+    </linearGradient>
+  </defs>
+  <path d="M6 9.5A2.5 2.5 0 0 1 8.5 7h5l2 2h8a2.5 2.5 0 0 1 2.5 2.5v1.2A4.8 4.8 0 0 0 24 12H8a2 2 0 0 0-2 2v9.5A2.5 2.5 0 0 1 6 21z" fill="url(#g)" opacity=".55"/>
+  <rect x="6" y="12" width="20" height="12" rx="2.5" fill="url(#g)"/>
+  <path d="M16 15.2l1.35 2.74 3.02.44-2.19 2.13.52 3.01L16 22.1l-2.7 1.42.52-3.01-2.19-2.13 3.02-.44z" fill="#fff"/>
+</svg>

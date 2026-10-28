@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="620" viewBox="0 0 1080 620" font-family="Segoe UI, Microsoft YaHei, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/>
+    </marker>
+    <style>
+      .h { font-size: 15px; font-weight: 700; fill: #0f172a; }
+      .t { font-size: 12.5px; fill: #334155; }
+      .s { font-size: 11.5px; fill: #64748b; }
+      .m { font-size: 11.5px; fill: #0f172a; font-family: Consolas, monospace; }
+      .note { font-size: 11.5px; fill: #b91c1c; }
+      .ok { font-size: 11.5px; fill: #15803d; }
+      .panel { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; rx: 8; }
+      .field { fill: #f8fafc; stroke: #93c5fd; stroke-width: 1.5; rx: 6; }
+      .btn { fill: #1f883d; stroke: #1a7f37; stroke-width: 1; rx: 6; }
+      .tag { fill: #eff6ff; stroke: #bfdbfe; stroke-width: 1; rx: 5; }
+    </style>
+  </defs>
+
+  <text x="30" y="32" class="h">第 3 步拆解：在 GitHub 建仓库并 push（网页 + 终端对照）</text>
+  <text x="30" y="54" class="s">左边是 github.com 的建仓页面，右边是你终端里要执行的三条命令。带编号的红字是「最容易做错的地方」。</text>
+
+  <!-- LEFT: GitHub page mock -->
+  <rect class="panel" x="30" y="76" width="520" height="430"/>
+  <rect x="30" y="76" width="520" height="36" rx="8" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="46" y="99" class="t" font-weight="600">github.com/new</text>
+  <circle cx="524" cy="94" r="9" fill="#0f172a"/>
+  <text x="519" y="98" class="s" fill="#ffffff" font-size="10">＋</text>
+
+  <text x="52" y="140" class="h" font-size="14">Create a new repository</text>
+
+  <text x="52" y="168" class="t">Repository name</text>
+  <rect class="field" x="52" y="176" width="300" height="30"/>
+  <text x="62" y="196" class="m">dsh-skill-market</text>
+  <text x="362" y="196" class="ok">← 名字随意，建议和 package.json 一致</text>
+
+  <text x="52" y="232" class="t">Description (optional)</text>
+  <rect class="field" x="52" y="240" width="300" height="30"/>
+
+  <circle cx="60" cy="292" r="7" fill="#ffffff" stroke="#64748b" stroke-width="2"/>
+  <text x="76" y="297" class="t">Public</text>
+  <text x="130" y="297" class="ok">← 必须选 Public</text>
+  <circle cx="250" cy="292" r="7" fill="#ffffff" stroke="#64748b" stroke-width="2"/>
+  <text x="266" y="297" class="t">Private</text>
+  <text x="320" y="297" class="note">← 私有仓库 raw 链接别人打不开</text>
+
+  <rect x="52" y="318" width="470" height="96" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-dasharray="5 4"/>
+  <text x="64" y="340" class="note" font-weight="600">① 这三个勾全部不要勾</text>
+  <text x="64" y="360" class="s">Add a README file　/　Add .gitignore　/　Choose a license</text>
+  <text x="64" y="380" class="s">你本地已经有提交了，勾了会在 push 时冲突（non-fast-forward）</text>
+  <text x="64" y="400" class="s">如果已经勾了：先删仓库重来，或 git pull --rebase</text>
+
+  <rect class="btn" x="52" y="436" width="150" height="34"/>
+  <text x="70" y="458" class="t" fill="#ffffff" font-weight="600">Create repository</text>
+
+  <text x="52" y="494" class="s">点完跳到 Quick setup 页，显示三条命令 → 看右边</text>
+
+  <!-- RIGHT: terminal -->
+  <rect class="panel" x="580" y="76" width="470" height="330"/>
+  <rect x="580" y="76" width="470" height="30" rx="8" fill="#0f172a"/>
+  <text x="596" y="96" class="m" fill="#e2e8f0">dsh ~/addskills</text>
+  <text x="596" y="130" class="m">$ git remote add origin https://github.com/</text>
+  <text x="604" y="148" class="m">        <tspan fill="#b91c1c">你的用户名</tspan>/dsh-skill-market.git</text>
+  <text x="596" y="172" class="s">② 把「你的用户名」换成你的 GitHub 用户名（大小写敏感）</text>
+
+  <text x="596" y="204" class="m">$ git branch -M main</text>
+  <text x="596" y="228" class="m">$ git push -u origin main</text>
+
+  <text x="596" y="260" class="s">→ 第一次 push 会弹窗「Sign in with your browser」</text>
+  <text x="596" y="278" class="s">   点授权，用 GitHub 账号登录即可（Git Credential Manager）</text>
+  <text x="596" y="296" class="s">   没有弹窗 = 用 token 当密码，见 PUBLISH.md 的说明</text>
+
+  <text x="596" y="326" class="t" font-weight="600">成功的输出：</text>
+  <text x="596" y="346" class="m">To https://github.com/…/dsh-skill-market.git</text>
+  <text x="604" y="364" class="m"> * [new branch]      main -&gt; main</text>
+  <text x="604" y="382" class="m">Branch 'main' set up to track 'origin/main'.</text>
+
+  <!-- bottom: verify + errors -->
+  <rect class="panel" x="580" y="426" width="470" height="80"/>
+  <text x="596" y="450" class="t" font-weight="600">验证：刷新仓库网页</text>
+  <text x="596" y="470" class="s">能看到 src/ client/ package.json 等文件 = 成功</text>
+  <text x="596" y="490" class="s">然后浏览器打开 raw URL，能看到 JSON 才能当索引</text>
+
+  <line x1="552" y1="300" x2="576" y2="300" stroke="#64748b" stroke-width="1.8" marker-end="url(#a)"/>
+
+  <text x="30" y="540" class="h" font-size="13">push 失败时先看这里（完整排查表见 PUBLISH.md）</text>
+  <text x="30" y="564" class="s">Repository not found → 用户名/仓库名错，或 Private；　Authentication failed → 密码位填 token</text>
+  <text x="30" y="584" class="s">src refspec main does not match any → 本地还没 commit；　remote origin already exists → git remote remove origin 再来</text>
+  <text x="30" y="604" class="s">failed to push some refs → GitHub 上已有文件（建仓时勾了 README），先 git pull --rebase origin main</text>
+</svg>

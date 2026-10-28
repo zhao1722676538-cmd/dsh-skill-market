@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="440" viewBox="0 0 980 440" font-family="Segoe UI, Microsoft YaHei, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/>
+    </marker>
+    <style>
+      .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; rx: 10; }
+      .title { font-size: 15px; font-weight: 600; fill: #0f172a; }
+      .sub { font-size: 12px; fill: #475569; }
+      .mono { font-size: 11.5px; fill: #1e293b; font-family: Consolas, monospace; }
+      .label { font-size: 12px; fill: #64748b; }
+      .step { font-size: 12px; font-weight: 600; fill: #0369a1; }
+    </style>
+  </defs>
+
+  <text x="30" y="34" font-size="19" font-weight="700" fill="#0f172a">把 dsh-skill-market 发布进 DSH 插件市场</text>
+  <text x="30" y="56" class="sub">左边是你机器上的文件夹，右边是别人机器上看到的市场条目。红色虚线是「一次性配置」，蓝色是「每次发版重复」。</text>
+
+  <!-- Step 1 -->
+  <rect class="box" x="30" y="90" width="230" height="120"/>
+  <text x="46" y="116" class="step">① 本地仓库</text>
+  <text x="46" y="140" class="mono">D:\dsh\addskills</text>
+  <text x="46" y="160" class="mono">package.json</text>
+  <text x="46" y="178" class="mono">cordis.patch.yml</text>
+  <text x="46" y="196" class="sub">git init + commit</text>
+
+  <!-- Step 2 -->
+  <rect class="box" x="320" y="90" width="230" height="120"/>
+  <text x="336" y="116" class="step">② GitHub 公开仓库</text>
+  <text x="336" y="140" class="mono">github.com/you/</text>
+  <text x="336" y="158" class="mono">dsh-skill-market</text>
+  <text x="336" y="180" class="sub">git push → 得到 URL</text>
+  <text x="336" y="198" class="sub">+ commit（40 位）</text>
+
+  <!-- Step 3 -->
+  <rect class="box" x="610" y="90" width="230" height="120"/>
+  <text x="626" y="116" class="step">③ 生成索引</text>
+  <text x="626" y="140" class="mono">build-index.mjs</text>
+  <text x="626" y="158" class="mono">--plugin-index</text>
+  <text x="626" y="180" class="sub">产出 plugin-index.json</text>
+  <text x="626" y="198" class="sub">（format 1，pin commit）</text>
+
+  <!-- Step 4 -->
+  <rect class="box" x="320" y="260" width="330" height="110"/>
+  <text x="336" y="286" class="step">④ 索引 URL（https）</text>
+  <text x="336" y="310" class="mono">raw.githubusercontent.com/</text>
+  <text x="336" y="328" class="mono">you/dsh-skill-market/main/</text>
+  <text x="336" y="346" class="mono">plugin-index.json</text>
+
+  <!-- Step 5 -->
+  <rect class="box" x="30" y="260" width="230" height="110"/>
+  <text x="46" y="286" class="step">⑤ 填进 market</text>
+  <text x="46" y="310" class="mono">plugin-market:</text>
+  <text x="46" y="328" class="mono">  indexes: [url]</text>
+  <text x="46" y="352" class="sub">重启 DSH</text>
+
+  <!-- Step 6 -->
+  <rect class="box" x="720" y="260" width="230" height="110"/>
+  <text x="736" y="286" class="step">⑥ 别人的 Discover</text>
+  <text x="736" y="310" class="sub">看到卡片</text>
+  <text x="736" y="330" class="sub">点「安装」</text>
+  <text x="736" y="350" class="sub">装进 profile，重启生效</text>
+
+  <!-- arrows -->
+  <line x1="262" y1="150" x2="314" y2="150" stroke="#64748b" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <text x="262" y="140" class="label">git push</text>
+
+  <line x1="552" y1="150" x2="604" y2="150" stroke="#64748b" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <text x="548" y="140" class="label">生成</text>
+
+  <line x1="725" y1="212" x2="725" y2="256" stroke="#64748b" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <text x="735" y="238" class="label">托管</text>
+
+  <line x1="648" y1="316" x2="714" y2="316" stroke="#64748b" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <text x="658" y="306" class="label">别人填同一个 URL</text>
+
+  <line x1="318" y1="316" x2="266" y2="316" stroke="#0369a1" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+  <text x="272" y="306" class="label">你也填进索引</text>
+
+  <!-- footer note -->
+  <rect x="30" y="392" width="920" height="34" rx="8" fill="#f8fafc" stroke="#e2e8f0"/>
+  <text x="46" y="414" class="sub">发新版本时只要重复蓝线：改代码 → commit → 重新生成 plugin-index.json → push（索引里的 commit 会自动指向新的 HEAD）。</text>
+</svg>

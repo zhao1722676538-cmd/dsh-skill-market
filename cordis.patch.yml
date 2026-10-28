@@ -1,0 +1,12 @@
+# dsh bundle patch: inserts this plugin into a profile's layer stack.
+# 安装：把本包放进 <profile>/node_modules/dsh-skill-market，并在 profile
+# package.json 的 dsh.profile.bundles 里加一行 "dsh-skill-market"，重启 DSH。
+- insert:
+    - id: skill-market
+      name: 'dsh-skill-market'
+      config:
+        enabled: true
+        installRoot: ''
+        perSourceLimit: 10
+        timeoutMs: 15000
+        allowOverwrite: false
