@@ -1,0 +1,4218 @@
+{
+  "version": 1,
+  "generatedAt": "2026-10-28T14:56:33.232Z",
+  "generator": "dsh-skill-market",
+  "queries": [
+    "pdf",
+    "excel",
+    "docx",
+    "pptx",
+    "react",
+    "code review",
+    "testing",
+    "data analysis",
+    "image",
+    "video",
+    "github",
+    "docker",
+    "sql",
+    "security",
+    "writing"
+  ],
+  "sources": [
+    "skillsmp",
+    "skillstore",
+    "skillssh",
+    "github"
+  ],
+  "count": 282,
+  "skills": [
+    {
+      "name": "pdf",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:anthropics/skills/pdf",
+      "key": "anthropics/skills/pdf",
+      "repo": "anthropics/skills",
+      "url": "https://skills.sh/anthropics/skills/pdf",
+      "installs": 218410
+    },
+    {
+      "name": "pdf",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:openai/skills/pdf",
+      "key": "openai/skills/pdf",
+      "repo": "openai/skills",
+      "url": "https://skills.sh/openai/skills/pdf",
+      "installs": 13462
+    },
+    {
+      "name": "pdftk-server",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:github/awesome-copilot/pdftk-server",
+      "key": "github/awesome-copilot/pdftk-server",
+      "repo": "github/awesome-copilot",
+      "url": "https://skills.sh/github/awesome-copilot/pdftk-server",
+      "installs": 9981
+    },
+    {
+      "name": "pdf-converter",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:tanis90/pdf-converter-mineru/pdf-converter",
+      "key": "tanis90/pdf-converter-mineru/pdf-converter",
+      "repo": "tanis90/pdf-converter-mineru",
+      "url": "https://skills.sh/tanis90/pdf-converter-mineru/pdf-converter",
+      "installs": 9612
+    },
+    {
+      "name": "pdf-extraction",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:claude-office-skills/skills/pdf-extraction",
+      "key": "claude-office-skills/skills/pdf-extraction",
+      "repo": "claude-office-skills/skills",
+      "url": "https://skills.sh/claude-office-skills/skills/pdf-extraction",
+      "installs": 9339
+    },
+    {
+      "name": "remove-pdf-watermark",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:pilioai/skills/remove-pdf-watermark",
+      "key": "pilioai/skills/remove-pdf-watermark",
+      "repo": "pilioai/skills",
+      "url": "https://skills.sh/pilioai/skills/remove-pdf-watermark",
+      "installs": 7419
+    },
+    {
+      "name": "view-pdf",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:anthropics/knowledge-work-plugins/view-pdf",
+      "key": "anthropics/knowledge-work-plugins/view-pdf",
+      "repo": "anthropics/knowledge-work-plugins",
+      "url": "https://skills.sh/anthropics/knowledge-work-plugins/view-pdf",
+      "installs": 6305
+    },
+    {
+      "name": "pdf-to-docx",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:claude-office-skills/skills/pdf-to-docx",
+      "key": "claude-office-skills/skills/pdf-to-docx",
+      "repo": "claude-office-skills/skills",
+      "url": "https://skills.sh/claude-office-skills/skills/pdf-to-docx",
+      "installs": 5976,
+      "tags": [
+        "skillssh"
+      ]
+    },
+    {
+      "name": "pdf",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:nexu-io/open-design/pdf",
+      "key": "nexu-io/open-design/pdf",
+      "repo": "nexu-io/open-design",
+      "url": "https://skills.sh/nexu-io/open-design/pdf",
+      "installs": 2992
+    },
+    {
+      "name": "react-pdf",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:vercel-labs/json-render/react-pdf",
+      "key": "vercel-labs/json-render/react-pdf",
+      "repo": "vercel-labs/json-render",
+      "url": "https://skills.sh/vercel-labs/json-render/react-pdf",
+      "installs": 2298
+    },
+    {
+      "name": "nano-pdf",
+      "description": "Edit PDFs with natural-language instructions using the nano-pdf CLI.",
+      "source": "skillsmp",
+      "id": "skillsmp:openclaw-openclaw-skills-nano-pdf-skill-md",
+      "key": "openclaw-openclaw-skills-nano-pdf-skill-md",
+      "title": "nano-pdf",
+      "author": "openclaw",
+      "repo": "openclaw/openclaw",
+      "ref": "main",
+      "path": "skills/nano-pdf",
+      "url": "https://skillsmp.com/creators/openclaw/openclaw/skills-nano-pdf",
+      "stars": 392935,
+      "tags": [
+        "en"
+      ]
+    },
+    {
+      "name": "summarize",
+      "description": "Summarize or transcribe URLs, YouTube/videos, podcasts, articles, transcripts, PDFs, and local files.",
+      "source": "skillsmp",
+      "id": "skillsmp:openclaw-openclaw-skills-summarize-skill-md",
+      "key": "openclaw-openclaw-skills-summarize-skill-md",
+      "title": "summarize",
+      "author": "openclaw",
+      "repo": "openclaw/openclaw",
+      "ref": "main",
+      "path": "skills/summarize",
+      "url": "https://skillsmp.com/creators/openclaw/openclaw/skills-summarize",
+      "stars": 392935,
+      "tags": [
+        "en"
+      ]
+    },
+    {
+      "name": "nutrient-document-processing",
+      "description": "使用Nutrient DWS API处理、转换、OCR识别、提取、编辑、签名和填写文档。支持PDF、DOCX、XLSX、PPTX、HTML和图像格式。",
+      "source": "skillsmp",
+      "id": "skillsmp:affaan-m-ecc-docs-zh-cn-skills-nutrient-document-processing-skill-md",
+      "key": "affaan-m-ecc-docs-zh-cn-skills-nutrient-document-processing-skill-md",
+      "title": "nutrient-document-processing",
+      "author": "affaan-m",
+      "repo": "affaan-m/ECC",
+      "ref": "main",
+      "path": "docs/zh-CN/skills/nutrient-document-processing",
+      "url": "https://skillsmp.com/creators/affaan-m/ecc/docs-zh-cn-skills-nutrient-document-processing",
+      "stars": 289082,
+      "tags": [
+        "zh",
+        "skillsmp"
+      ]
+    },
+    {
+      "name": "visa-doc-translate",
+      "description": "ビザ申請書類（画像）を英語に翻訳し、原文と翻訳を含むバイリンガルPDFを作成する",
+      "source": "skillsmp",
+      "id": "skillsmp:affaan-m-ecc-docs-ja-jp-skills-visa-doc-translate-skill-md",
+      "key": "affaan-m-ecc-docs-ja-jp-skills-visa-doc-translate-skill-md",
+      "title": "visa-doc-translate",
+      "author": "affaan-m",
+      "repo": "affaan-m/ECC",
+      "ref": "main",
+      "path": "docs/ja-JP/skills/visa-doc-translate",
+      "url": "https://skillsmp.com/creators/affaan-m/ecc/docs-ja-jp-skills-visa-doc-translate",
+      "stars": 289082,
+      "tags": [
+        "ja",
+        "skillsmp"
+      ]
+    },
+    {
+      "name": "office",
+      "description": "Create, edit, inspect, or convert Office documents, spreadsheets, presentations, and PDFs. Load to choose the relevant workflow.",
+      "source": "skillsmp",
+      "id": "skillsmp:deepseek-ai-deepseek-harness-packages-skill-skill-office-assets-office-skill-md",
+      "key": "deepseek-ai-deepseek-harness-packages-skill-skill-office-assets-office-skill-md",
+      "title": "office",
+      "author": "deepseek-ai",
+      "repo": "deepseek-ai/deepseek-harness",
+      "ref": "master",
+      "path": "packages/skill/skill-office/assets/office",
+      "url": "https://skillsmp.com/creators/deepseek-ai/deepseek-harness/packages-skill-skill-office-assets-office",
+      "stars": 261461,
+      "tags": [
+        "en"
+      ]
+    },
+    {
+      "name": "office-export-pdf",
+      "description": "Convert an Office document to a requested PDF with LibreOffice Kit.",
+      "source": "skillsmp",
+      "id": "skillsmp:deepseek-ai-deepseek-harness-packages-skill-skill-office-assets-office-export-pdf-skill-md",
+      "key": "deepseek-ai-deepseek-harness-packages-skill-skill-office-assets-office-export-pdf-skill-md",
+      "title": "office-export-pdf",
+      "author": "deepseek-ai",
+      "repo": "deepseek-ai/deepseek-harness",
+      "ref": "master",
+      "path": "packages/skill/skill-office/assets/office-export-pdf",
+      "url": "https://skillsmp.com/creators/deepseek-ai/deepseek-harness/packages-skill-skill-office-assets-office-export-pdf",
+      "stars": 261461,
+      "tags": [
+        "en"
+      ]
+    },
+    {
+      "name": "working-with-documents",
+      "description": "Office document workflows often require different libraries and conversion tools. This skill provides focused instructions for DOCX, PDF, and PPTX tasks.",
+      "source": "skillstore",
+      "id": "skillstore:asmayaseen-working-with-documents",
+      "key": "asmayaseen-working-with-documents",
+      "title": "Create and Transform Office Documents",
+      "author": "Asmayaseen",
+      "repo": "Asmayaseen/hackathon-2",
+      "ref": "main",
+      "path": ".claude/skills/working-with-documents",
+      "url": "https://skillstore.io/skills/asmayaseen-working-with-documents",
+      "installs": 70,
+      "tags": [
+        "office",
+        "external_commands",
+        "filesystem",
+        "skillstore"
+      ]
+    },
+    {
+      "name": "pdf-page-extract",
+      "description": "PDF conversion often fails when text, layout, and images are extracted separately. This skill creates traceable page artifacts that combine text metadata, rendered images, and page mappings.",
+      "source": "skillstore",
+      "id": "skillstore:abejitsu-pdf-page-extract",
+      "key": "abejitsu-pdf-page-extract",
+      "title": "Extract PDF Page Artifacts",
+      "author": "AbeJitsu",
+      "repo": "AbeJitsu/Game-Settings-Panel",
+      "ref": "main",
+      "path": ".claude/skills/calypso/pdf-page-extract",
+      "url": "https://skillstore.io/skills/abejitsu-pdf-page-extract",
+      "installs": 39,
+      "tags": [
+        "data",
+        "external_commands",
+        "filesystem"
+      ]
+    },
+    {
+      "name": "pdf",
+      "description": "PDF work often requires many tools for extraction, conversion, merging, and forms. This skill gives AI agents clear workflows and helper scripts for local PDF processing.",
+      "source": "skillstore",
+      "id": "skillstore:92bilal26-pdf",
+      "key": "92bilal26-pdf",
+      "title": "Automate PDF Processing and Form Filling",
+      "author": "92Bilal26",
+      "repo": "92Bilal26/TaskPilotAI",
+      "ref": "main",
+      "path": ".claude/skills/pdf",
+      "url": "https://skillstore.io/skills/92bilal26-pdf",
+      "installs": 29,
+      "tags": [
+        "office",
+        "external_commands",
+        "filesystem",
+        "network"
+      ]
+    },
+    {
+      "name": "PDF Processing",
+      "description": "PDF work often requires several tools for text, tables, forms, and page management. This skill provides focused Python examples for common PDF processing tasks.",
+      "source": "skillstore",
+      "id": "skillstore:89jobrien-pdf-processing",
+      "key": "89jobrien-pdf-processing",
+      "title": "Process PDF files with confidence",
+      "author": "89jobrien",
+      "repo": "89jobrien/steve",
+      "ref": "main",
+      "path": "steve/skills/pdf-processing",
+      "url": "https://skillstore.io/skills/89jobrien-pdf-processing",
+      "installs": 27,
+      "tags": [
+        "office",
+        "filesystem",
+        "external_commands"
+      ]
+    },
+    {
+      "name": "code-review-excellence",
+      "description": "Code reviews can become slow, inconsistent, or too personal. This skill gives Claude, Codex, and Claude Code a structured way to deliver clear, useful PR feedback.",
+      "source": "skillssh",
+      "id": "skillssh:wshobson/agents/code-review-excellence",
+      "key": "wshobson/agents/code-review-excellence",
+      "repo": "wshobson/agents",
+      "ref": "main",
+      "path": "plugins/developer-essentials/skills/code-review-excellence",
+      "url": "https://skills.sh/wshobson/agents/code-review-excellence",
+      "installs": 30419,
+      "tags": [
+        "skillssh",
+        "skillstore"
+      ]
+    },
+    {
+      "name": "excel-automation",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:claude-office-skills/skills/excel-automation",
+      "key": "claude-office-skills/skills/excel-automation",
+      "repo": "claude-office-skills/skills",
+      "url": "https://skills.sh/claude-office-skills/skills/excel-automation",
+      "installs": 15892
+    },
+    {
+      "name": "google-cloud-waf-operational-excellence",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:google/skills/google-cloud-waf-operational-excellence",
+      "key": "google/skills/google-cloud-waf-operational-excellence",
+      "repo": "google/skills",
+      "url": "https://skills.sh/google/skills/google-cloud-waf-operational-excellence",
+      "installs": 9835
+    },
+    {
+      "name": "excel-analysis",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:davila7/claude-code-templates/excel-analysis",
+      "key": "davila7/claude-code-templates/excel-analysis",
+      "repo": "davila7/claude-code-templates",
+      "url": "https://skills.sh/davila7/claude-code-templates/excel-analysis",
+      "installs": 2636
+    },
+    {
+      "name": "office-xlsx",
+      "description": "Read, create, edit, and validate Excel workbooks, data, and formulas (.xlsx).",
+      "source": "skillsmp",
+      "id": "skillsmp:deepseek-ai-deepseek-harness-packages-skill-skill-office-assets-office-xlsx-skill-md",
+      "key": "deepseek-ai-deepseek-harness-packages-skill-skill-office-assets-office-xlsx-skill-md",
+      "title": "office-xlsx",
+      "author": "deepseek-ai",
+      "repo": "deepseek-ai/deepseek-harness",
+      "ref": "master",
+      "path": "packages/skill/skill-office/assets/office-xlsx",
+      "url": "https://skillsmp.com/creators/deepseek-ai/deepseek-harness/packages-skill-skill-office-assets-office-xlsx",
+      "stars": 261461,
+      "tags": [
+        "en"
+      ]
+    },
+    {
+      "name": "comps-analysis",
+      "description": "Build comparable-company valuation workbooks in Excel.",
+      "source": "skillsmp",
+      "id": "skillsmp:nousresearch-hermes-agent-optional-skills-finance-comps-analysis-skill-md",
+      "key": "nousresearch-hermes-agent-optional-skills-finance-comps-analysis-skill-md",
+      "title": "comps-analysis",
+      "author": "NousResearch",
+      "repo": "NousResearch/hermes-agent",
+      "ref": "main",
+      "path": "optional-skills/finance/comps-analysis",
+      "url": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-finance-comps-analysis",
+      "stars": 257091,
+      "tags": [
+        "en"
+      ]
+    },
+    {
+      "name": "dcf-model",
+      "description": "Build discounted cash flow valuation workbooks in Excel.",
+      "source": "skillsmp",
+      "id": "skillsmp:nousresearch-hermes-agent-optional-skills-finance-dcf-model-skill-md",
+      "key": "nousresearch-hermes-agent-optional-skills-finance-dcf-model-skill-md",
+      "title": "dcf-model",
+      "author": "NousResearch",
+      "repo": "NousResearch/hermes-agent",
+      "ref": "main",
+      "path": "optional-skills/finance/dcf-model",
+      "url": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-finance-dcf-model",
+      "stars": 257091,
+      "tags": [
+        "en"
+      ]
+    },
+    {
+      "name": "excel-author",
+      "description": "Build auditable financial workbooks headless via openpyxl.",
+      "source": "skillsmp",
+      "id": "skillsmp:nousresearch-hermes-agent-optional-skills-finance-excel-author-skill-md",
+      "key": "nousresearch-hermes-agent-optional-skills-finance-excel-author-skill-md",
+      "title": "excel-author",
+      "author": "NousResearch",
+      "repo": "NousResearch/hermes-agent",
+      "ref": "main",
+      "path": "optional-skills/finance/excel-author",
+      "url": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-finance-excel-author",
+      "stars": 257091,
+      "tags": [
+        "en"
+      ]
+    },
+    {
+      "name": "excel-mcp",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:sbroenne/mcp-server-excel/excel-mcp",
+      "key": "sbroenne/mcp-server-excel/excel-mcp",
+      "repo": "sbroenne/mcp-server-excel",
+      "url": "https://skills.sh/sbroenne/mcp-server-excel/excel-mcp",
+      "installs": 1654
+    },
+    {
+      "name": "excel-automation",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:daymade/claude-code-skills/excel-automation",
+      "key": "daymade/claude-code-skills/excel-automation",
+      "repo": "daymade/claude-code-skills",
+      "url": "https://skills.sh/daymade/claude-code-skills/excel-automation",
+      "installs": 1480
+    },
+    {
+      "name": "wps-excel",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:lc2panda/wps-skills/wps-excel",
+      "key": "lc2panda/wps-skills/wps-excel",
+      "repo": "lc2panda/wps-skills",
+      "url": "https://skills.sh/lc2panda/wps-skills/wps-excel",
+      "installs": 1433
+    },
+    {
+      "name": "csv-excel-merger",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:onewave-ai/claude-skills/csv-excel-merger",
+      "key": "onewave-ai/claude-skills/csv-excel-merger",
+      "repo": "onewave-ai/claude-skills",
+      "url": "https://skills.sh/onewave-ai/claude-skills/csv-excel-merger",
+      "installs": 1154
+    },
+    {
+      "name": "excel-cli",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:sbroenne/mcp-server-excel/excel-cli",
+      "key": "sbroenne/mcp-server-excel/excel-cli",
+      "repo": "sbroenne/mcp-server-excel",
+      "url": "https://skills.sh/sbroenne/mcp-server-excel/excel-cli",
+      "installs": 1015
+    },
+    {
+      "name": "xlsx",
+      "description": "Spreadsheet tasks often require formulas, formatting, and validation across Excel files. This skill guides Claude, Codex, and Claude Code through XLSX creation, editing, analysis, and recalculation.",
+      "source": "skillstore",
+      "id": "skillstore:zhanlincui-xlsx",
+      "key": "zhanlincui-xlsx",
+      "title": "Build Reliable Excel Workbooks",
+      "author": "ZhanlinCui",
+      "repo": "ZhanlinCui/Ultimate-Agent-Skills-Collection",
+      "ref": "main",
+      "path": "xlsx",
+      "url": "https://skillstore.io/skills/zhanlincui-xlsx",
+      "installs": 518,
+      "tags": [
+        "office",
+        "external_commands",
+        "network",
+        "filesystem"
+      ]
+    },
+    {
+      "name": "diagram-maker",
+      "description": "Create SVG/HTML or Excalidraw diagrams for concepts, architecture, flows, and whiteboards.",
+      "source": "skillsmp",
+      "id": "skillsmp:openclaw-openclaw-skills-diagram-maker-skill-md",
+      "key": "openclaw-openclaw-skills-diagram-maker-skill-md",
+      "title": "diagram-maker",
+      "author": "openclaw",
+      "repo": "openclaw/openclaw",
+      "ref": "main",
+      "path": "skills/diagram-maker",
+      "url": "https://skillsmp.com/creators/openclaw/openclaw/skills-diagram-maker",
+      "stars": 392935,
+      "tags": [
+        "en"
+      ]
+    },
+    {
+      "name": "add-excel",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:microsoft/power-platform-skills/add-excel",
+      "key": "microsoft/power-platform-skills/add-excel",
+      "repo": "microsoft/power-platform-skills",
+      "url": "https://skills.sh/microsoft/power-platform-skills/add-excel",
+      "installs": 260
+    },
+    {
+      "name": "java-coding-standards",
+      "description": "Java coding standards for Spring Boot and Quarkus services: naming, immutability, Optional usage, streams, exceptions, generics, CDI, reactive patterns, and project layout. Automatically applies framework-specific conventions.",
+      "source": "skillsmp",
+      "id": "skillsmp:affaan-m-ecc-kiro-skills-java-coding-standards-skill-md",
+      "key": "affaan-m-ecc-kiro-skills-java-coding-standards-skill-md",
+      "title": "java-coding-standards",
+      "author": "affaan-m",
+      "repo": "affaan-m/ECC",
+      "ref": "main",
+      "path": ".kiro/skills/java-coding-standards",
+      "url": "https://skillsmp.com/creators/affaan-m/ecc/kiro-skills-java-coding-standards",
+      "stars": 289082,
+      "tags": [
+        "en",
+        "skillsmp"
+      ]
+    },
+    {
+      "name": "logistics-exception-management",
+      "description": "日本語翻訳：このファイルは logistics-exception-management 用の日本語翻訳が必要です",
+      "source": "skillsmp",
+      "id": "skillsmp:affaan-m-ecc-docs-ja-jp-skills-logistics-exception-management-skill-md",
+      "key": "affaan-m-ecc-docs-ja-jp-skills-logistics-exception-management-skill-md",
+      "title": "logistics-exception-management",
+      "author": "affaan-m",
+      "repo": "affaan-m/ECC",
+      "ref": "main",
+      "path": "docs/ja-JP/skills/logistics-exception-management",
+      "url": "https://skillsmp.com/creators/affaan-m/ecc/docs-ja-jp-skills-logistics-exception-management",
+      "stars": 289082,
+      "tags": [
+        "ja",
+        "skillsmp"
+      ]
+    },
+    {
+      "name": "xlsx",
+      "description": "Spreadsheet work often needs reliable formulas, formatting, and file output. This skill guides Claude, Codex, and Claude Code through Excel creation, editing, validation, and conversion workflows.",
+      "source": "skillssh",
+      "id": "skillssh:anthropics/skills/xlsx",
+      "key": "anthropics/skills/xlsx",
+      "repo": "anthropics/skills",
+      "ref": "main",
+      "path": "skills/xlsx",
+      "url": "https://skills.sh/anthropics/skills/xlsx",
+      "installs": 189091,
+      "tags": [
+        "skillssh",
+        "skillstore"
+      ]
+    },
+    {
+      "name": "excel-formula-wizard",
+      "description": "Spreadsheet work slows down when formulas, macros, and PivotTables are hard to design. This skill turns plain-language Excel needs into formulas, VBA macro plans, and PivotTable guidance for Claude, Codex, and Claude Code users.",
+      "source": "skillstore",
+      "id": "skillstore:zhangchenlai-dev-excel-formula-wizard",
+      "key": "zhangchenlai-dev-excel-formula-wizard",
+      "title": "Generate Excel Formulas From Plain Language",
+      "author": "zhangchenlai-dev",
+      "repo": "zhangchenlai-dev/hermes-skill-store",
+      "ref": "master",
+      "path": "excel-formula-wizard",
+      "url": "https://skillstore.io/skills/zhangchenlai-dev-excel-formula-wizard",
+      "installs": 71,
+      "tags": [
+        "office"
+      ]
+    },
+    {
+      "name": "docx",
+      "description": "Use this skill whenever the user wants to create, read, edit, or manipulate Word documents (.docx files) or Word templates (.dotx files). Triggers include: any mention of 'Word doc', 'word document', '.docx', '.dotx', or requests to produce professional documents with formatting like tables of contents, headings, page numbers, or letterheads. Also use when extracting or reorganizing content from .docx or .dotx files, inserting or replacing images in documents, performing find-and-replace in Word files, working with tracked changes or comments, or converting content into a polished Word document. If the user asks for a 'report', 'memo', 'letter', 'template', or similar deliverable as a Word or .docx file, use this skill. Do NOT use for PDFs, spreadsheets, Google Docs, or general coding tasks unrelated to document generation.",
+      "source": "skillssh",
+      "id": "skillssh:anthropics/skills/docx",
+      "key": "anthropics/skills/docx",
+      "repo": "anthropics/skills",
+      "ref": "main",
+      "path": "skills/docx",
+      "url": "https://skills.sh/anthropics/skills/docx",
+      "installs": 208654,
+      "stars": 183754,
+      "tags": [
+        "skillssh",
+        "skillsmp"
+      ]
+    },
+    {
+      "name": "docx",
+      "description": "Create, edit, and analyze Word documents with tracked changes, comments, and formatting. Useful for design briefs, copy docs, and review-ready deliverables.",
+      "source": "skillsmp",
+      "id": "skillsmp:nexu-io-open-design-skills-docx-skill-md",
+      "key": "nexu-io-open-design-skills-docx-skill-md",
+      "title": "docx",
+      "author": "nexu-io",
+      "repo": "nexu-io/open-design",
+      "ref": "main",
+      "path": "skills/docx",
+      "url": "https://skillsmp.com/creators/nexu-io/open-design/skills-docx",
+      "installs": 2999,
+      "stars": 103944,
+      "tags": [
+        "en",
+        "skillsmp",
+        "skillssh"
+      ]
+    },
+    {
+      "name": "minimax-docx",
+      "description": "Professional DOCX document creation and editing using OpenXML SDK. Useful for branded reports, polished proposals, and template-based authoring.",
+      "source": "skillsmp",
+      "id": "skillsmp:nexu-io-open-design-skills-minimax-docx-skill-md",
+      "key": "nexu-io-open-design-skills-minimax-docx-skill-md",
+      "title": "minimax-docx",
+      "author": "nexu-io",
+      "repo": "nexu-io/open-design",
+      "ref": "main",
+      "path": "skills/minimax-docx",
+      "url": "https://skillsmp.com/creators/nexu-io/open-design/skills-minimax-docx",
+      "installs": 2753,
+      "stars": 103944,
+      "tags": [
+        "en",
+        "skillsmp",
+        "skillssh"
+      ]
+    },
+    {
+      "name": "docx-manipulation",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:claude-office-skills/skills/docx-manipulation",
+      "key": "claude-office-skills/skills/docx-manipulation",
+      "repo": "claude-office-skills/skills",
+      "url": "https://skills.sh/claude-office-skills/skills/docx-manipulation",
+      "installs": 6120
+    },
+    {
+      "name": "minimax-docx",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:minimax-ai/skills/minimax-docx",
+      "key": "minimax-ai/skills/minimax-docx",
+      "repo": "minimax-ai/skills",
+      "url": "https://skills.sh/minimax-ai/skills/minimax-docx",
+      "installs": 4514
+    },
+    {
+      "name": "feishu-doc",
+      "description": "Feishu document read/write workflows. Activate when the user mentions Feishu docs, cloud docs, or docx links.",
+      "source": "skillsmp",
+      "id": "skillsmp:openclaw-openclaw-extensions-feishu-skills-feishu-doc-skill-md",
+      "key": "openclaw-openclaw-extensions-feishu-skills-feishu-doc-skill-md",
+      "title": "feishu-doc",
+      "author": "openclaw",
+      "repo": "openclaw/openclaw",
+      "ref": "main",
+      "path": "extensions/feishu/skills/feishu-doc",
+      "url": "https://skillsmp.com/creators/openclaw/openclaw/extensions-feishu-skills-feishu-doc",
+      "stars": 392935,
+      "tags": [
+        "en"
+      ]
+    },
+    {
+      "name": "docx",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:tfriedel/claude-office-skills/docx",
+      "key": "tfriedel/claude-office-skills/docx",
+      "repo": "tfriedel/claude-office-skills",
+      "url": "https://skills.sh/tfriedel/claude-office-skills/docx",
+      "installs": 1799
+    },
+    {
+      "name": "office-docx",
+      "description": "Create, read, edit, and validate Word documents (.docx).",
+      "source": "skillsmp",
+      "id": "skillsmp:deepseek-ai-deepseek-harness-packages-skill-skill-office-assets-office-docx-skill-md",
+      "key": "deepseek-ai-deepseek-harness-packages-skill-skill-office-assets-office-docx-skill-md",
+      "title": "office-docx",
+      "author": "deepseek-ai",
+      "repo": "deepseek-ai/deepseek-harness",
+      "ref": "master",
+      "path": "packages/skill/skill-office/assets/office-docx",
+      "url": "https://skillsmp.com/creators/deepseek-ai/deepseek-harness/packages-skill-skill-office-assets-office-docx",
+      "stars": 261461,
+      "tags": [
+        "en"
+      ]
+    },
+    {
+      "name": "docx",
+      "description": "Create, read, edit, template, and review Word .docx files.",
+      "source": "skillsmp",
+      "id": "skillsmp:nousresearch-hermes-agent-skills-productivity-docx-skill-md",
+      "key": "nousresearch-hermes-agent-skills-productivity-docx-skill-md",
+      "title": "docx",
+      "author": "NousResearch",
+      "repo": "NousResearch/hermes-agent",
+      "ref": "main",
+      "path": "skills/productivity/docx",
+      "url": "https://skillsmp.com/creators/nousresearch/hermes-agent/skills-productivity-docx",
+      "stars": 257091,
+      "tags": [
+        "en"
+      ]
+    },
+    {
+      "name": "docx",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:appautomaton/document-skills/docx",
+      "key": "appautomaton/document-skills/docx",
+      "repo": "appautomaton/document-skills",
+      "url": "https://skills.sh/appautomaton/document-skills/docx",
+      "installs": 1289
+    },
+    {
+      "name": "docx",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:modelscope.cn/docx",
+      "key": "modelscope.cn/docx",
+      "repo": "modelscope.cn/docx",
+      "url": "https://skills.sh/modelscope.cn/docx/docx",
+      "installs": 1026
+    },
+    {
+      "name": "doc",
+      "description": "Read, create, and edit .docx documents with formatting and layout fidelity via OpenAI's document skill.",
+      "source": "skillsmp",
+      "id": "skillsmp:nexu-io-open-design-skills-doc-skill-md",
+      "key": "nexu-io-open-design-skills-doc-skill-md",
+      "title": "doc",
+      "author": "nexu-io",
+      "repo": "nexu-io/open-design",
+      "ref": "main",
+      "path": "skills/doc",
+      "url": "https://skillsmp.com/creators/nexu-io/open-design/skills-doc",
+      "stars": 103944,
+      "tags": [
+        "en"
+      ]
+    },
+    {
+      "name": "docx",
+      "description": "Professional DOCX work often requires preserving comments, tracked changes, and formatting. This skill guides Claude, Codex, and Claude Code through structured OOXML workflows.",
+      "source": "skillstore",
+      "id": "skillstore:zhanlincui-docx",
+      "key": "zhanlincui-docx",
+      "title": "Create and Edit DOCX Documents",
+      "author": "ZhanlinCui",
+      "repo": "ZhanlinCui/Ultimate-Agent-Skills-Collection",
+      "ref": "main",
+      "path": "docx",
+      "url": "https://skillstore.io/skills/zhanlincui-docx",
+      "installs": 666,
+      "tags": [
+        "office",
+        "network",
+        "filesystem",
+        "external_commands"
+      ]
+    },
+    {
+      "name": "docx",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:anthropics/claude-agent-sdk-demos/docx",
+      "key": "anthropics/claude-agent-sdk-demos/docx",
+      "repo": "anthropics/claude-agent-sdk-demos",
+      "url": "https://skills.sh/anthropics/claude-agent-sdk-demos/docx",
+      "installs": 219
+    },
+    {
+      "name": "docx",
+      "description": "Professional DOCX work often needs precise editing, tracked changes, comments, and structure preservation. This skill gives Claude, Codex, and Claude Code workflows for creating, inspecting, editing, and validating Word files.",
+      "source": "skillstore",
+      "id": "skillstore:7spade-docx",
+      "key": "7spade-docx",
+      "title": "Create and Edit Word Documents",
+      "author": "7Spade",
+      "repo": "7Spade/ng-dragon",
+      "ref": "main",
+      "path": ".github/skills/docx",
+      "url": "https://skillstore.io/skills/7spade-docx",
+      "installs": 91,
+      "tags": [
+        "office",
+        "network",
+        "filesystem",
+        "external_commands"
+      ]
+    },
+    {
+      "name": "nature-paper-to-patent",
+      "description": "Research teams struggle to turn technical papers into traceable Chinese patent drafts. This skill structures evidence, claims, figures, formulas, and DOCX deliverables for expert review.",
+      "source": "skillstore",
+      "id": "skillstore:yuan1z0825-nature-paper-to-patent",
+      "key": "yuan1z0825-nature-paper-to-patent",
+      "title": "Draft Evidence-Grounded Chinese Patent Packages",
+      "author": "Yuan1z0825",
+      "repo": "Yuan1z0825/nature-skills",
+      "ref": "main",
+      "path": "skills/nature-paper-to-patent",
+      "url": "https://skillstore.io/skills/yuan1z0825-nature-paper-to-patent",
+      "installs": 73,
+      "tags": [
+        "legal",
+        "external_commands",
+        "filesystem"
+      ]
+    },
+    {
+      "name": "docx",
+      "description": "Professional Word documents often need precise edits, comments, tracked changes, and validation. This skill gives Claude structured workflows for DOCX creation, OOXML inspection, redlining, and conversion.",
+      "source": "skillstore",
+      "id": "skillstore:artemisai-docx",
+      "key": "artemisai-docx",
+      "title": "Edit and Review DOCX Documents",
+      "author": "ArtemisAI",
+      "repo": "ArtemisAI/code-execution-with-MCP",
+      "ref": "main",
+      "path": "skills/document-skills/docx",
+      "url": "https://skillstore.io/skills/artemisai-docx",
+      "installs": 54,
+      "tags": [
+        "office",
+        "network",
+        "filesystem",
+        "external_commands"
+      ]
+    },
+    {
+      "name": "pptx",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:anthropics/skills/pptx",
+      "key": "anthropics/skills/pptx",
+      "repo": "anthropics/skills",
+      "url": "https://skills.sh/anthropics/skills/pptx",
+      "installs": 243831
+    },
+    {
+      "name": "pptx-generator",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:minimax-ai/skills/pptx-generator",
+      "key": "minimax-ai/skills/pptx-generator",
+      "repo": "minimax-ai/skills",
+      "url": "https://skills.sh/minimax-ai/skills/pptx-generator",
+      "installs": 6052
+    },
+    {
+      "name": "pptx-manipulation",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:claude-office-skills/skills/pptx-manipulation",
+      "key": "claude-office-skills/skills/pptx-manipulation",
+      "repo": "claude-office-skills/skills",
+      "url": "https://skills.sh/claude-office-skills/skills/pptx-manipulation",
+      "installs": 5626
+    },
+    {
+      "name": "pptx-html-fidelity-audit",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:nexu-io/open-design/pptx-html-fidelity-audit",
+      "key": "nexu-io/open-design/pptx-html-fidelity-audit",
+      "repo": "nexu-io/open-design",
+      "url": "https://skills.sh/nexu-io/open-design/pptx-html-fidelity-audit",
+      "installs": 3225
+    },
+    {
+      "name": "pptx-generator",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:nexu-io/open-design/pptx-generator",
+      "key": "nexu-io/open-design/pptx-generator",
+      "repo": "nexu-io/open-design",
+      "url": "https://skills.sh/nexu-io/open-design/pptx-generator",
+      "installs": 2921
+    },
+    {
+      "name": "pptx-visual-assets",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:wshobson/agents/pptx-visual-assets",
+      "key": "wshobson/agents/pptx-visual-assets",
+      "repo": "wshobson/agents",
+      "url": "https://skills.sh/wshobson/agents/pptx-visual-assets",
+      "installs": 2678
+    },
+    {
+      "name": "pptx-slide-specification",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:wshobson/agents/pptx-slide-specification",
+      "key": "wshobson/agents/pptx-slide-specification",
+      "repo": "wshobson/agents",
+      "url": "https://skills.sh/wshobson/agents/pptx-slide-specification",
+      "installs": 2675
+    },
+    {
+      "name": "pptx-reference-deck-analysis",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:wshobson/agents/pptx-reference-deck-analysis",
+      "key": "wshobson/agents/pptx-reference-deck-analysis",
+      "repo": "wshobson/agents",
+      "url": "https://skills.sh/wshobson/agents/pptx-reference-deck-analysis",
+      "installs": 2668
+    },
+    {
+      "name": "frontend-slides",
+      "description": "Create stunning, animation-rich HTML presentations from scratch or by converting PowerPoint files. Use when the user wants to build a presentation, convert a PPT/PPTX to web, or create slides for a talk/pitch. Helps non-designers discover their aesthetic through visual exploration rather than abstract choices.",
+      "source": "skillsmp",
+      "id": "skillsmp:affaan-m-ecc-agents-skills-frontend-slides-skill-md",
+      "key": "affaan-m-ecc-agents-skills-frontend-slides-skill-md",
+      "title": "frontend-slides",
+      "author": "affaan-m",
+      "repo": "affaan-m/ECC",
+      "ref": "main",
+      "path": ".agents/skills/frontend-slides",
+      "url": "https://skillsmp.com/creators/affaan-m/ecc/agents-skills-frontend-slides",
+      "stars": 289082,
+      "tags": [
+        "en",
+        "skillsmp"
+      ]
+    },
+    {
+      "name": "office-pptx",
+      "description": "Create, read, edit, and validate PowerPoint presentations (.pptx).",
+      "source": "skillsmp",
+      "id": "skillsmp:deepseek-ai-deepseek-harness-packages-skill-skill-office-assets-office-pptx-skill-md",
+      "key": "deepseek-ai-deepseek-harness-packages-skill-skill-office-assets-office-pptx-skill-md",
+      "title": "office-pptx",
+      "author": "deepseek-ai",
+      "repo": "deepseek-ai/deepseek-harness",
+      "ref": "master",
+      "path": "packages/skill/skill-office/assets/office-pptx",
+      "url": "https://skillsmp.com/creators/deepseek-ai/deepseek-harness/packages-skill-skill-office-assets-office-pptx",
+      "stars": 261461,
+      "tags": [
+        "en"
+      ]
+    },
+    {
+      "name": "powerpoint",
+      "description": "Create, read, edit .pptx decks with python-pptx.",
+      "source": "skillsmp",
+      "id": "skillsmp:nousresearch-hermes-agent-skills-productivity-powerpoint-skill-md",
+      "key": "nousresearch-hermes-agent-skills-productivity-powerpoint-skill-md",
+      "title": "powerpoint",
+      "author": "NousResearch",
+      "repo": "NousResearch/hermes-agent",
+      "ref": "main",
+      "path": "skills/productivity/powerpoint",
+      "url": "https://skillsmp.com/creators/nousresearch/hermes-agent/skills-productivity-powerpoint",
+      "stars": 257091,
+      "tags": [
+        "en"
+      ]
+    },
+    {
+      "name": "pptx-author",
+      "description": "Build PowerPoint decks headless with python-pptx.",
+      "source": "skillsmp",
+      "id": "skillsmp:nousresearch-hermes-agent-optional-skills-finance-pptx-author-skill-md",
+      "key": "nousresearch-hermes-agent-optional-skills-finance-pptx-author-skill-md",
+      "title": "pptx-author",
+      "author": "NousResearch",
+      "repo": "NousResearch/hermes-agent",
+      "ref": "main",
+      "path": "optional-skills/finance/pptx-author",
+      "url": "https://skillsmp.com/creators/nousresearch/hermes-agent/optional-skills-finance-pptx-author",
+      "stars": 257091,
+      "tags": [
+        "en"
+      ]
+    },
+    {
+      "name": "pptx",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:tfriedel/claude-office-skills/pptx",
+      "key": "tfriedel/claude-office-skills/pptx",
+      "repo": "tfriedel/claude-office-skills",
+      "url": "https://skills.sh/tfriedel/claude-office-skills/pptx",
+      "installs": 1737
+    },
+    {
+      "name": "pptx-author",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:anthropics/financial-services/pptx-author",
+      "key": "anthropics/financial-services/pptx-author",
+      "repo": "anthropics/financial-services",
+      "url": "https://skills.sh/anthropics/financial-services/pptx-author",
+      "installs": 1360
+    },
+    {
+      "name": "pptx",
+      "description": "PowerPoint work often needs precise layout checks, template reuse, and XML-level repairs. This skill gives Claude, Codex, and Claude Code practical workflows for PPTX creation and editing.",
+      "source": "skillstore",
+      "id": "skillstore:zhanlincui-pptx",
+      "key": "zhanlincui-pptx",
+      "title": "Create and Edit PowerPoint Decks",
+      "author": "ZhanlinCui",
+      "repo": "ZhanlinCui/Ultimate-Agent-Skills-Collection",
+      "ref": "main",
+      "path": "pptx",
+      "url": "https://skillstore.io/skills/zhanlincui-pptx",
+      "installs": 476,
+      "tags": [
+        "office",
+        "external_commands",
+        "env_access",
+        "network",
+        "filesystem"
+      ]
+    },
+    {
+      "name": "pptx",
+      "description": "PowerPoint work often needs precise layout control and file-level validation. This skill provides structured workflows for creating, editing, and reviewing PPTX files.",
+      "source": "skillstore",
+      "id": "skillstore:92bilal26-pptx",
+      "key": "92bilal26-pptx",
+      "title": "Create and Edit PowerPoint Decks",
+      "author": "92Bilal26",
+      "repo": "92Bilal26/TaskPilotAI",
+      "ref": "main",
+      "path": ".claude/skills/pptx",
+      "url": "https://skillstore.io/skills/92bilal26-pptx",
+      "installs": 204,
+      "tags": [
+        "office",
+        "external_commands",
+        "env_access",
+        "network",
+        "filesystem"
+      ]
+    },
+    {
+      "name": "nature-paper2ppt",
+      "description": "Researchers often need a clear presentation from a dense paper. This skill turns papers into concise Chinese PPTX decks with figures, notes, and QA checks.",
+      "source": "skillstore",
+      "id": "skillstore:yuan1z0825-nature-paper2ppt",
+      "key": "yuan1z0825-nature-paper2ppt",
+      "title": "Create Chinese PPTX Decks From Research Papers",
+      "author": "Yuan1z0825",
+      "repo": "Yuan1z0825/nature-skills",
+      "ref": "main",
+      "path": "skills/nature-paper2ppt",
+      "url": "https://skillstore.io/skills/yuan1z0825-nature-paper2ppt",
+      "installs": 175,
+      "tags": [
+        "research",
+        "filesystem",
+        "external_commands"
+      ]
+    },
+    {
+      "name": "pptx-official",
+      "description": "PowerPoint work is difficult when slides need layout, XML, or template changes. This skill guides Claude, Codex, and Claude Code through PPTX creation, editing, validation, and review.",
+      "source": "skillstore",
+      "id": "skillstore:sickn33-pptx-official",
+      "key": "sickn33-pptx-official",
+      "title": "Create and Edit PowerPoint Presentations",
+      "author": "sickn33",
+      "repo": "sickn33/antigravity-awesome-skills",
+      "ref": "main",
+      "path": "skills/pptx-official",
+      "url": "https://skillstore.io/skills/sickn33-pptx-official",
+      "installs": 139,
+      "tags": [
+        "office",
+        "external_commands",
+        "env_access",
+        "network",
+        "filesystem"
+      ]
+    },
+    {
+      "name": "pptx",
+      "description": "Building reliable PowerPoint decks requires careful layout and format handling. This skill provides structured workflows for creation, editing, inspection, and validation.",
+      "source": "skillstore",
+      "id": "skillstore:artemisai-pptx",
+      "key": "artemisai-pptx",
+      "title": "Create and Edit PowerPoint Presentations",
+      "author": "ArtemisAI",
+      "repo": "ArtemisAI/code-execution-with-MCP",
+      "ref": "main",
+      "path": "skills/document-skills/pptx",
+      "url": "https://skillstore.io/skills/artemisai-pptx",
+      "installs": 99,
+      "tags": [
+        "office",
+        "external_commands",
+        "env_access",
+        "network",
+        "filesystem"
+      ]
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:vercel-labs/agent-skills/vercel-react-best-practices",
+      "key": "vercel-labs/agent-skills/vercel-react-best-practices",
+      "repo": "vercel-labs/agent-skills",
+      "url": "https://skills.sh/vercel-labs/agent-skills/vercel-react-best-practices",
+      "installs": 846089
+    },
+    {
+      "name": "vercel-react-native-skills",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:vercel-labs/agent-skills/vercel-react-native-skills",
+      "key": "vercel-labs/agent-skills/vercel-react-native-skills",
+      "repo": "vercel-labs/agent-skills",
+      "url": "https://skills.sh/vercel-labs/agent-skills/vercel-react-native-skills",
+      "installs": 257704
+    },
+    {
+      "name": "vercel-react-view-transitions",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:vercel-labs/agent-skills/vercel-react-view-transitions",
+      "key": "vercel-labs/agent-skills/vercel-react-view-transitions",
+      "repo": "vercel-labs/agent-skills",
+      "url": "https://skills.sh/vercel-labs/agent-skills/vercel-react-view-transitions",
+      "installs": 170763
+    },
+    {
+      "name": "gsap-react",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:greensock/gsap-skills/gsap-react",
+      "key": "greensock/gsap-skills/gsap-react",
+      "repo": "greensock/gsap-skills",
+      "url": "https://skills.sh/greensock/gsap-skills/gsap-react",
+      "installs": 67778
+    },
+    {
+      "name": "react:components",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:google-labs-code/stitch-skills/reactcomponents",
+      "key": "google-labs-code/stitch-skills/reactcomponents",
+      "repo": "google-labs-code/stitch-skills",
+      "url": "https://skills.sh/google-labs-code/stitch-skills/reactcomponents",
+      "installs": 50432
+    },
+    {
+      "name": "react-native-best-practices",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:callstackincubator/agent-skills/react-native-best-practices",
+      "key": "callstackincubator/agent-skills/react-native-best-practices",
+      "repo": "callstackincubator/agent-skills",
+      "url": "https://skills.sh/callstackincubator/agent-skills/react-native-best-practices",
+      "installs": 30435
+    },
+    {
+      "name": "clerk-react-patterns",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:clerk/skills/clerk-react-patterns",
+      "key": "clerk/skills/clerk-react-patterns",
+      "repo": "clerk/skills",
+      "url": "https://skills.sh/clerk/skills/clerk-react-patterns",
+      "installs": 19794
+    },
+    {
+      "name": "react",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:vercel-labs/json-render/react",
+      "key": "vercel-labs/json-render/react",
+      "repo": "vercel-labs/json-render",
+      "url": "https://skills.sh/vercel-labs/json-render/react",
+      "installs": 16568
+    },
+    {
+      "name": "clerk-react-router-patterns",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:clerk/skills/clerk-react-router-patterns",
+      "key": "clerk/skills/clerk-react-router-patterns",
+      "repo": "clerk/skills",
+      "url": "https://skills.sh/clerk/skills/clerk-react-router-patterns",
+      "installs": 15623
+    },
+    {
+      "name": "react-email",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:resend/react-email/react-email",
+      "key": "resend/react-email/react-email",
+      "repo": "resend/react-email",
+      "url": "https://skills.sh/resend/react-email/react-email",
+      "installs": 9774
+    },
+    {
+      "name": "imsg",
+      "description": "Use the imsg CLI from OpenClaw agents for iMessage/SMS DMs, groups, replies, reactions, polls, watching, and private-API actions.",
+      "source": "skillsmp",
+      "id": "skillsmp:openclaw-openclaw-extensions-imessage-skills-imsg-skill-md",
+      "key": "openclaw-openclaw-extensions-imessage-skills-imsg-skill-md",
+      "title": "imsg",
+      "author": "openclaw",
+      "repo": "openclaw/openclaw",
+      "ref": "main",
+      "path": "extensions/imessage/skills/imsg",
+      "url": "https://skillsmp.com/creators/openclaw/openclaw/extensions-imessage-skills-imsg",
+      "stars": 392935,
+      "tags": [
+        "en"
+      ]
+    },
+    {
+      "name": "telegram-e2e-userbot",
+      "description": "Prove user-visible OpenClaw Telegram behavior on Telegram's Test Server with Convex-leased team credentials; drive real-user turns and record messages, edits, deletions, reactions, typing, or rich content.",
+      "source": "skillsmp",
+      "id": "skillsmp:openclaw-openclaw-agents-skills-telegram-e2e-userbot-skill-md",
+      "key": "openclaw-openclaw-agents-skills-telegram-e2e-userbot-skill-md",
+      "title": "telegram-e2e-userbot",
+      "author": "openclaw",
+      "repo": "openclaw/openclaw",
+      "ref": "main",
+      "path": ".agents/skills/telegram-e2e-userbot",
+      "url": "https://skillsmp.com/creators/openclaw/openclaw/agents-skills-telegram-e2e-userbot",
+      "stars": 392935,
+      "tags": [
+        "en"
+      ]
+    },
+    {
+      "name": "frontend-patterns",
+      "description": "React、Next.js、状態管理、パフォーマンス最適化、UIベストプラクティスのためのフロントエンド開発パターン。",
+      "source": "skillsmp",
+      "id": "skillsmp:affaan-m-ecc-docs-ja-jp-skills-frontend-patterns-skill-md",
+      "key": "affaan-m-ecc-docs-ja-jp-skills-frontend-patterns-skill-md",
+      "title": "frontend-patterns",
+      "author": "affaan-m",
+      "repo": "affaan-m/ECC",
+      "ref": "main",
+      "path": "docs/ja-JP/skills/frontend-patterns",
+      "url": "https://skillsmp.com/creators/affaan-m/ecc/docs-ja-jp-skills-frontend-patterns",
+      "stars": 289082,
+      "tags": [
+        "ja"
+      ]
+    },
+    {
+      "name": "react-native-patterns",
+      "description": "React Native and Expo app patterns — Expo Router navigation, state separation (server/client/route/form), TanStack Query data fetching with Zod, performant lists, NativeWind/StyleSheet styling, native APIs, and secure storage. Use when building or editing React Native / Expo screens, components, navigation, or data layers.",
+      "source": "skillsmp",
+      "id": "skillsmp:affaan-m-ecc-pi-core-skills-react-native-patterns-skill-md",
+      "key": "affaan-m-ecc-pi-core-skills-react-native-patterns-skill-md",
+      "title": "react-native-patterns",
+      "author": "affaan-m",
+      "repo": "affaan-m/ECC",
+      "ref": "main",
+      "path": "pi/core/skills/react-native-patterns",
+      "url": "https://skillsmp.com/creators/affaan-m/ecc/pi-core-skills-react-native-patterns",
+      "stars": 289082,
+      "tags": [
+        "en"
+      ]
+    },
+    {
+      "name": "react-patterns",
+      "description": "React 18/19 patterns including hooks discipline, server/client component boundaries, Suspense + error boundaries, form actions, data fetching, state management decision trees, and accessibility-first composition. Use when writing or reviewing React components.",
+      "source": "skillsmp",
+      "id": "skillsmp:affaan-m-ecc-kiro-skills-react-patterns-skill-md",
+      "key": "affaan-m-ecc-kiro-skills-react-patterns-skill-md",
+      "title": "react-patterns",
+      "author": "affaan-m",
+      "repo": "affaan-m/ECC",
+      "ref": "main",
+      "path": ".kiro/skills/react-patterns",
+      "url": "https://skillsmp.com/creators/affaan-m/ecc/kiro-skills-react-patterns",
+      "stars": 289082,
+      "tags": [
+        "en",
+        "skillsmp"
+      ]
+    },
+    {
+      "name": "react-performance",
+      "description": "React and Next.js performance optimization patterns adapted from Vercel Engineering's React Best Practices (https://github.com/vercel-labs/agent-skills). Organizes 70+ rules across 8 priority categories — waterfalls, bundle size, server-side, client fetching, re-render, rendering, JS micro-perf, advanced. Use when writing, reviewing, or refactoring React/Next.js code for performance.",
+      "source": "skillsmp",
+      "id": "skillsmp:affaan-m-ecc-pi-core-skills-react-performance-skill-md",
+      "key": "affaan-m-ecc-pi-core-skills-react-performance-skill-md",
+      "title": "react-performance",
+      "author": "affaan-m",
+      "repo": "affaan-m/ECC",
+      "ref": "main",
+      "path": "pi/core/skills/react-performance",
+      "url": "https://skillsmp.com/creators/affaan-m/ecc/pi-core-skills-react-performance",
+      "stars": 289082,
+      "tags": [
+        "en"
+      ]
+    },
+    {
+      "name": "react-testing",
+      "description": "React component testing with React Testing Library, Vitest/Jest, MSW for network mocking, accessibility assertions with axe, and the decision boundary between component tests and Playwright/Cypress end-to-end runs. Use when writing or fixing tests for React components, hooks, or pages.",
+      "source": "skillsmp",
+      "id": "skillsmp:affaan-m-ecc-kiro-skills-react-testing-skill-md",
+      "key": "affaan-m-ecc-kiro-skills-react-testing-skill-md",
+      "title": "react-testing",
+      "author": "affaan-m",
+      "repo": "affaan-m/ECC",
+      "ref": "main",
+      "path": ".kiro/skills/react-testing",
+      "url": "https://skillsmp.com/creators/affaan-m/ecc/kiro-skills-react-testing",
+      "stars": 289082,
+      "tags": [
+        "en",
+        "skillsmp"
+      ]
+    },
+    {
+      "name": "setup-ts-deep-modules",
+      "description": "Wire dependency-cruiser into a TypeScript repo so each package is a deep module, with implementation hidden in subfolders and reachable only through its entry-point files. User-invoked.",
+      "source": "skillsmp",
+      "id": "skillsmp:mattpocock-skills-skills-in-progress-setup-ts-deep-modules-skill-md",
+      "key": "mattpocock-skills-skills-in-progress-setup-ts-deep-modules-skill-md",
+      "title": "setup-ts-deep-modules",
+      "author": "mattpocock",
+      "repo": "mattpocock/skills",
+      "ref": "main",
+      "path": "skills/in-progress/setup-ts-deep-modules",
+      "url": "https://skillsmp.com/creators/mattpocock/skills/skills-in-progress-setup-ts-deep-modules",
+      "stars": 303211,
+      "tags": [
+        "en"
+      ]
+    },
+    {
+      "name": "styling-with-shadcn",
+      "description": "React teams need consistent UI patterns that work with modern Next.js. This skill provides shadcn/ui setup guidance, component examples, form validation, tables, sidebars, and dark mode patterns.",
+      "source": "skillstore",
+      "id": "skillstore:asmayaseen-styling-with-shadcn",
+      "key": "asmayaseen-styling-with-shadcn",
+      "title": "Build shadcn/ui Interfaces in Next.js",
+      "author": "Asmayaseen",
+      "repo": "Asmayaseen/hackathon-2",
+      "ref": "main",
+      "path": ".claude/skills/styling-with-shadcn",
+      "url": "https://skillstore.io/skills/asmayaseen-styling-with-shadcn",
+      "installs": 24,
+      "tags": [
+        "coding",
+        "external_commands",
+        "network"
+      ]
+    },
+    {
+      "name": "framer-motion",
+      "description": "React teams need polished motion without rebuilding animation patterns. This skill provides Framer Motion guidance, reusable templates, and examples for Next.js interfaces.",
+      "source": "skillstore",
+      "id": "skillstore:asmayaseen-framer-motion",
+      "key": "asmayaseen-framer-motion",
+      "title": "Build Framer Motion Animations",
+      "author": "Asmayaseen",
+      "repo": "Asmayaseen/hackathon-2",
+      "ref": "main",
+      "path": ".claude/skills/framer-motion",
+      "url": "https://skillstore.io/skills/asmayaseen-framer-motion",
+      "installs": 23,
+      "tags": [
+        "coding",
+        "external_commands"
+      ]
+    },
+    {
+      "name": "code-review",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:mattpocock/skills/code-review",
+      "key": "mattpocock/skills/code-review",
+      "repo": "mattpocock/skills",
+      "url": "https://skills.sh/mattpocock/skills/code-review",
+      "installs": 809672
+    },
+    {
+      "name": "requesting-code-review",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:obra/superpowers/requesting-code-review",
+      "key": "obra/superpowers/requesting-code-review",
+      "repo": "obra/superpowers",
+      "url": "https://skills.sh/obra/superpowers/requesting-code-review",
+      "installs": 265242
+    },
+    {
+      "name": "receiving-code-review",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:obra/superpowers/receiving-code-review",
+      "key": "obra/superpowers/receiving-code-review",
+      "repo": "obra/superpowers",
+      "url": "https://skills.sh/obra/superpowers/receiving-code-review",
+      "installs": 224421
+    },
+    {
+      "name": "code-review-and-quality",
+      "description": "Code reviews often miss risks when they focus only on tests or style. This skill guides a consistent review of correctness, readability, architecture, security, and performance.",
+      "source": "skillssh",
+      "id": "skillssh:addyosmani/agent-skills/code-review-and-quality",
+      "key": "addyosmani/agent-skills/code-review-and-quality",
+      "repo": "addyosmani/agent-skills",
+      "ref": "c004a74784a08295d52749b04cda634125b9a581",
+      "path": "skills/code-review-and-quality",
+      "url": "https://skills.sh/addyosmani/agent-skills/code-review-and-quality",
+      "installs": 75017,
+      "tags": [
+        "skillssh",
+        "skillstore"
+      ]
+    },
+    {
+      "name": "code-review",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:coderabbitai/skills/code-review",
+      "key": "coderabbitai/skills/code-review",
+      "repo": "coderabbitai/skills",
+      "url": "https://skills.sh/coderabbitai/skills/code-review",
+      "installs": 14970
+    },
+    {
+      "name": "sql-code-review",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:github/awesome-copilot/sql-code-review",
+      "key": "github/awesome-copilot/sql-code-review",
+      "repo": "github/awesome-copilot",
+      "url": "https://skills.sh/github/awesome-copilot/sql-code-review",
+      "installs": 14124,
+      "tags": [
+        "skillssh"
+      ]
+    },
+    {
+      "name": "postgresql-code-review",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:github/awesome-copilot/postgresql-code-review",
+      "key": "github/awesome-copilot/postgresql-code-review",
+      "repo": "github/awesome-copilot",
+      "url": "https://skills.sh/github/awesome-copilot/postgresql-code-review",
+      "installs": 12647
+    },
+    {
+      "name": "code-review",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:anthropics/knowledge-work-plugins/code-review",
+      "key": "anthropics/knowledge-work-plugins/code-review",
+      "repo": "anthropics/knowledge-work-plugins",
+      "url": "https://skills.sh/anthropics/knowledge-work-plugins/code-review",
+      "installs": 9941
+    },
+    {
+      "name": "code-reviewer",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:google-gemini/gemini-cli/code-reviewer",
+      "key": "google-gemini/gemini-cli/code-reviewer",
+      "repo": "google-gemini/gemini-cli",
+      "url": "https://skills.sh/google-gemini/gemini-cli/code-reviewer",
+      "installs": 9680
+    },
+    {
+      "name": "code-review",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:getsentry/skills/code-review",
+      "key": "getsentry/skills/code-review",
+      "repo": "getsentry/skills",
+      "url": "https://skills.sh/getsentry/skills/code-review",
+      "installs": 5504
+    },
+    {
+      "name": "code-reviewer",
+      "description": "Code reviews can miss quality, security, and maintainability issues. This skill guides structured reviews with scripts, checklists, and report generation.",
+      "source": "skillstore",
+      "id": "skillstore:alirezarezvani-code-reviewer",
+      "key": "alirezarezvani-code-reviewer",
+      "title": "Review Code with Structured Quality Checks",
+      "author": "alirezarezvani",
+      "repo": "alirezarezvani/claude-skills",
+      "ref": "main",
+      "path": "engineering-team/code-reviewer",
+      "url": "https://skillstore.io/skills/alirezarezvani-code-reviewer",
+      "installs": 385,
+      "tags": [
+        "coding",
+        "filesystem",
+        "external_commands"
+      ]
+    },
+    {
+      "name": "code-review",
+      "description": "Code changes often hide bugs, security flaws, and maintainability risks. This skill guides Claude, Codex, or Claude Code through structured reviews with prioritized findings.",
+      "source": "skillstore",
+      "id": "skillstore:89jobrien-code-review",
+      "key": "89jobrien-code-review",
+      "title": "Review Code for Quality and Security",
+      "author": "89jobrien",
+      "repo": "89jobrien/steve",
+      "ref": "main",
+      "path": "steve/skills/code-review",
+      "url": "https://skillstore.io/skills/89jobrien-code-review",
+      "installs": 54,
+      "tags": [
+        "coding",
+        "external_commands",
+        "env_access"
+      ]
+    },
+    {
+      "name": "quality-reviewer",
+      "description": "Developers need reviews that catch bugs, outdated libraries, and documentation drift before changes ship. This skill guides Claude, Codex, and Claude Code through a current, standards-aware code review.",
+      "source": "skillstore",
+      "id": "skillstore:arcadeai-quality-reviewer",
+      "key": "arcadeai-quality-reviewer",
+      "title": "Review Code Against Current Docs",
+      "author": "ArcadeAI",
+      "repo": "ArcadeAI/dexa",
+      "ref": "main",
+      "path": ".claude/skills/safeword-quality-reviewer",
+      "url": "https://skillstore.io/skills/arcadeai-quality-reviewer",
+      "installs": 53,
+      "tags": [
+        "coding",
+        "external_commands"
+      ]
+    },
+    {
+      "name": "code-review-playbook",
+      "description": "Inconsistent reviews miss defects and create unclear feedback. This playbook provides structured checklists, conventional comments, templates, and review workflows for reliable decisions.",
+      "source": "skillstore",
+      "id": "skillstore:ariegoldkin-code-review-playbook",
+      "key": "ariegoldkin-code-review-playbook",
+      "title": "Review Code with Consistent, Actionable Feedback",
+      "author": "ArieGoldkin",
+      "repo": "ArieGoldkin/ai-agent-hub",
+      "ref": "main",
+      "path": "skills/code-review-playbook",
+      "url": "https://skillstore.io/skills/ariegoldkin-code-review-playbook",
+      "installs": 32,
+      "tags": [
+        "coding",
+        "external_commands",
+        "network"
+      ]
+    },
+    {
+      "name": "code-reviewer",
+      "description": "MERN projects can hide security, testing, and architecture problems across several layers. This skill guides Claude, Codex, and Claude Code through structured reviews with actionable findings.",
+      "source": "skillstore",
+      "id": "skillstore:9tykeshav-code-reviewer",
+      "key": "9tykeshav-code-reviewer",
+      "title": "Review MERN Code Quality",
+      "author": "9tykeshav",
+      "repo": "9tykeshav/mern-ninja-cc",
+      "ref": "main",
+      "path": "skills/code-reviewer",
+      "url": "https://skillstore.io/skills/9tykeshav-code-reviewer",
+      "installs": 24,
+      "tags": [
+        "coding",
+        "external_commands",
+        "filesystem",
+        "env_access",
+        "network",
+        "scripts"
+      ]
+    },
+    {
+      "name": "code-review",
+      "description": "Code reviews can miss security, performance, and maintainability issues. This skill guides Claude, Codex, or Claude Code through structured reviews with severity-based findings.",
+      "source": "skillstore",
+      "id": "skillstore:ancplua-code-review",
+      "key": "ancplua-code-review",
+      "title": "Review Code Changes Before Merge",
+      "author": "ANcpLua",
+      "repo": "ANcpLua/ancplua-claude-plugins",
+      "ref": "main",
+      "path": "plugins/code-review/skills/code-review",
+      "url": "https://skillstore.io/skills/ancplua-code-review",
+      "installs": 21,
+      "tags": [
+        "coding",
+        "scripts",
+        "external_commands"
+      ]
+    },
+    {
+      "name": "code-review",
+      "description": "Slow, unclear reviews delay releases and miss defects. This skill gives authors, reviewers, and team leads practical workflows for focused pull requests.",
+      "source": "skillstore",
+      "id": "skillstore:adammanuel-dev-code-review",
+      "key": "adammanuel-dev-code-review",
+      "title": "Improve Code Review Quality",
+      "author": "AdamManuel-dev",
+      "repo": "AdamManuel-dev/claude-code-ext",
+      "ref": "main",
+      "path": "skills/code-review-skill",
+      "url": "https://skillstore.io/skills/adammanuel-dev-code-review",
+      "installs": 17,
+      "tags": [
+        "coding",
+        "external_commands",
+        "filesystem"
+      ]
+    },
+    {
+      "name": "git-workflow",
+      "description": "Teams need consistent branch names, PR descriptions, and review checklists. This skill guides Claude, Codex, and Claude Code through practical Git workflow decisions.",
+      "source": "skillstore",
+      "id": "skillstore:89jobrien-git-workflow",
+      "key": "89jobrien-git-workflow",
+      "title": "Manage Git Pull Requests and Branch Workflows",
+      "author": "89jobrien",
+      "repo": "89jobrien/steve",
+      "ref": "main",
+      "path": "steve/skills/git-workflow",
+      "url": "https://skillstore.io/skills/89jobrien-git-workflow",
+      "installs": 17,
+      "tags": [
+        "devops",
+        "external_commands",
+        "network"
+      ]
+    },
+    {
+      "name": "ultracite",
+      "description": "JavaScript and TypeScript projects need consistent linting, formatting, and upgrade practices. This skill guides Ultracite setup, configuration migration, code review, and troubleshooting.",
+      "source": "skillstore",
+      "id": "skillstore:haydenbleasel-ultracite",
+      "key": "haydenbleasel-ultracite",
+      "title": "Configure Ultracite Linting and Formatting",
+      "author": "haydenbleasel",
+      "repo": "haydenbleasel/ultracite",
+      "ref": "7bf1b7beb7e385790aaddbb482ade81c183fe217",
+      "path": "skills/ultracite",
+      "url": "https://skillstore.io/skills/haydenbleasel-ultracite",
+      "tags": [
+        "coding",
+        "scripts",
+        "external_commands",
+        "network"
+      ]
+    },
+    {
+      "name": "webapp-testing",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:anthropics/skills/webapp-testing",
+      "key": "anthropics/skills/webapp-testing",
+      "repo": "anthropics/skills",
+      "url": "https://skills.sh/anthropics/skills/webapp-testing",
+      "installs": 190403
+    },
+    {
+      "name": "ab-testing",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:coreyhaines31/marketingskills/ab-testing",
+      "key": "coreyhaines31/marketingskills/ab-testing",
+      "repo": "coreyhaines31/marketingskills",
+      "url": "https://skills.sh/coreyhaines31/marketingskills/ab-testing",
+      "installs": 78702
+    },
+    {
+      "name": "browser-testing-with-devtools",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:addyosmani/agent-skills/browser-testing-with-devtools",
+      "key": "addyosmani/agent-skills/browser-testing-with-devtools",
+      "repo": "addyosmani/agent-skills",
+      "url": "https://skills.sh/addyosmani/agent-skills/browser-testing-with-devtools",
+      "installs": 60168
+    },
+    {
+      "name": "clerk-testing",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:clerk/skills/clerk-testing",
+      "key": "clerk/skills/clerk-testing",
+      "repo": "clerk/skills",
+      "url": "https://skills.sh/clerk/skills/clerk-testing",
+      "installs": 46624
+    },
+    {
+      "name": "golang-testing",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:samber/cc-skills-golang/golang-testing",
+      "key": "samber/cc-skills-golang/golang-testing",
+      "repo": "samber/cc-skills-golang",
+      "url": "https://skills.sh/samber/cc-skills-golang/golang-testing",
+      "installs": 43802
+    },
+    {
+      "name": "limrun-detox-testing",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:limrun-inc/skills/limrun-detox-testing",
+      "key": "limrun-inc/skills/limrun-detox-testing",
+      "repo": "limrun-inc/skills",
+      "url": "https://skills.sh/limrun-inc/skills/limrun-detox-testing",
+      "installs": 43193
+    },
+    {
+      "name": "limrun-maestro-testing",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:limrun-inc/skills/limrun-maestro-testing",
+      "key": "limrun-inc/skills/limrun-maestro-testing",
+      "repo": "limrun-inc/skills",
+      "url": "https://skills.sh/limrun-inc/skills/limrun-maestro-testing",
+      "installs": 41241
+    },
+    {
+      "name": "python-testing-patterns",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:wshobson/agents/python-testing-patterns",
+      "key": "wshobson/agents/python-testing-patterns",
+      "repo": "wshobson/agents",
+      "url": "https://skills.sh/wshobson/agents/python-testing-patterns",
+      "installs": 37441
+    },
+    {
+      "name": "e2e-testing-patterns",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:wshobson/agents/e2e-testing-patterns",
+      "key": "wshobson/agents/e2e-testing-patterns",
+      "repo": "wshobson/agents",
+      "url": "https://skills.sh/wshobson/agents/e2e-testing-patterns",
+      "installs": 24590
+    },
+    {
+      "name": "webapp-testing",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:github/awesome-copilot/webapp-testing",
+      "key": "github/awesome-copilot/webapp-testing",
+      "repo": "github/awesome-copilot",
+      "url": "https://skills.sh/github/awesome-copilot/webapp-testing",
+      "installs": 12467
+    },
+    {
+      "name": "wp-plugin-development",
+      "description": "WordPress plugin changes can introduce lifecycle, data, and security defects. This skill provides a structured workflow for implementation, review, testing, and release preparation.",
+      "source": "skillstore",
+      "id": "skillstore:automattic-wp-plugin-development",
+      "key": "automattic-wp-plugin-development",
+      "title": "Build Secure WordPress Plugins",
+      "author": "Automattic",
+      "repo": "Automattic/agent-skills",
+      "ref": "trunk",
+      "path": "skills/wp-plugin-development",
+      "url": "https://skillstore.io/skills/automattic-wp-plugin-development",
+      "installs": 21,
+      "tags": [
+        "coding",
+        "external_commands",
+        "filesystem",
+        "skillstore"
+      ]
+    },
+    {
+      "name": "testing-strategy",
+      "description": "Inconsistent test coverage allows regressions to reach users. This skill structures unit, integration, and end-to-end testing with Vitest, Playwright, coverage targets, and CI guidance.",
+      "source": "skillstore",
+      "id": "skillstore:atman36-testing-strategy",
+      "key": "atman36-testing-strategy",
+      "title": "Build a Complete Testing Strategy",
+      "author": "Atman36",
+      "repo": "Atman36/AI-Vibe-Prompts",
+      "ref": "main",
+      "path": ".claude/skills/workflow/testing-strategy",
+      "url": "https://skillstore.io/skills/atman36-testing-strategy",
+      "installs": 18,
+      "tags": [
+        "coding",
+        "external_commands",
+        "network",
+        "env_access"
+      ]
+    },
+    {
+      "name": "wp-playground",
+      "description": "WordPress testing often requires slow local infrastructure and repeated setup. This skill guides disposable environments, reproducible blueprints, snapshots, version testing, and Xdebug workflows.",
+      "source": "skillstore",
+      "id": "skillstore:automattic-wp-playground",
+      "key": "automattic-wp-playground",
+      "title": "Run Disposable WordPress Tests with Playground",
+      "author": "Automattic",
+      "repo": "Automattic/agent-skills",
+      "ref": "trunk",
+      "path": "skills/wp-playground",
+      "url": "https://skillstore.io/skills/automattic-wp-playground",
+      "installs": 14,
+      "tags": [
+        "coding",
+        "network",
+        "external_commands"
+      ]
+    },
+    {
+      "name": "penetration-testing-with-strix",
+      "description": "Application security teams need reproducible testing with clear scope, costs, and evidence. This skill guides Strix setup, authorized scans, and interpretation of validated findings.",
+      "source": "skillstore",
+      "id": "skillstore:usestrix-penetration-testing-with-strix",
+      "key": "usestrix-penetration-testing-with-strix",
+      "title": "Run Authorized Penetration Tests with Strix",
+      "author": "usestrix",
+      "repo": "usestrix/strix",
+      "ref": "200a501f15a24a4152f92897a6b72af238ee69ef",
+      "path": "skills/penetration-testing-with-strix",
+      "url": "https://skillstore.io/skills/usestrix-penetration-testing-with-strix",
+      "installs": 3,
+      "tags": [
+        "security",
+        "scripts",
+        "external_commands",
+        "network",
+        "env_access"
+      ]
+    },
+    {
+      "name": "web-app-penetration-testing",
+      "description": "Web application reviews can miss vulnerabilities behind login and across tenant boundaries. This skill guides authorized Strix testing, evidence review, and repeat testing after fixes.",
+      "source": "skillstore",
+      "id": "skillstore:usestrix-web-app-penetration-testing",
+      "key": "usestrix-web-app-penetration-testing",
+      "title": "Test Authorized Web Apps with Strix",
+      "author": "usestrix",
+      "repo": "usestrix/strix",
+      "ref": "200a501f15a24a4152f92897a6b72af238ee69ef",
+      "path": "skills/web-app-penetration-testing",
+      "url": "https://skillstore.io/skills/usestrix-web-app-penetration-testing",
+      "installs": 2,
+      "tags": [
+        "security",
+        "external_commands",
+        "network"
+      ]
+    },
+    {
+      "name": "wp-block-development",
+      "description": "WordPress block changes can break registration, saved content, or editor behavior. This skill guides implementation, migration, debugging, and verification for Gutenberg blocks.",
+      "source": "skillstore",
+      "id": "skillstore:automattic-wp-block-development",
+      "key": "automattic-wp-block-development",
+      "title": "Build and Maintain WordPress Blocks",
+      "author": "Automattic",
+      "repo": "Automattic/agent-skills",
+      "ref": "trunk",
+      "path": "skills/wp-block-development",
+      "url": "https://skillstore.io/skills/automattic-wp-block-development",
+      "installs": 20,
+      "tags": [
+        "coding",
+        "external_commands",
+        "filesystem"
+      ]
+    },
+    {
+      "name": "poteto-principles",
+      "description": "Software changes can repeat avoidable design, debugging, and verification mistakes. This skill gives coding assistants explicit engineering principles for making simpler, better-supported decisions.",
+      "source": "skillstore",
+      "id": "skillstore:masseater-poteto-principles",
+      "key": "masseater-poteto-principles",
+      "title": "Apply Engineering Principles to Software Changes",
+      "author": "masseater",
+      "repo": "masseater/skills",
+      "ref": "4810c8f1186a229ca57d2f278c0a94f0fc862fec",
+      "path": "skills/poteto-principles",
+      "url": "https://skillstore.io/skills/masseater-poteto-principles",
+      "installs": 3,
+      "tags": [
+        "coding",
+        "external_commands",
+        "network"
+      ]
+    },
+    {
+      "name": "developer-tutorial",
+      "description": "Developers can finish a walkthrough without learning how to repeat the task independently. This skill structures tutorials around demonstrable objectives, progressive exercises, resumable checkpoints, and learner verification.",
+      "source": "skillstore",
+      "id": "skillstore:samber-developer-tutorial",
+      "key": "samber-developer-tutorial",
+      "title": "Create Developer Tutorials That Build Independent Skills",
+      "author": "samber",
+      "repo": "samber/developer-relations-skills",
+      "ref": "b8cf857a6069b89252445c82a36fcb9491fd6b20",
+      "path": "skills/developer-tutorial",
+      "url": "https://skillstore.io/skills/samber-developer-tutorial",
+      "installs": 2,
+      "tags": [
+        "documentation",
+        "filesystem",
+        "external_commands",
+        "scripts"
+      ]
+    },
+    {
+      "name": "flutter-add-integration-test",
+      "description": "Manual Flutter UI checks are difficult to repeat consistently. This skill guides MCP exploration, integration test authoring, execution, and optional performance profiling.",
+      "source": "skillstore",
+      "id": "skillstore:flutter-flutter-add-integration-test",
+      "key": "flutter-flutter-add-integration-test",
+      "title": "Add Repeatable Flutter Integration Tests",
+      "author": "flutter",
+      "repo": "flutter/agent-plugins",
+      "ref": "f813a46b18456a20f37eb5784c091b7d945c3b4b",
+      "path": "skills/flutter-add-integration-test",
+      "url": "https://skillstore.io/skills/flutter-flutter-add-integration-test",
+      "installs": 2,
+      "tags": [
+        "coding",
+        "external_commands"
+      ]
+    },
+    {
+      "name": "cooper-webhooks",
+      "description": "Polling inboxes can delay email automation and complicate delivery monitoring. This skill guides Cooper Email webhook setup, event selection, signature checks, and troubleshooting.",
+      "source": "skillstore",
+      "id": "skillstore:cooper-email-cooper-webhooks",
+      "key": "cooper-email-cooper-webhooks",
+      "title": "Configure Cooper Email Webhooks",
+      "author": "cooper-email",
+      "repo": "cooper-email/cooper-email",
+      "ref": "e017faae12644b593317e55d97612eb24dfa24af",
+      "path": "skills/cooper-webhooks",
+      "url": "https://skillstore.io/skills/cooper-email-cooper-webhooks",
+      "installs": 1,
+      "tags": [
+        "coding",
+        "external_commands",
+        "network"
+      ]
+    },
+    {
+      "name": "azure-kusto",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:microsoft/azure-skills/azure-kusto",
+      "key": "microsoft/azure-skills/azure-kusto",
+      "repo": "microsoft/azure-skills",
+      "url": "https://skills.sh/microsoft/azure-skills/azure-kusto",
+      "installs": 568404
+    },
+    {
+      "name": "data-analysis",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:claude-office-skills/skills/data-analysis",
+      "key": "claude-office-skills/skills/data-analysis",
+      "repo": "claude-office-skills/skills",
+      "url": "https://skills.sh/claude-office-skills/skills/data-analysis",
+      "installs": 7969
+    },
+    {
+      "name": "datanalysis-credit-risk",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:github/awesome-copilot/datanalysis-credit-risk",
+      "key": "github/awesome-copilot/datanalysis-credit-risk",
+      "repo": "github/awesome-copilot",
+      "url": "https://skills.sh/github/awesome-copilot/datanalysis-credit-risk",
+      "installs": 7303
+    },
+    {
+      "name": "data-analysis",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:bytedance/deer-flow/data-analysis",
+      "key": "bytedance/deer-flow/data-analysis",
+      "repo": "bytedance/deer-flow",
+      "url": "https://skills.sh/bytedance/deer-flow/data-analysis",
+      "installs": 3630
+    },
+    {
+      "name": "azure-cost-optimization",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:microsoft/azure-skills/azure-cost-optimization",
+      "key": "microsoft/azure-skills/azure-cost-optimization",
+      "repo": "microsoft/azure-skills",
+      "url": "https://skills.sh/microsoft/azure-skills/azure-cost-optimization",
+      "installs": 155407
+    },
+    {
+      "name": "exploratory-data-analysis",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:k-dense-ai/scientific-agent-skills/exploratory-data-analysis",
+      "key": "k-dense-ai/scientific-agent-skills/exploratory-data-analysis",
+      "repo": "k-dense-ai/scientific-agent-skills",
+      "url": "https://skills.sh/k-dense-ai/scientific-agent-skills/exploratory-data-analysis",
+      "installs": 2176
+    },
+    {
+      "name": "data-analysis",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:lingzhi227/agent-research-skills/data-analysis",
+      "key": "lingzhi227/agent-research-skills/data-analysis",
+      "repo": "lingzhi227/agent-research-skills",
+      "url": "https://skills.sh/lingzhi227/agent-research-skills/data-analysis",
+      "installs": 1972
+    },
+    {
+      "name": "exploratory-data-analysis",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:davila7/claude-code-templates/exploratory-data-analysis",
+      "key": "davila7/claude-code-templates/exploratory-data-analysis",
+      "repo": "davila7/claude-code-templates",
+      "url": "https://skills.sh/davila7/claude-code-templates/exploratory-data-analysis",
+      "installs": 1877
+    },
+    {
+      "name": "data-analysis-jupyter",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:mindrally/skills/data-analysis-jupyter",
+      "key": "mindrally/skills/data-analysis-jupyter",
+      "repo": "mindrally/skills",
+      "url": "https://skills.sh/mindrally/skills/data-analysis-jupyter",
+      "installs": 1537
+    },
+    {
+      "name": "exploratory-data-analysis",
+      "description": "Scientific data files can be difficult to inspect before analysis. This skill detects formats, summarizes data quality, and creates practical EDA reports.",
+      "source": "skillstore",
+      "id": "skillstore:k-dense-ai-exploratory-data-analysis",
+      "key": "k-dense-ai-exploratory-data-analysis",
+      "title": "Analyze Scientific Data Files",
+      "author": "K-Dense-AI",
+      "repo": "K-Dense-AI/claude-scientific-skills",
+      "ref": "main",
+      "path": "scientific-skills/exploratory-data-analysis",
+      "url": "https://skillstore.io/skills/k-dense-ai-exploratory-data-analysis",
+      "installs": 47,
+      "tags": [
+        "data",
+        "filesystem",
+        "external_commands"
+      ]
+    },
+    {
+      "name": "data-analysis",
+      "description": "Raw datasets can hide quality issues, trends, and weak assumptions. This skill guides profiling, cleaning, statistics, visualization, and reporting with reproducible steps.",
+      "source": "skillstore",
+      "id": "skillstore:supercent-io-data-analysis",
+      "key": "supercent-io-data-analysis",
+      "title": "Analyze Data with Pandas and SQL",
+      "author": "supercent-io",
+      "repo": "supercent-io/skills-template",
+      "ref": "main",
+      "path": ".agent-skills/data-analysis",
+      "url": "https://skillstore.io/skills/supercent-io-data-analysis",
+      "installs": 46,
+      "tags": [
+        "data",
+        "external_commands",
+        "network"
+      ]
+    },
+    {
+      "name": "data-scientist",
+      "description": "Complex data questions can produce unreliable conclusions when methods, assumptions, and business goals are unclear. This skill structures analysis, modeling, validation, and communication into a rigorous workflow.",
+      "source": "skillstore",
+      "id": "skillstore:sickn33-data-scientist",
+      "key": "sickn33-data-scientist",
+      "title": "Analyze Data with Statistical Rigor",
+      "author": "sickn33",
+      "repo": "sickn33/antigravity-awesome-skills",
+      "ref": "main",
+      "path": "skills/data-scientist",
+      "url": "https://skillstore.io/skills/sickn33-data-scientist",
+      "installs": 25,
+      "tags": [
+        "data"
+      ]
+    },
+    {
+      "name": "data-analysis",
+      "description": "Story teams need consistent ways to extract themes, quotes, and connections from transcripts. This skill provides Empathy Ledger patterns for AI analysis, Supabase queries, and related story suggestions.",
+      "source": "skillstore",
+      "id": "skillstore:acurioustractor-data-analysis",
+      "key": "acurioustractor-data-analysis",
+      "title": "Analyze Empathy Ledger Story Data",
+      "author": "Acurioustractor",
+      "repo": "Acurioustractor/empathy-ledger-v2",
+      "ref": "main",
+      "path": ".claude/skills/local/data-analysis",
+      "url": "https://skillstore.io/skills/acurioustractor-data-analysis",
+      "installs": 22,
+      "tags": [
+        "data",
+        "external_commands",
+        "network"
+      ]
+    },
+    {
+      "name": "data-engineering-data-driven-feature",
+      "description": "Feature teams often ship changes without clear evidence or measurable outcomes. This skill guides analysis, A/B testing, instrumentation, rollout, and post-launch review.",
+      "source": "skillstore",
+      "id": "skillstore:sickn33-data-engineering-data-driven-feature",
+      "key": "sickn33-data-engineering-data-driven-feature",
+      "title": "Build Data-Driven Features",
+      "author": "sickn33",
+      "repo": "sickn33/antigravity-awesome_skills",
+      "ref": "main",
+      "path": "skills/data-engineering-data-driven-feature",
+      "url": "https://skillstore.io/skills/sickn33-data-engineering-data-driven-feature",
+      "installs": 18,
+      "tags": [
+        "data",
+        "external_commands"
+      ]
+    },
+    {
+      "name": "astropy",
+      "description": "Astronomy workflows require reliable handling of coordinates, units, FITS files, time systems, and cosmology. This skill guides Claude, Codex, and Claude Code through Astropy patterns for scientific analysis.",
+      "source": "skillstore",
+      "id": "skillstore:k-dense-ai-astropy",
+      "key": "k-dense-ai-astropy",
+      "title": "Analyze Astronomy Data with Astropy",
+      "author": "K-Dense-AI",
+      "repo": "K-Dense-AI/claude-scientific-skills",
+      "ref": "main",
+      "path": "scientific-skills/astropy",
+      "url": "https://skillstore.io/skills/k-dense-ai-astropy",
+      "installs": 15,
+      "tags": [
+        "data",
+        "filesystem",
+        "scripts",
+        "network",
+        "external_commands"
+      ]
+    },
+    {
+      "name": "umap-learn",
+      "description": "High-dimensional data can be hard to visualize, cluster, and reuse in machine learning workflows. This skill guides UMAP setup, tuning, supervised use, and advanced variants.",
+      "source": "skillstore",
+      "id": "skillstore:k-dense-ai-umap-learn",
+      "key": "k-dense-ai-umap-learn",
+      "title": "Build UMAP Embeddings for Data Analysis",
+      "author": "K-Dense-AI",
+      "repo": "K-Dense-AI/claude-scientific-skills",
+      "ref": "main",
+      "path": "scientific-skills/umap-learn",
+      "url": "https://skillstore.io/skills/k-dense-ai-umap-learn",
+      "installs": 15,
+      "tags": [
+        "data",
+        "external_commands"
+      ]
+    },
+    {
+      "name": "python-executor",
+      "description": "Many agent workflows need Python for data, media, and automation tasks without local setup. This skill routes Python code to a hosted inference.sh environment with common libraries preinstalled.",
+      "source": "skillstore",
+      "id": "skillstore:qu-skills-python-executor",
+      "key": "qu-skills-python-executor",
+      "title": "Run Python Tasks in a Hosted Sandbox",
+      "author": "qu-skills",
+      "repo": "qu-skills/skills",
+      "ref": "main",
+      "path": "tools/utilities/python-executor",
+      "url": "https://skillstore.io/skills/qu-skills-python-executor",
+      "installs": 60,
+      "tags": [
+        "coding",
+        "external_commands",
+        "network"
+      ]
+    },
+    {
+      "name": "matlab",
+      "description": "Scientific teams need reliable help creating MATLAB and GNU Octave workflows. This skill provides focused guidance for analysis, visualization, compatibility, and script execution.",
+      "source": "skillstore",
+      "id": "skillstore:k-dense-ai-matlab",
+      "key": "k-dense-ai-matlab",
+      "title": "Build MATLAB and Octave Workflows",
+      "author": "K-Dense-AI",
+      "repo": "K-Dense-AI/claude-scientific-skills",
+      "ref": "main",
+      "path": "scientific-skills/matlab",
+      "url": "https://skillstore.io/skills/k-dense-ai-matlab",
+      "installs": 54,
+      "tags": [
+        "data",
+        "filesystem",
+        "external_commands",
+        "network",
+        "scripts"
+      ]
+    },
+    {
+      "name": "pyopenms",
+      "description": "Mass spectrometry workflows require precise file handling, signal processing, and identification steps. This skill guides PyOpenMS workflows for proteomics, metabolomics, feature detection, and quantification.",
+      "source": "skillstore",
+      "id": "skillstore:k-dense-ai-pyopenms",
+      "key": "k-dense-ai-pyopenms",
+      "title": "Analyze Mass Spectrometry Data with PyOpenMS",
+      "author": "K-Dense-AI",
+      "repo": "K-Dense-AI/claude-scientific-skills",
+      "ref": "main",
+      "path": "scientific-skills/pyopenms",
+      "url": "https://skillstore.io/skills/k-dense-ai-pyopenms",
+      "installs": 18,
+      "tags": [
+        "data",
+        "external_commands",
+        "network"
+      ]
+    },
+    {
+      "name": "image-to-video",
+      "description": "Different video requests require different models, media inputs, and prompt settings. This skill guides RunComfy model selection and CLI calls for animation, voiceover lip-sync, and combined references.",
+      "source": "skillssh",
+      "id": "skillssh:prime-skills/runcomfy-agent-skills/image-to-video",
+      "key": "prime-skills/runcomfy-agent-skills/image-to-video",
+      "repo": "prime-skills/runcomfy-agent-skills",
+      "ref": "fca19ae084c2ae4667f5c8affbb99da5103d5832",
+      "path": "image-to-video",
+      "url": "https://skills.sh/prime-skills/runcomfy-agent-skills/image-to-video",
+      "installs": 439078,
+      "tags": [
+        "skillssh",
+        "skillstore"
+      ]
+    },
+    {
+      "name": "image-edit",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:prime-skills/runcomfy-agent-skills/image-edit",
+      "key": "prime-skills/runcomfy-agent-skills/image-edit",
+      "repo": "prime-skills/runcomfy-agent-skills",
+      "url": "https://skills.sh/prime-skills/runcomfy-agent-skills/image-edit",
+      "installs": 438324
+    },
+    {
+      "name": "gpt-image-edit",
+      "description": "Targeted image edits can change details you want to preserve. This skill provides RunComfy commands and focused prompts for background changes, text replacement, and reference-based composition.",
+      "source": "skillssh",
+      "id": "skillssh:prime-skills/runcomfy-agent-skills/gpt-image-edit",
+      "key": "prime-skills/runcomfy-agent-skills/gpt-image-edit",
+      "repo": "prime-skills/runcomfy-agent-skills",
+      "ref": "fca19ae084c2ae4667f5c8affbb99da5103d5832",
+      "path": "gpt-image-edit",
+      "url": "https://skills.sh/prime-skills/runcomfy-agent-skills/gpt-image-edit",
+      "installs": 437242,
+      "tags": [
+        "skillssh",
+        "skillstore"
+      ]
+    },
+    {
+      "name": "image-to-code",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:leonxlnx/taste-skill/image-to-code",
+      "key": "leonxlnx/taste-skill/image-to-code",
+      "repo": "leonxlnx/taste-skill",
+      "url": "https://skills.sh/leonxlnx/taste-skill/image-to-code",
+      "installs": 385894
+    },
+    {
+      "name": "ai-image-generation",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:prime-skills/runcomfy-agent-skills/ai-image-generation",
+      "key": "prime-skills/runcomfy-agent-skills/ai-image-generation",
+      "repo": "prime-skills/runcomfy-agent-skills",
+      "url": "https://skills.sh/prime-skills/runcomfy-agent-skills/ai-image-generation",
+      "installs": 384201
+    },
+    {
+      "name": "imagegen-frontend-web",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:leonxlnx/taste-skill/imagegen-frontend-web",
+      "key": "leonxlnx/taste-skill/imagegen-frontend-web",
+      "repo": "leonxlnx/taste-skill",
+      "url": "https://skills.sh/leonxlnx/taste-skill/imagegen-frontend-web",
+      "installs": 380122
+    },
+    {
+      "name": "image-inpainting",
+      "description": "Local image edits need clear targeting and preservation constraints. This skill guides RunComfy model selection and CLI requests for masked inpainting or description-based edits.",
+      "source": "skillssh",
+      "id": "skillssh:prime-skills/runcomfy-agent-skills/image-inpainting",
+      "key": "prime-skills/runcomfy-agent-skills/image-inpainting",
+      "repo": "prime-skills/runcomfy-agent-skills",
+      "ref": "fca19ae084c2ae4667f5c8affbb99da5103d5832",
+      "path": "image-inpainting",
+      "url": "https://skills.sh/prime-skills/runcomfy-agent-skills/image-inpainting",
+      "installs": 378704,
+      "tags": [
+        "skillssh",
+        "skillstore"
+      ]
+    },
+    {
+      "name": "image-outpainting",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:prime-skills/runcomfy-agent-skills/image-outpainting",
+      "key": "prime-skills/runcomfy-agent-skills/image-outpainting",
+      "repo": "prime-skills/runcomfy-agent-skills",
+      "url": "https://skills.sh/prime-skills/runcomfy-agent-skills/image-outpainting",
+      "installs": 377749
+    },
+    {
+      "name": "imagegen-frontend-mobile",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:leonxlnx/taste-skill/imagegen-frontend-mobile",
+      "key": "leonxlnx/taste-skill/imagegen-frontend-mobile",
+      "repo": "leonxlnx/taste-skill",
+      "url": "https://skills.sh/leonxlnx/taste-skill/imagegen-frontend-mobile",
+      "installs": 373767
+    },
+    {
+      "name": "ai-image-generation",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:gencraft-labs/skills/ai-image-generation",
+      "key": "gencraft-labs/skills/ai-image-generation",
+      "repo": "gencraft-labs/skills",
+      "url": "https://skills.sh/gencraft-labs/skills/ai-image-generation",
+      "installs": 313041
+    },
+    {
+      "name": "operating-k8s-local",
+      "description": "Local Kubernetes setup can be slow when cluster, image, and service steps are scattered. This skill gives Claude, Codex, and Claude Code concise Minikube and kubectl workflows.",
+      "source": "skillstore",
+      "id": "skillstore:asmayaseen-operating-k8s-local",
+      "key": "asmayaseen-operating-k8s-local",
+      "title": "Operate Local Kubernetes with Minikube",
+      "author": "Asmayaseen",
+      "repo": "Asmayaseen/hackathon-2",
+      "ref": "main",
+      "path": ".claude/skills/operating-k8s-local",
+      "url": "https://skillstore.io/skills/asmayaseen-operating-k8s-local",
+      "installs": 18,
+      "tags": [
+        "devops",
+        "external_commands",
+        "network",
+        "skillstore"
+      ]
+    },
+    {
+      "name": "relight",
+      "description": "Existing photos may have lighting that does not match the desired mood or product presentation. This skill guides RunComfy relighting with model selection and precise lighting prompts.",
+      "source": "skillstore",
+      "id": "skillstore:prime-skills-relight",
+      "key": "prime-skills-relight",
+      "title": "Relight Still Images with RunComfy",
+      "author": "prime-skills",
+      "repo": "prime-skills/runcomfy-agent-skills",
+      "ref": "fca19ae084c2ae4667f5c8affbb99da5103d5832",
+      "path": "relight",
+      "url": "https://skillstore.io/skills/prime-skills-relight",
+      "installs": 2,
+      "tags": [
+        "design",
+        "external_commands",
+        "network",
+        "filesystem"
+      ]
+    },
+    {
+      "name": "makeitsay",
+      "description": "Changing image text manually can require rebuilding fonts and backgrounds. This skill guides MakeItSay edits that replace or remove selected lines while preserving their appearance.",
+      "source": "skillstore",
+      "id": "skillstore:makeitsay-makeitsay",
+      "key": "makeitsay-makeitsay",
+      "title": "Replace Text in Images with MakeItSay",
+      "author": "makeitsay",
+      "repo": "makeitsay/makeitsay-mcp",
+      "ref": "8a76f98649ab6e76ba9a169c6eb2bdbd7a51f042",
+      "path": "skills/makeitsay",
+      "url": "https://skillstore.io/skills/makeitsay-makeitsay",
+      "tags": [
+        "design",
+        "external_commands",
+        "network",
+        "env_access"
+      ]
+    },
+    {
+      "name": "unmerge",
+      "description": "Flat images combine subjects, text, and backgrounds, making separate edits difficult. This skill guides Unmerge processing to return positioned PNG layers with reconstructed hidden areas.",
+      "source": "skillstore",
+      "id": "skillstore:unmerge-app-unmerge",
+      "key": "unmerge-app-unmerge",
+      "title": "Split Flat Images into Editable PNG Layers",
+      "author": "unmerge-app",
+      "repo": "unmerge-app/unmerge-mcp",
+      "ref": "657ed8d31f3ba7d72cc72edc4d7e814361213c7d",
+      "path": "skills/unmerge",
+      "url": "https://skillstore.io/skills/unmerge-app-unmerge",
+      "tags": [
+        "design",
+        "external_commands",
+        "network",
+        "env_access"
+      ]
+    },
+    {
+      "name": "feeling-search",
+      "description": "Vague mood descriptions make visual direction difficult to communicate. Feeling Search uses a cached lexicon to suggest named styles and matching vocabulary, with optional paid cloud analysis.",
+      "source": "skillstore",
+      "id": "skillstore:xixi048-feeling-search",
+      "key": "xixi048-feeling-search",
+      "title": "Find Visual Styles from Mood Descriptions",
+      "author": "xixi048",
+      "repo": "xixi048/feeling-search-skill",
+      "ref": "d9929f14bb04d510ab9771bfd9f8c5a8cb8fa4d0",
+      "path": "skills/feeling-search",
+      "url": "https://skillstore.io/skills/xixi048-feeling-search",
+      "installs": 1,
+      "tags": [
+        "design",
+        "external_commands",
+        "network",
+        "filesystem",
+        "env_access"
+      ]
+    },
+    {
+      "name": "localaipicks",
+      "description": "Choosing an open-weight model can be difficult when hardware memory is limited. Local AI Picks helps compare model weights, memory needs, and sources for your device.",
+      "source": "skillstore",
+      "id": "skillstore:localaipicks-localaipicks",
+      "key": "localaipicks-localaipicks",
+      "title": "Find Local AI Models for Your Hardware",
+      "author": "localaipicks",
+      "repo": "localaipicks/localaipicks-mcp",
+      "ref": "573c4a5197811f03337b68b9449995a38690bf60",
+      "path": "skills/localaipicks",
+      "url": "https://skillstore.io/skills/localaipicks-localaipicks",
+      "installs": 1,
+      "tags": [
+        "research",
+        "external_commands",
+        "network",
+        "skillstore"
+      ]
+    },
+    {
+      "name": "design",
+      "description": "Creating consistent visual assets across formats requires repeated research and setup. This skill combines searchable design references, asset generators, and HTML workflows.",
+      "source": "skillstore",
+      "id": "skillstore:nextlevelbuilder-design",
+      "key": "nextlevelbuilder-design",
+      "title": "Create Logos, Icons, Mockups, and Presentations",
+      "author": "nextlevelbuilder",
+      "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "ref": "28b3b8dee8c976df4fa3e94aed4e092ad43fcb03",
+      "path": ".claude/skills/design",
+      "url": "https://skillstore.io/skills/nextlevelbuilder-design",
+      "tags": [
+        "design",
+        "env_access",
+        "filesystem",
+        "network",
+        "external_commands"
+      ]
+    },
+    {
+      "name": "ai-video-generation",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:101-skills/superpowers/ai-video-generation",
+      "key": "101-skills/superpowers/ai-video-generation",
+      "repo": "101-skills/superpowers",
+      "url": "https://skills.sh/101-skills/superpowers/ai-video-generation",
+      "installs": 893976
+    },
+    {
+      "name": "ai-video-generation",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:magentosh/superpowers/ai-video-generation",
+      "key": "magentosh/superpowers/ai-video-generation",
+      "repo": "magentosh/superpowers",
+      "url": "https://skills.sh/magentosh/superpowers/ai-video-generation",
+      "installs": 783981
+    },
+    {
+      "name": "general-video",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:heygen-com/hyperframes/general-video",
+      "key": "heygen-com/hyperframes/general-video",
+      "repo": "heygen-com/hyperframes",
+      "url": "https://skills.sh/heygen-com/hyperframes/general-video",
+      "installs": 661243
+    },
+    {
+      "name": "ai-video-generation",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:qu-skills/superpowers/ai-video-generation",
+      "key": "qu-skills/superpowers/ai-video-generation",
+      "repo": "qu-skills/superpowers",
+      "url": "https://skills.sh/qu-skills/superpowers/ai-video-generation",
+      "installs": 576203
+    },
+    {
+      "name": "product-launch-video",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:heygen-com/hyperframes/product-launch-video",
+      "key": "heygen-com/hyperframes/product-launch-video",
+      "repo": "heygen-com/hyperframes",
+      "url": "https://skills.sh/heygen-com/hyperframes/product-launch-video",
+      "installs": 538766
+    },
+    {
+      "name": "ai-video-generation",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:skills-shell/superpowers/ai-video-generation",
+      "key": "skills-shell/superpowers/ai-video-generation",
+      "repo": "skills-shell/superpowers",
+      "url": "https://skills.sh/skills-shell/superpowers/ai-video-generation",
+      "installs": 477905
+    },
+    {
+      "name": "pr-to-video",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:heygen-com/hyperframes/pr-to-video",
+      "key": "heygen-com/hyperframes/pr-to-video",
+      "repo": "heygen-com/hyperframes",
+      "url": "https://skills.sh/heygen-com/hyperframes/pr-to-video",
+      "installs": 448712
+    },
+    {
+      "name": "video-edit",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:prime-skills/runcomfy-agent-skills/video-edit",
+      "key": "prime-skills/runcomfy-agent-skills/video-edit",
+      "repo": "prime-skills/runcomfy-agent-skills",
+      "url": "https://skills.sh/prime-skills/runcomfy-agent-skills/video-edit",
+      "installs": 440734
+    },
+    {
+      "name": "ai-video-generation",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:its-a-skill-issue/superpowers/ai-video-generation",
+      "key": "its-a-skill-issue/superpowers/ai-video-generation",
+      "repo": "its-a-skill-issue/superpowers",
+      "url": "https://skills.sh/its-a-skill-issue/superpowers/ai-video-generation",
+      "installs": 424647
+    },
+    {
+      "name": "senior-computer-vision",
+      "description": "Computer vision teams need reliable guidance for models, datasets, inference, and deployment. This skill helps plan and optimize production vision pipelines with practical engineering checks.",
+      "source": "skillstore",
+      "id": "skillstore:alirezarezvani-senior-computer-vision",
+      "key": "alirezarezvani-senior-computer-vision",
+      "title": "Build Production Computer Vision Systems",
+      "author": "alirezarezvani",
+      "repo": "alirezarezvani/claude-skills",
+      "ref": "main",
+      "path": "engineering-team/senior-computer-vision",
+      "url": "https://skillstore.io/skills/alirezarezvani-senior-computer-vision",
+      "installs": 35,
+      "tags": [
+        "data",
+        "external_commands"
+      ]
+    },
+    {
+      "name": "video-outpainting",
+      "description": "Changing video formats can crop important action or leave empty borders. This skill guides prompt-driven canvas expansion through RunComfy and recommends dedicated workflows for stricter quality needs.",
+      "source": "skillstore",
+      "id": "skillstore:prime-skills-video-outpainting",
+      "key": "prime-skills-video-outpainting",
+      "title": "Expand Video Canvases with RunComfy",
+      "author": "prime-skills",
+      "repo": "prime-skills/runcomfy-agent-skills",
+      "ref": "fca19ae084c2ae4667f5c8affbb99da5103d5832",
+      "path": "video-outpainting",
+      "url": "https://skillstore.io/skills/prime-skills-video-outpainting",
+      "installs": 3,
+      "tags": [
+        "design",
+        "external_commands",
+        "network",
+        "filesystem"
+      ]
+    },
+    {
+      "name": "ffmpeg",
+      "description": "Media workflows often need reliable conversion, resizing, compression, and timing adjustments across formats. This skill provides practical FFmpeg commands for preparing media assets and Remotion inputs.",
+      "source": "skillstore",
+      "id": "skillstore:digitalsamba-ffmpeg",
+      "key": "digitalsamba-ffmpeg",
+      "title": "Process Video and Audio with FFmpeg",
+      "author": "digitalsamba",
+      "repo": "digitalsamba/claude-code-video-toolkit",
+      "ref": "959e0fc6c20210832078781e49daa7384cebb293",
+      "path": ".claude/skills/ffmpeg",
+      "url": "https://skillstore.io/skills/digitalsamba-ffmpeg",
+      "installs": 2,
+      "tags": [
+        "coding",
+        "external_commands"
+      ]
+    },
+    {
+      "name": "happyhorse-1-0",
+      "description": "Short video generation requires clear motion prompts and valid model settings. This skill guides HappyHorse 1.0 requests through RunComfy with documented settings and audio direction.",
+      "source": "skillstore",
+      "id": "skillstore:prime-skills-happyhorse-1-0",
+      "key": "prime-skills-happyhorse-1-0",
+      "title": "Generate HappyHorse Videos with RunComfy",
+      "author": "prime-skills",
+      "repo": "prime-skills/runcomfy-agent-skills",
+      "ref": "fca19ae084c2ae4667f5c8affbb99da5103d5832",
+      "path": "happyhorse-1-0",
+      "url": "https://skillstore.io/skills/prime-skills-happyhorse-1-0",
+      "installs": 2,
+      "tags": [
+        "design",
+        "external_commands",
+        "network",
+        "filesystem"
+      ]
+    },
+    {
+      "name": "hypit",
+      "description": "Video production requires coordinating creative direction, generated assets, timing, and delivery. This skill guides Hypit workflows from reference analysis to editable composition and reviewed exports.",
+      "source": "skillstore",
+      "id": "skillstore:hypit-ai-hypit",
+      "key": "hypit-ai-hypit",
+      "title": "Produce Editable Videos with Hypit",
+      "author": "hypit-ai",
+      "repo": "hypit-ai/hypit",
+      "ref": "e26d9142fd8a6f78bf4f3cdb800d6205f4ecca16",
+      "path": "skills/hypit",
+      "url": "https://skillstore.io/skills/hypit-ai-hypit",
+      "installs": 2,
+      "tags": [
+        "design",
+        "filesystem",
+        "network",
+        "external_commands",
+        "env_access"
+      ]
+    },
+    {
+      "name": "lipsync",
+      "description": "Lip-sync workflows require different models for existing videos, portraits, and scripts. This skill selects a suitable RunComfy route and prepares the corresponding CLI workflow.",
+      "source": "skillstore",
+      "id": "skillstore:prime-skills-lipsync",
+      "key": "prime-skills-lipsync",
+      "title": "Create Lip-Synced Videos with RunComfy",
+      "author": "prime-skills",
+      "repo": "prime-skills/runcomfy-agent-skills",
+      "ref": "fca19ae084c2ae4667f5c8affbb99da5103d5832",
+      "path": "lipsync",
+      "url": "https://skillstore.io/skills/prime-skills-lipsync",
+      "installs": 2,
+      "tags": [
+        "design",
+        "external_commands",
+        "network",
+        "filesystem"
+      ]
+    },
+    {
+      "name": "request-transit",
+      "description": "Distributed traces can make service dependencies and failures difficult to explain. Request Transit turns exported spans into interactive maps and optional videos for incident reviews.",
+      "source": "skillstore",
+      "id": "skillstore:israelvicars-request-transit",
+      "key": "israelvicars-request-transit",
+      "title": "Visualize Distributed Requests as Transit Maps",
+      "author": "israelvicars",
+      "repo": "israelvicars/transit",
+      "ref": "fecf8d91cd9fd7409e2881b74d4d3b77ea606a6c",
+      "path": "skills/request-transit",
+      "url": "https://skillstore.io/skills/israelvicars-request-transit",
+      "installs": 1,
+      "tags": [
+        "devops",
+        "filesystem",
+        "scripts",
+        "external_commands",
+        "env_access",
+        "network"
+      ]
+    },
+    {
+      "name": "technical-video-script",
+      "description": "Technical videos lose clarity when narration, screen actions, and timing are planned separately. This skill combines them into a script with recording states and cuts.",
+      "source": "skillstore",
+      "id": "skillstore:samber-technical-video-script",
+      "key": "samber-technical-video-script",
+      "title": "Write Technical Video Scripts Ready for Recording",
+      "author": "samber",
+      "repo": "samber/developer-relations-skills",
+      "ref": "b8cf857a6069b89252445c82a36fcb9491fd6b20",
+      "path": "skills/technical-video-script",
+      "url": "https://skillstore.io/skills/samber-technical-video-script",
+      "installs": 1,
+      "tags": [
+        "writing",
+        "env_access",
+        "external_commands"
+      ]
+    },
+    {
+      "name": "github-issues",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:github/awesome-copilot/github-issues",
+      "key": "github/awesome-copilot/github-issues",
+      "repo": "github/awesome-copilot",
+      "url": "https://skills.sh/github/awesome-copilot/github-issues",
+      "installs": 17517
+    },
+    {
+      "name": "create-github-action-workflow-specification",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:github/awesome-copilot/create-github-action-workflow-specification",
+      "key": "github/awesome-copilot/create-github-action-workflow-specification",
+      "repo": "github/awesome-copilot",
+      "url": "https://skills.sh/github/awesome-copilot/create-github-action-workflow-specification",
+      "installs": 10771
+    },
+    {
+      "name": "create-github-issues-feature-from-implementation-plan",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:github/awesome-copilot/create-github-issues-feature-from-implementation-plan",
+      "key": "github/awesome-copilot/create-github-issues-feature-from-implementation-plan",
+      "repo": "github/awesome-copilot",
+      "url": "https://skills.sh/github/awesome-copilot/create-github-issues-feature-from-implementation-plan",
+      "installs": 9449
+    },
+    {
+      "name": "github-copilot-starter",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:github/awesome-copilot/github-copilot-starter",
+      "key": "github/awesome-copilot/github-copilot-starter",
+      "repo": "github/awesome-copilot",
+      "url": "https://skills.sh/github/awesome-copilot/github-copilot-starter",
+      "installs": 8949
+    },
+    {
+      "name": "create-github-pull-request-from-specification",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:github/awesome-copilot/create-github-pull-request-from-specification",
+      "key": "github/awesome-copilot/create-github-pull-request-from-specification",
+      "repo": "github/awesome-copilot",
+      "url": "https://skills.sh/github/awesome-copilot/create-github-pull-request-from-specification",
+      "installs": 8945
+    },
+    {
+      "name": "create-github-issues-for-unmet-specification-requirements",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:github/awesome-copilot/create-github-issues-for-unmet-specification-requirements",
+      "key": "github/awesome-copilot/create-github-issues-for-unmet-specification-requirements",
+      "repo": "github/awesome-copilot",
+      "url": "https://skills.sh/github/awesome-copilot/create-github-issues-for-unmet-specification-requirements",
+      "installs": 8944
+    },
+    {
+      "name": "git-commit",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:github/awesome-copilot/git-commit",
+      "key": "github/awesome-copilot/git-commit",
+      "repo": "github/awesome-copilot",
+      "url": "https://skills.sh/github/awesome-copilot/git-commit",
+      "installs": 47529
+    },
+    {
+      "name": "excalidraw-diagram-generator",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:github/awesome-copilot/excalidraw-diagram-generator",
+      "key": "github/awesome-copilot/excalidraw-diagram-generator",
+      "repo": "github/awesome-copilot",
+      "url": "https://skills.sh/github/awesome-copilot/excalidraw-diagram-generator",
+      "installs": 32101
+    },
+    {
+      "name": "multi-stage-dockerfile",
+      "description": "Container images can retain unnecessary build tools and rebuild dependencies too often. This skill guides Dockerfile design with separate build stages, efficient caching, and minimal runtime dependencies.",
+      "source": "skillssh",
+      "id": "skillssh:github/awesome-copilot/multi-stage-dockerfile",
+      "key": "github/awesome-copilot/multi-stage-dockerfile",
+      "repo": "github/awesome-copilot",
+      "ref": "997e95a6e42869c350f8ca6ec4c066287697c9f0",
+      "path": "skills/multi-stage-dockerfile",
+      "url": "https://skills.sh/github/awesome-copilot/multi-stage-dockerfile",
+      "installs": 29835,
+      "tags": [
+        "skillssh",
+        "skillstore"
+      ]
+    },
+    {
+      "name": "documentation-writer",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:github/awesome-copilot/documentation-writer",
+      "key": "github/awesome-copilot/documentation-writer",
+      "repo": "github/awesome-copilot",
+      "url": "https://skills.sh/github/awesome-copilot/documentation-writer",
+      "installs": 27901
+    },
+    {
+      "name": "read-github",
+      "description": "Repository documentation and code can be difficult to inspect quickly across many projects. This skill retrieves and searches public repository content through GitMCP.",
+      "source": "skillstore",
+      "id": "skillstore:am-will-read-github",
+      "key": "am-will-read-github",
+      "title": "Read and Search GitHub Repositories",
+      "author": "am-will",
+      "repo": "am-will/codex-skills",
+      "ref": "main",
+      "path": "skills/read-github",
+      "url": "https://skillstore.io/skills/am-will-read-github",
+      "installs": 36,
+      "tags": [
+        "research",
+        "external_commands",
+        "network"
+      ]
+    },
+    {
+      "name": "autonomous-ci",
+      "description": "Agents can report work as done before local tests and CI prove it. This skill defines a verification workflow that checks tests, GitHub Actions, failures, and final evidence.",
+      "source": "skillstore",
+      "id": "skillstore:ancplua-autonomous-ci",
+      "key": "ancplua-autonomous-ci",
+      "title": "Verify CI Before Completion",
+      "author": "ANcpLua",
+      "repo": "ANcpLua/ancplua-claude-plugins",
+      "ref": "main",
+      "path": "plugins/autonomous-ci/skills/autonomous-ci",
+      "url": "https://skillstore.io/skills/ancplua-autonomous-ci",
+      "installs": 16,
+      "tags": [
+        "devops",
+        "external_commands",
+        "network"
+      ]
+    },
+    {
+      "name": "groove-utilities-task-install",
+      "description": "Task backends require separate CLI installation, verification, and project configuration. This skill guides setup for beans, Linear, GitHub, or disabled task storage.",
+      "source": "skillstore",
+      "id": "skillstore:andreadellacorte-groove-utilities-task-install",
+      "key": "andreadellacorte-groove-utilities-task-install",
+      "title": "Install and Configure a Task Backend",
+      "author": "andreadellacorte",
+      "repo": "andreadellacorte/groove",
+      "ref": "2494f0dabc68403b67cb6ca8575291d4c8c81a42",
+      "path": "skills/groove-utilities-task-install",
+      "url": "https://skillstore.io/skills/andreadellacorte-groove-utilities-task-install",
+      "installs": 8,
+      "tags": [
+        "devops",
+        "external_commands",
+        "network",
+        "filesystem"
+      ]
+    },
+    {
+      "name": "researching-with-deepwiki",
+      "description": "Understanding an unfamiliar remote repository can require extensive manual browsing. This skill guides focused DeepWiki questions about architecture, features, structure, and contribution workflows.",
+      "source": "skillstore",
+      "id": "skillstore:asmayaseen-researching-with-deepwiki",
+      "key": "asmayaseen-researching-with-deepwiki",
+      "title": "Research Repositories with DeepWiki",
+      "author": "Asmayaseen",
+      "repo": "Asmayaseen/hackathon-2",
+      "ref": "main",
+      "path": ".claude/skills/researching-with-deepwiki",
+      "url": "https://skillstore.io/skills/asmayaseen-researching-with-deepwiki",
+      "installs": 22,
+      "tags": [
+        "research",
+        "external_commands",
+        "network",
+        "env_access"
+      ]
+    },
+    {
+      "name": "setup-template",
+      "description": "Template-derived repositories can retain missing GitHub settings and incomplete migration work even when builds pass. This skill guides repository setup and evidence-based comparisons against the template.",
+      "source": "skillstore",
+      "id": "skillstore:masseater-setup-template",
+      "key": "masseater-setup-template",
+      "title": "Align TypeScript Repositories with Their Template",
+      "author": "masseater",
+      "repo": "masseater/skills",
+      "ref": "4810c8f1186a229ca57d2f278c0a94f0fc862fec",
+      "path": "skills/setup-template",
+      "url": "https://skillstore.io/skills/masseater-setup-template",
+      "installs": 2,
+      "tags": [
+        "devops",
+        "external_commands",
+        "network",
+        "filesystem",
+        "env_access"
+      ]
+    },
+    {
+      "name": "deploying-cloud-k8s",
+      "description": "Production Kubernetes deployments often fail because images, variables, pipelines, and clusters use incompatible settings. This skill provides practical deployment, GitOps, security, observability, and troubleshooting guidance.",
+      "source": "skillstore",
+      "id": "skillstore:asmayaseen-deploying-cloud-k8s",
+      "key": "asmayaseen-deploying-cloud-k8s",
+      "title": "Deploy Applications to Cloud Kubernetes",
+      "author": "Asmayaseen",
+      "repo": "Asmayaseen/hackathon-2",
+      "ref": "main",
+      "path": ".claude/skills/deploying-cloud-k8s",
+      "url": "https://skillstore.io/skills/asmayaseen-deploying-cloud-k8s",
+      "installs": 16,
+      "tags": [
+        "devops",
+        "network",
+        "filesystem",
+        "env_access",
+        "external_commands"
+      ]
+    },
+    {
+      "name": "groove-utilities-task-list",
+      "description": "Active work is difficult to scan when task states and priorities are spread across a backend. This skill presents a concise, status-grouped task list.",
+      "source": "skillstore",
+      "id": "skillstore:andreadellacorte-groove-utilities-task-list",
+      "key": "andreadellacorte-groove-utilities-task-list",
+      "title": "Review Active Tasks Across Your Configured Backend",
+      "author": "andreadellacorte",
+      "repo": "andreadellacorte/groove",
+      "ref": "2494f0dabc68403b67cb6ca8575291d4c8c81a42",
+      "path": "skills/groove-utilities-task-list",
+      "url": "https://skillstore.io/skills/andreadellacorte-groove-utilities-task-list",
+      "installs": 8,
+      "tags": [
+        "productivity",
+        "external_commands",
+        "filesystem"
+      ]
+    },
+    {
+      "name": "ai-listening",
+      "description": "New AI names appear across separate feeds, making daily discovery difficult. This skill guides new-term-radar collection and organizes deduplicated names with supporting evidence.",
+      "source": "skillstore",
+      "id": "skillstore:zhuyansen-ai-listening",
+      "key": "zhuyansen-ai-listening",
+      "title": "Track New AI Names Across Daily Sources",
+      "author": "zhuyansen",
+      "repo": "zhuyansen/new-term-radar",
+      "ref": "3cf6515c4076cb2800819473062d9b36d563d0fe",
+      "path": "skills/ai-listening",
+      "url": "https://skillstore.io/skills/zhuyansen-ai-listening",
+      "installs": 7,
+      "tags": [
+        "research",
+        "external_commands",
+        "network",
+        "filesystem",
+        "env_access"
+      ]
+    },
+    {
+      "name": "last30days",
+      "description": "Recent discussions are scattered across social platforms and public websites. This skill gathers recent evidence, compares engagement, and produces cited research with source coverage.",
+      "source": "skillstore",
+      "id": "skillstore:mvanhorn-last30days",
+      "key": "mvanhorn-last30days",
+      "title": "Research Recent Community Discussions",
+      "author": "mvanhorn",
+      "repo": "mvanhorn/last30days-skill",
+      "ref": "f3cd06a620e385ce15109ed6d3b70fc20c89eccc",
+      "path": "skills/last30days",
+      "url": "https://skillstore.io/skills/mvanhorn-last30days",
+      "installs": 1,
+      "tags": [
+        "research",
+        "filesystem",
+        "external_commands",
+        "env_access",
+        "network",
+        "scripts"
+      ]
+    },
+    {
+      "name": "publish-to-all-skill-stores",
+      "description": "Skill marketplaces use different package layouts, submission interfaces, and account requirements. This skill combines release checks, packaging helpers, supported API submissions, and manual publishing guidance.",
+      "source": "skillstore",
+      "id": "skillstore:xixi048-publish-to-all-skill-stores",
+      "key": "xixi048-publish-to-all-skill-stores",
+      "title": "Publish Skills Across Supported Marketplaces",
+      "author": "xixi048",
+      "repo": "xixi048/publish-to-all-skill-stores",
+      "ref": "3c7919d4b8f93514d2070c46c80d5055955b162d",
+      "path": "skills/publish-to-all-skill-stores",
+      "url": "https://skillstore.io/skills/xixi048-publish-to-all-skill-stores",
+      "installs": 1,
+      "tags": [
+        "devops",
+        "external_commands",
+        "network",
+        "filesystem",
+        "scripts"
+      ]
+    },
+    {
+      "name": "docker-patterns",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:affaan-m/ecc/docker-patterns",
+      "key": "affaan-m/ecc/docker-patterns",
+      "repo": "affaan-m/ecc",
+      "url": "https://skills.sh/affaan-m/ecc/docker-patterns",
+      "installs": 14508
+    },
+    {
+      "name": "wiremock-standalone-docker",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:giuseppe-trisciuoglio/developer-kit/wiremock-standalone-docker",
+      "key": "giuseppe-trisciuoglio/developer-kit/wiremock-standalone-docker",
+      "repo": "giuseppe-trisciuoglio/developer-kit",
+      "url": "https://skills.sh/giuseppe-trisciuoglio/developer-kit/wiremock-standalone-docker",
+      "installs": 3414
+    },
+    {
+      "name": "docker",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:codewithmukesh/dotnet-claude-kit/docker",
+      "key": "codewithmukesh/dotnet-claude-kit/docker",
+      "repo": "codewithmukesh/dotnet-claude-kit",
+      "url": "https://skills.sh/codewithmukesh/dotnet-claude-kit/docker",
+      "installs": 2967
+    },
+    {
+      "name": "docker-compose-orchestration",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:manutej/luxor-claude-marketplace/docker-compose-orchestration",
+      "key": "manutej/luxor-claude-marketplace/docker-compose-orchestration",
+      "repo": "manutej/luxor-claude-marketplace",
+      "url": "https://skills.sh/manutej/luxor-claude-marketplace/docker-compose-orchestration",
+      "installs": 2951
+    },
+    {
+      "name": "tao-run-on-local-docker",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:nvidia/skills/tao-run-on-local-docker",
+      "key": "nvidia/skills/tao-run-on-local-docker",
+      "repo": "nvidia/skills",
+      "url": "https://skills.sh/nvidia/skills/tao-run-on-local-docker",
+      "installs": 1596
+    },
+    {
+      "name": "docker-compose-patterns",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:docker/skills/docker-compose-patterns",
+      "key": "docker/skills/docker-compose-patterns",
+      "repo": "docker/skills",
+      "url": "https://skills.sh/docker/skills/docker-compose-patterns",
+      "installs": 1436
+    },
+    {
+      "name": "docker-build-strategies",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:docker/skills/docker-build-strategies",
+      "key": "docker/skills/docker-build-strategies",
+      "repo": "docker/skills",
+      "url": "https://skills.sh/docker/skills/docker-build-strategies",
+      "installs": 1312
+    },
+    {
+      "name": "docker-project-foundations",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:docker/skills/docker-project-foundations",
+      "key": "docker/skills/docker-project-foundations",
+      "repo": "docker/skills",
+      "url": "https://skills.sh/docker/skills/docker-project-foundations",
+      "installs": 1100
+    },
+    {
+      "name": "docker-destructive-guardrails",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:docker/skills/docker-destructive-guardrails",
+      "key": "docker/skills/docker-destructive-guardrails",
+      "repo": "docker/skills",
+      "url": "https://skills.sh/docker/skills/docker-destructive-guardrails",
+      "installs": 1066
+    },
+    {
+      "name": "container-orchestration",
+      "description": "Container deployments require consistent image, networking, configuration, and runtime decisions. This skill provides reusable patterns for Docker, Kubernetes, Helm, and ECS/Fargate.",
+      "source": "skillstore",
+      "id": "skillstore:0xdarkmatter-container-orchestration",
+      "key": "0xdarkmatter-container-orchestration",
+      "title": "Design and Operate Container Platforms",
+      "author": "0xDarkMatter",
+      "repo": "0xDarkMatter/claude-mods",
+      "ref": "main",
+      "path": "skills/container-orchestration",
+      "url": "https://skillstore.io/skills/0xdarkmatter-container-orchestration",
+      "installs": 50,
+      "tags": [
+        "devops",
+        "network",
+        "env_access",
+        "external_commands",
+        "filesystem"
+      ]
+    },
+    {
+      "name": "gen-env",
+      "description": "Parallel local project copies can collide on ports, data, cookies, and Docker resources. This skill guides creation or review of a gen-env command that isolates each instance.",
+      "source": "skillstore",
+      "id": "skillstore:0xbigboss-gen-env",
+      "key": "0xbigboss-gen-env",
+      "title": "Generate Isolated Local Dev Environments",
+      "author": "0xBigBoss",
+      "repo": "0xBigBoss/claude-code",
+      "ref": "main",
+      "path": ".claude/skills/gen-env",
+      "url": "https://skillstore.io/skills/0xbigboss-gen-env",
+      "installs": 34,
+      "tags": [
+        "devops",
+        "external_commands",
+        "network",
+        "filesystem",
+        "env_access"
+      ]
+    },
+    {
+      "name": "tilt",
+      "description": "Local Tilt environments can hide failing resources, stale logs, and Docker Compose health problems. This skill guides Claude, Codex, and Claude Code through status checks, logs, and Tiltfile fixes.",
+      "source": "skillstore",
+      "id": "skillstore:0xbigboss-tilt",
+      "key": "0xbigboss-tilt",
+      "title": "Diagnose Tilt Dev Environments",
+      "author": "0xBigBoss",
+      "repo": "0xBigBoss/claude-code",
+      "ref": "main",
+      "path": ".claude/skills/tilt",
+      "url": "https://skillstore.io/skills/0xbigboss-tilt",
+      "installs": 28,
+      "tags": [
+        "devops",
+        "external_commands",
+        "network",
+        "filesystem"
+      ]
+    },
+    {
+      "name": "containerizing-applications",
+      "description": "Container configuration is easy to misalign across local and production environments. This skill creates Dockerfiles, Compose setups, Helm structures, and security checks.",
+      "source": "skillstore",
+      "id": "skillstore:asmayaseen-containerizing-applications",
+      "key": "asmayaseen-containerizing-applications",
+      "title": "Containerize Applications for Docker and Kubernetes",
+      "author": "Asmayaseen",
+      "repo": "Asmayaseen/hackathon-2",
+      "ref": "main",
+      "path": ".claude/skills/containerizing-applications",
+      "url": "https://skillstore.io/skills/asmayaseen-containerizing-applications",
+      "installs": 23,
+      "tags": [
+        "devops",
+        "external_commands",
+        "network",
+        "filesystem",
+        "env_access",
+        "skillstore"
+      ]
+    },
+    {
+      "name": "infrastructure",
+      "description": "Deploying Guts nodes requires consistent Terraform, Docker, and Kubernetes patterns. This skill provides reusable infrastructure examples for local, test, and production environments.",
+      "source": "skillstore",
+      "id": "skillstore:abdelstark-infrastructure",
+      "key": "abdelstark-infrastructure",
+      "title": "Deploy Guts Node Infrastructure",
+      "author": "AbdelStark",
+      "repo": "AbdelStark/guts",
+      "ref": "main",
+      "path": ".claude/skills/infrastructure",
+      "url": "https://skillstore.io/skills/abdelstark-infrastructure",
+      "installs": 22,
+      "tags": [
+        "devops",
+        "external_commands"
+      ]
+    },
+    {
+      "name": "container-hadolint",
+      "description": "Dockerfile mistakes can create insecure and unreliable container images. This skill provides Hadolint workflows, rule guidance, remediation examples, and reusable CI configurations.",
+      "source": "skillstore",
+      "id": "skillstore:agentsecops-container-hadolint",
+      "key": "agentsecops-container-hadolint",
+      "title": "Secure Dockerfiles with Hadolint",
+      "author": "AgentSecOps",
+      "repo": "AgentSecOps/SecOpsAgentKit",
+      "ref": "main",
+      "path": "skills/devsecops/container-hadolint",
+      "url": "https://skillstore.io/skills/agentsecops-container-hadolint",
+      "installs": 16,
+      "tags": [
+        "security",
+        "external_commands",
+        "network",
+        "filesystem",
+        "env_access"
+      ]
+    },
+    {
+      "name": "binary-re-dynamic-analysis",
+      "description": "Unknown binaries can hide behavior that static review cannot confirm. This skill guides controlled execution, tracing, debugging, and evidence capture for dynamic analysis.",
+      "source": "skillstore",
+      "id": "skillstore:2389-research-binary-re-dynamic-analysis",
+      "key": "2389-research-binary-re-dynamic-analysis",
+      "title": "Analyze Binary Runtime Behavior",
+      "author": "2389-research",
+      "repo": "2389-research/claude-plugins",
+      "ref": "main",
+      "path": "binary-re/skills/dynamic-analysis",
+      "url": "https://skillstore.io/skills/2389-research-binary-re-dynamic-analysis",
+      "installs": 25,
+      "tags": [
+        "security",
+        "external_commands",
+        "network",
+        "filesystem"
+      ]
+    },
+    {
+      "name": "iac-checkov",
+      "description": "Infrastructure teams need consistent security checks before deployment. This skill guides Checkov scans, policy customization, suppression governance, compliance mapping, and CI integration.",
+      "source": "skillstore",
+      "id": "skillstore:agentsecops-iac-checkov",
+      "key": "agentsecops-iac-checkov",
+      "title": "Scan Infrastructure Code with Checkov",
+      "author": "AgentSecOps",
+      "repo": "AgentSecOps/SecOpsAgentKit",
+      "ref": "main",
+      "path": "skills/devsecops/iac-checkov",
+      "url": "https://skillstore.io/skills/agentsecops-iac-checkov",
+      "installs": 16,
+      "tags": [
+        "security",
+        "network",
+        "filesystem",
+        "env_access",
+        "external_commands"
+      ]
+    },
+    {
+      "name": "sql-optimization-patterns",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:wshobson/agents/sql-optimization-patterns",
+      "key": "wshobson/agents/sql-optimization-patterns",
+      "repo": "wshobson/agents",
+      "url": "https://skills.sh/wshobson/agents/sql-optimization-patterns",
+      "installs": 19938
+    },
+    {
+      "name": "sql-optimization",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:github/awesome-copilot/sql-optimization",
+      "key": "github/awesome-copilot/sql-optimization",
+      "repo": "github/awesome-copilot",
+      "url": "https://skills.sh/github/awesome-copilot/sql-optimization",
+      "installs": 15776
+    },
+    {
+      "name": "cloud-sql-basics",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:google/skills/cloud-sql-basics",
+      "key": "google/skills/cloud-sql-basics",
+      "repo": "google/skills",
+      "url": "https://skills.sh/google/skills/cloud-sql-basics",
+      "installs": 14894
+    },
+    {
+      "name": "chdb-sql",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:clickhouse/agent-skills/chdb-sql",
+      "key": "clickhouse/agent-skills/chdb-sql",
+      "repo": "clickhouse/agent-skills",
+      "url": "https://skills.sh/clickhouse/agent-skills/chdb-sql",
+      "installs": 9042
+    },
+    {
+      "name": "sql-jdbc-access-design",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:samber/developer-platform-skills/sql-jdbc-access-design",
+      "key": "samber/developer-platform-skills/sql-jdbc-access-design",
+      "repo": "samber/developer-platform-skills",
+      "url": "https://skills.sh/samber/developer-platform-skills/sql-jdbc-access-design",
+      "installs": 8349
+    },
+    {
+      "name": "aurora-dsql",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:aws/agent-toolkit-for-aws/aurora-dsql",
+      "key": "aws/agent-toolkit-for-aws/aurora-dsql",
+      "repo": "aws/agent-toolkit-for-aws",
+      "url": "https://skills.sh/aws/agent-toolkit-for-aws/aurora-dsql",
+      "installs": 4804
+    },
+    {
+      "name": "rds-sqlserver",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:aws/agent-toolkit-for-aws/rds-sqlserver",
+      "key": "aws/agent-toolkit-for-aws/rds-sqlserver",
+      "repo": "aws/agent-toolkit-for-aws",
+      "url": "https://skills.sh/aws/agent-toolkit-for-aws/rds-sqlserver",
+      "installs": 4687
+    },
+    {
+      "name": "sql-queries",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:anthropics/knowledge-work-plugins/sql-queries",
+      "key": "anthropics/knowledge-work-plugins/sql-queries",
+      "repo": "anthropics/knowledge-work-plugins",
+      "url": "https://skills.sh/anthropics/knowledge-work-plugins/sql-queries",
+      "installs": 4487
+    },
+    {
+      "name": "planetscale-codebase-sqlcommenter-instrumentation",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:planetscale/skills/planetscale-codebase-sqlcommenter-instrumentation",
+      "key": "planetscale/skills/planetscale-codebase-sqlcommenter-instrumentation",
+      "repo": "planetscale/skills",
+      "url": "https://skills.sh/planetscale/skills/planetscale-codebase-sqlcommenter-instrumentation",
+      "installs": 1711
+    },
+    {
+      "name": "open-code-review",
+      "description": "Secure, fast, efficient, battle-tested at Alibaba's scale. Hybrid architecture code review tool: deterministic pipelines + LLM Agent, precise line-level comments, built-in multi-language ruleset (NPE, thread-safety, XSS, SQL injection), OpenAI & Anthropic compatible.",
+      "source": "github",
+      "id": "github:alibaba/open-code-review",
+      "key": "alibaba/open-code-review",
+      "title": "open-code-review",
+      "author": "alibaba",
+      "repo": "alibaba/open-code-review",
+      "ref": "main",
+      "url": "https://github.com/alibaba/open-code-review",
+      "stars": 48792,
+      "tags": [
+        "agent",
+        "agent-skills",
+        "code-review",
+        "code-review-assistant",
+        "harness",
+        "repository-level-context"
+      ]
+    },
+    {
+      "name": "drawio-skill",
+      "description": "Agent skill that turns natural language, code, Terraform/K8s, SQL, OpenAPI, AsyncAPI, Protobuf and GraphQL sources into editable, tested draw.io architecture diagrams: incremental sync, multi-view projection, drift diff, CI architecture tests, whiteboard derasterize, interactive HTML/PPTX/Mermaid exports.",
+      "source": "github",
+      "id": "github:Agents365-ai/drawio-skill",
+      "key": "Agents365-ai/drawio-skill",
+      "title": "drawio-skill",
+      "author": "Agents365-ai",
+      "repo": "Agents365-ai/drawio-skill",
+      "ref": "main",
+      "url": "https://github.com/Agents365-ai/drawio-skill",
+      "stars": 10415,
+      "tags": [
+        "agent-skills",
+        "architecture",
+        "architecture-diagram",
+        "asyncapi",
+        "bpmn",
+        "c4-model",
+        "claude-code",
+        "diagram"
+      ]
+    },
+    {
+      "name": "senior-fullstack",
+      "description": "Fullstack projects often need consistent setup, architecture choices, and quality checks. This skill provides scripts and references for React, Next.js, Node.js, GraphQL, and PostgreSQL work.",
+      "source": "skillstore",
+      "id": "skillstore:alirezarezvani-senior-fullstack",
+      "key": "alirezarezvani-senior-fullstack",
+      "title": "Build Fullstack Apps With Senior Guidance",
+      "author": "alirezarezvani",
+      "repo": "alirezarezvani/claude-skills",
+      "ref": "main",
+      "path": "engineering-team/senior-fullstack",
+      "url": "https://skillstore.io/skills/alirezarezvani-senior-fullstack",
+      "installs": 38,
+      "tags": [
+        "coding",
+        "filesystem",
+        "external_commands"
+      ]
+    },
+    {
+      "name": "database-optimization",
+      "description": "Slow queries and weak indexes can make applications costly and unreliable. This skill guides SQL tuning, index design, caching, and N+1 fixes.",
+      "source": "skillstore",
+      "id": "skillstore:89jobrien-database-optimization",
+      "key": "89jobrien-database-optimization",
+      "title": "Optimize Database Performance",
+      "author": "89jobrien",
+      "repo": "89jobrien/steve",
+      "ref": "main",
+      "path": "steve/skills/database-optimization",
+      "url": "https://skillstore.io/skills/89jobrien-database-optimization",
+      "installs": 32,
+      "tags": [
+        "data",
+        "external_commands"
+      ]
+    },
+    {
+      "name": "sql-to-ER",
+      "description": "【在线免费使用】 简单快速将SQL或DBML转换为美观的ER图（支持 Agent Skill）/ The best SQL to ER Diagram converter (Support Agent Skill).",
+      "source": "github",
+      "id": "github:ystemsrx/sql-to-ER",
+      "key": "ystemsrx/sql-to-ER",
+      "title": "sql-to-ER",
+      "author": "ystemsrx",
+      "repo": "ystemsrx/sql-to-ER",
+      "ref": "master",
+      "url": "https://github.com/ystemsrx/sql-to-ER",
+      "stars": 192,
+      "tags": [
+        "agent",
+        "agent-skills",
+        "agentic-ai",
+        "ai-agent",
+        "database",
+        "dbml",
+        "education",
+        "er-diagram"
+      ]
+    },
+    {
+      "name": "Agent-Loop-Skills",
+      "description": "Loop until it's better — drop-in agentic loops (autoresearch, scientific writing, data analysis, code/SQL/prompt optimization, red-teaming) as open-standard Agent Skills. Verification-gated; native on Claude Code, portable across Codex, Cursor & other Skills hosts.",
+      "source": "github",
+      "id": "github:gaasher/Agent-Loop-Skills",
+      "key": "gaasher/Agent-Loop-Skills",
+      "title": "Agent-Loop-Skills",
+      "author": "gaasher",
+      "repo": "gaasher/Agent-Loop-Skills",
+      "ref": "main",
+      "url": "https://github.com/gaasher/Agent-Loop-Skills",
+      "stars": 178,
+      "tags": [
+        "agent-skills",
+        "agentic-loops",
+        "agentic-workflows",
+        "ai-agents",
+        "anthropic",
+        "autoresearch",
+        "claude",
+        "claude-code"
+      ]
+    },
+    {
+      "name": "scaffolding-fastapi-dapr",
+      "description": "Building consistent FastAPI microservices requires coordinated database, authentication, messaging, and testing patterns. This skill supplies reusable guidance for SQLModel, Dapr, JWT, logging, and service architecture.",
+      "source": "skillstore",
+      "id": "skillstore:asmayaseen-scaffolding-fastapi-dapr",
+      "key": "asmayaseen-scaffolding-fastapi-dapr",
+      "title": "Build FastAPI Services with Dapr",
+      "author": "Asmayaseen",
+      "repo": "Asmayaseen/hackathon-2",
+      "ref": "main",
+      "path": ".claude/skills/scaffolding-fastapi-dapr",
+      "url": "https://skillstore.io/skills/asmayaseen-scaffolding-fastapi-dapr",
+      "installs": 20,
+      "tags": [
+        "coding",
+        "network",
+        "scripts",
+        "external_commands",
+        "env_access",
+        "filesystem"
+      ]
+    },
+    {
+      "name": "database-schema-designer",
+      "description": "Poor schemas cause inconsistent data, slow queries, and risky migrations. This skill guides SQL and NoSQL modeling, indexing, constraints, and migration planning.",
+      "source": "skillstore",
+      "id": "skillstore:ariegoldkin-database-schema-designer",
+      "key": "ariegoldkin-database-schema-designer",
+      "title": "Design Reliable Database Schemas",
+      "author": "ArieGoldkin",
+      "repo": "ArieGoldkin/ai-agent-hub",
+      "ref": "main",
+      "path": "skills/database-schema-designer",
+      "url": "https://skillstore.io/skills/ariegoldkin-database-schema-designer",
+      "installs": 19,
+      "tags": [
+        "data",
+        "external_commands"
+      ]
+    },
+    {
+      "name": "deploying-postgres-k8s",
+      "description": "Operating PostgreSQL directly on Kubernetes requires careful availability, storage, secret, and backup configuration. This skill provides practical CloudNativePG deployment and operations guidance.",
+      "source": "skillstore",
+      "id": "skillstore:asmayaseen-deploying-postgres-k8s",
+      "key": "asmayaseen-deploying-postgres-k8s",
+      "title": "Deploy PostgreSQL on Kubernetes with CloudNativePG",
+      "author": "Asmayaseen",
+      "repo": "Asmayaseen/hackathon-2",
+      "ref": "main",
+      "path": ".claude/skills/deploying-postgres-k8s",
+      "url": "https://skillstore.io/skills/asmayaseen-deploying-postgres-k8s",
+      "installs": 18,
+      "tags": [
+        "devops",
+        "external_commands",
+        "network",
+        "env_access"
+      ]
+    },
+    {
+      "name": "webapp-sqlmap",
+      "description": "Manual SQL injection testing is slow and inconsistent. This skill provides structured SQLMap commands, authorization checks, validation steps, and reporting guidance for approved assessments.",
+      "source": "skillstore",
+      "id": "skillstore:agentsecops-webapp-sqlmap",
+      "key": "agentsecops-webapp-sqlmap",
+      "title": "Assess SQL Injection with SQLMap",
+      "author": "AgentSecOps",
+      "repo": "AgentSecOps/SecOpsAgentKit",
+      "ref": "main",
+      "path": "skills/offsec/webapp-sqlmap",
+      "url": "https://skillstore.io/skills/agentsecops-webapp-sqlmap",
+      "installs": 17,
+      "tags": [
+        "security",
+        "external_commands",
+        "network",
+        "filesystem",
+        "env_access",
+        "scripts"
+      ]
+    },
+    {
+      "name": "firebase-security-rules-auditor",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:firebase/agent-skills/firebase-security-rules-auditor",
+      "key": "firebase/agent-skills/firebase-security-rules-auditor",
+      "repo": "firebase/agent-skills",
+      "url": "https://skills.sh/firebase/agent-skills/firebase-security-rules-auditor",
+      "installs": 139746
+    },
+    {
+      "name": "security-and-hardening",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:addyosmani/agent-skills/security-and-hardening",
+      "key": "addyosmani/agent-skills/security-and-hardening",
+      "repo": "addyosmani/agent-skills",
+      "url": "https://skills.sh/addyosmani/agent-skills/security-and-hardening",
+      "installs": 71868
+    },
+    {
+      "name": "better-auth-security-best-practices",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:better-auth/skills/better-auth-security-best-practices",
+      "key": "better-auth/skills/better-auth-security-best-practices",
+      "repo": "better-auth/skills",
+      "url": "https://skills.sh/better-auth/skills/better-auth-security-best-practices",
+      "installs": 48607
+    },
+    {
+      "name": "golang-security",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:samber/cc-skills-golang/golang-security",
+      "key": "samber/cc-skills-golang/golang-security",
+      "repo": "samber/cc-skills-golang",
+      "url": "https://skills.sh/samber/cc-skills-golang/golang-security",
+      "installs": 42624
+    },
+    {
+      "name": "security-requirement-extraction",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:wshobson/agents/security-requirement-extraction",
+      "key": "wshobson/agents/security-requirement-extraction",
+      "repo": "wshobson/agents",
+      "url": "https://skills.sh/wshobson/agents/security-requirement-extraction",
+      "installs": 25448
+    },
+    {
+      "name": "security-review",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:getsentry/skills/security-review",
+      "key": "getsentry/skills/security-review",
+      "repo": "getsentry/skills",
+      "url": "https://skills.sh/getsentry/skills/security-review",
+      "installs": 21510
+    },
+    {
+      "name": "firestore-security-rules-auditor",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:firebase/agent-skills/firestore-security-rules-auditor",
+      "key": "firebase/agent-skills/firestore-security-rules-auditor",
+      "repo": "firebase/agent-skills",
+      "url": "https://skills.sh/firebase/agent-skills/firestore-security-rules-auditor",
+      "installs": 20399
+    },
+    {
+      "name": "security-review",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:affaan-m/ecc/security-review",
+      "key": "affaan-m/ecc/security-review",
+      "repo": "affaan-m/ecc",
+      "url": "https://skills.sh/affaan-m/ecc/security-review",
+      "installs": 18885
+    },
+    {
+      "name": "security-best-practices",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:openai/skills/security-best-practices",
+      "key": "openai/skills/security-best-practices",
+      "repo": "openai/skills",
+      "url": "https://skills.sh/openai/skills/security-best-practices",
+      "installs": 11372
+    },
+    {
+      "name": "security-threat-model",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:openai/skills/security-threat-model",
+      "key": "openai/skills/security-threat-model",
+      "repo": "openai/skills",
+      "url": "https://skills.sh/openai/skills/security-threat-model",
+      "installs": 8283
+    },
+    {
+      "name": "SkillSpector",
+      "description": "Security scanner for AI agent skills. Detect vulnerabilities, malicious patterns, security risks, prompt injection, data exfiltration, and supply-chain risks in Claude Code, Codex, and MCP skills before you install them.",
+      "source": "github",
+      "id": "github:NVIDIA/SkillSpector",
+      "key": "NVIDIA/SkillSpector",
+      "title": "SkillSpector",
+      "author": "NVIDIA",
+      "repo": "NVIDIA/SkillSpector",
+      "ref": "main",
+      "url": "https://github.com/NVIDIA/SkillSpector",
+      "stars": 22948,
+      "tags": [
+        "agent-security",
+        "agent-skills",
+        "agentic-ai",
+        "ai-security",
+        "claude-code",
+        "mcp",
+        "prompt-injection",
+        "security-scanner"
+      ]
+    },
+    {
+      "name": "skills",
+      "description": "Trail of Bits skills for security research, vulnerability detection, and audit workflows",
+      "source": "github",
+      "id": "github:trailofbits/skills",
+      "key": "trailofbits/skills",
+      "title": "skills",
+      "author": "trailofbits",
+      "repo": "trailofbits/skills",
+      "ref": "main",
+      "url": "https://github.com/trailofbits/skills",
+      "stars": 7862,
+      "tags": [
+        "agent-skills"
+      ]
+    },
+    {
+      "name": "skill-scanner",
+      "description": "Security Scanner for Agent Skills",
+      "source": "github",
+      "id": "github:cisco-ai-defense/skill-scanner",
+      "key": "cisco-ai-defense/skill-scanner",
+      "title": "skill-scanner",
+      "author": "cisco-ai-defense",
+      "repo": "cisco-ai-defense/skill-scanner",
+      "ref": "main",
+      "url": "https://github.com/cisco-ai-defense/skill-scanner",
+      "stars": 2658,
+      "tags": [
+        "agent",
+        "agent-skills",
+        "security"
+      ]
+    },
+    {
+      "name": "DevOps-Security-Agent-Skills",
+      "description": "Agent-ready DevOps, security, infrastructure, and compliance knowledge base with 80+ skills across Kubernetes, Terraform, AWS/Azure/GCP, AI platform operations, container hardening, SOC2/ISO27001, and incident response—plus ready-to-run scripts, templates, and playbooks for SRE, platform, and security teams.",
+      "source": "github",
+      "id": "github:BagelHole/DevOps-Security-Agent-Skills",
+      "key": "BagelHole/DevOps-Security-Agent-Skills",
+      "title": "DevOps-Security-Agent-Skills",
+      "author": "BagelHole",
+      "repo": "BagelHole/DevOps-Security-Agent-Skills",
+      "ref": "main",
+      "url": "https://github.com/BagelHole/DevOps-Security-Agent-Skills",
+      "stars": 1178,
+      "tags": [
+        "agent-skills",
+        "agentic-ai",
+        "ai-agents",
+        "aws",
+        "cheatsheets",
+        "compliance",
+        "devops",
+        "docker"
+      ]
+    },
+    {
+      "name": "awesome-claude-video-skills",
+      "description": "Open-source skills and toolkits that let Claude Code, Codex and other coding agents make video. 180 repos by type, each security-graded. English / 中文.",
+      "source": "github",
+      "id": "github:zhuyansen/awesome-claude-video-skills",
+      "key": "zhuyansen/awesome-claude-video-skills",
+      "title": "awesome-claude-video-skills",
+      "author": "zhuyansen",
+      "repo": "zhuyansen/awesome-claude-video-skills",
+      "ref": "main",
+      "url": "https://github.com/zhuyansen/awesome-claude-video-skills",
+      "stars": 1100,
+      "tags": [
+        "agent-skills",
+        "awesome-list",
+        "claude-code",
+        "claude-skills",
+        "codex",
+        "hyperframes",
+        "motion-graphics",
+        "opus-5-5"
+      ]
+    },
+    {
+      "name": "squadra",
+      "description": "Coordinate Claude, Codex and Cursor windows with shared tasks, acknowledgements, prechecks, parallel tests, source-bound proofs and independent review. Built-in skills recall lessons, simplify code and forecast work. Track progress, decisions and evidence in a bilingual local dashboard, with MCP plugins. Browse skills and verified security audits.",
+      "source": "github",
+      "id": "github:dagoSte/squadra",
+      "key": "dagoSte/squadra",
+      "title": "squadra",
+      "author": "dagoSte",
+      "repo": "dagoSte/squadra",
+      "ref": "main",
+      "url": "https://github.com/dagoSte/squadra",
+      "stars": 861,
+      "tags": [
+        "agent-orchestration",
+        "agent-skills",
+        "agentic-coding",
+        "ai-agents",
+        "ai-coding",
+        "claude",
+        "claude-code",
+        "claude-skills"
+      ]
+    },
+    {
+      "name": "ai-web3-security",
+      "description": "",
+      "source": "github",
+      "id": "github:pashov/ai-web3-security",
+      "key": "pashov/ai-web3-security",
+      "title": "ai-web3-security",
+      "author": "pashov",
+      "repo": "pashov/ai-web3-security",
+      "ref": "master",
+      "url": "https://github.com/pashov/ai-web3-security",
+      "stars": 619,
+      "tags": [
+        "agent-skills",
+        "ai-code-review",
+        "ai-security",
+        "auditing",
+        "awesome-list",
+        "blockchain-security",
+        "defi-security",
+        "ethereum-security"
+      ]
+    },
+    {
+      "name": "security-audit",
+      "description": "Production reviews can miss command injection, excessive permissions, exposed secrets, and unsafe input handling. This skill provides a structured, read-only audit across backend and frontend controls.",
+      "source": "skillstore",
+      "id": "skillstore:applelamps-security-audit",
+      "key": "applelamps-security-audit",
+      "title": "Audit Application Security Before Deployment",
+      "author": "AppleLamps",
+      "repo": "AppleLamps/web-term",
+      "ref": "main",
+      "path": ".claude/skills/security-audit",
+      "url": "https://skillstore.io/skills/applelamps-security-audit",
+      "installs": 20,
+      "tags": [
+        "security",
+        "external_commands",
+        "env_access"
+      ]
+    },
+    {
+      "name": "writing-beats",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:mattpocock/skills/writing-beats",
+      "key": "mattpocock/skills/writing-beats",
+      "repo": "mattpocock/skills",
+      "url": "https://skills.sh/mattpocock/skills/writing-beats",
+      "installs": 493241
+    },
+    {
+      "name": "writing-shape",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:mattpocock/skills/writing-shape",
+      "key": "mattpocock/skills/writing-shape",
+      "repo": "mattpocock/skills",
+      "url": "https://skills.sh/mattpocock/skills/writing-shape",
+      "installs": 492811
+    },
+    {
+      "name": "writing-fragments",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:mattpocock/skills/writing-fragments",
+      "key": "mattpocock/skills/writing-fragments",
+      "repo": "mattpocock/skills",
+      "url": "https://skills.sh/mattpocock/skills/writing-fragments",
+      "installs": 492176
+    },
+    {
+      "name": "writing-for-agents",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:mattpocock/skills/writing-for-agents",
+      "key": "mattpocock/skills/writing-for-agents",
+      "repo": "mattpocock/skills",
+      "url": "https://skills.sh/mattpocock/skills/writing-for-agents",
+      "installs": 483035
+    },
+    {
+      "name": "writing-great-skills",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:mattpocock/skills/writing-great-skills",
+      "key": "mattpocock/skills/writing-great-skills",
+      "repo": "mattpocock/skills",
+      "url": "https://skills.sh/mattpocock/skills/writing-great-skills",
+      "installs": 306548
+    },
+    {
+      "name": "writing-plans",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:obra/superpowers/writing-plans",
+      "key": "obra/superpowers/writing-plans",
+      "repo": "obra/superpowers",
+      "url": "https://skills.sh/obra/superpowers/writing-plans",
+      "installs": 286358
+    },
+    {
+      "name": "writing-skills",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:obra/superpowers/writing-skills",
+      "key": "obra/superpowers/writing-skills",
+      "repo": "obra/superpowers",
+      "url": "https://skills.sh/obra/superpowers/writing-skills",
+      "installs": 220934
+    },
+    {
+      "name": "writing-guidelines",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:vercel-labs/agent-skills/writing-guidelines",
+      "key": "vercel-labs/agent-skills/writing-guidelines",
+      "repo": "vercel-labs/agent-skills",
+      "url": "https://skills.sh/vercel-labs/agent-skills/writing-guidelines",
+      "installs": 109270
+    },
+    {
+      "name": "better-writing",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:jakubkrehel/skills/better-writing",
+      "key": "jakubkrehel/skills/better-writing",
+      "repo": "jakubkrehel/skills",
+      "url": "https://skills.sh/jakubkrehel/skills/better-writing",
+      "installs": 30011
+    },
+    {
+      "name": "Writing Hookify Rules",
+      "description": "",
+      "source": "skillssh",
+      "id": "skillssh:anthropics/claude-code/writing-hookify-rules",
+      "key": "anthropics/claude-code/writing-hookify-rules",
+      "repo": "anthropics/claude-code",
+      "url": "https://skills.sh/anthropics/claude-code/writing-hookify-rules",
+      "installs": 13251
+    },
+    {
+      "name": "humanizer",
+      "description": "Agent skill that removes signs of AI-generated writing from text",
+      "source": "github",
+      "id": "github:blader/humanizer",
+      "key": "blader/humanizer",
+      "title": "humanizer",
+      "author": "blader",
+      "repo": "blader/humanizer",
+      "ref": "main",
+      "url": "https://github.com/blader/humanizer",
+      "stars": 61809,
+      "tags": [
+        "agent-skills",
+        "ai-humanizer",
+        "ai-writing",
+        "chatgpt",
+        "claude",
+        "claude-code",
+        "codex",
+        "cursor"
+      ]
+    },
+    {
+      "name": "oh-story-claudecode",
+      "description": "Claude Code / Codex / OpenCode agent skills for writing Chinese web novels (网文): 扫榜、拆文、写作、去AI味、封面全流程，长篇短篇都支持 | 13 skills for novel writing and long-form fiction with file-based continuity tracking. MIT.",
+      "source": "github",
+      "id": "github:zenstory-ai/oh-story-claudecode",
+      "key": "zenstory-ai/oh-story-claudecode",
+      "title": "oh-story-claudecode",
+      "author": "zenstory-ai",
+      "repo": "zenstory-ai/oh-story-claudecode",
+      "ref": "main",
+      "url": "https://github.com/zenstory-ai/oh-story-claudecode",
+      "stars": 8087,
+      "tags": [
+        "agent-skills",
+        "ai-agent",
+        "ai-novel-writing",
+        "ai-writing",
+        "antigravity",
+        "chinese-novel",
+        "claude-code",
+        "claude-code-skills"
+      ]
+    },
+    {
+      "name": "human-writing",
+      "description": "让 AI 写的中文读起来像一个具体的人在说话。通用创作与改稿 Skill，开箱即用。",
+      "source": "github",
+      "id": "github:KKKKhazix/human-writing",
+      "key": "KKKKhazix/human-writing",
+      "title": "human-writing",
+      "author": "KKKKhazix",
+      "repo": "KKKKhazix/human-writing",
+      "ref": "main",
+      "url": "https://github.com/KKKKhazix/human-writing",
+      "stars": 4260,
+      "tags": [
+        "agent-skills",
+        "chinese-writing",
+        "creative-writing",
+        "writing-skill"
+      ]
+    },
+    {
+      "name": "sepia",
+      "description": "De-AI writing skill for any Agent Skills-compatible agent (77+ via the Skills CLI), with native plugins for Claude Code, Codex, Grok Build, and Antigravity. Narrative-architecture repair for fiction, venue-matched rules for professional prose. Based on StoryScope (arXiv:2604.03136).",
+      "source": "github",
+      "id": "github:Nanako0129/sepia",
+      "key": "Nanako0129/sepia",
+      "title": "sepia",
+      "author": "Nanako0129",
+      "repo": "Nanako0129/sepia",
+      "ref": "main",
+      "url": "https://github.com/Nanako0129/sepia",
+      "stars": 3536,
+      "tags": [
+        "agent-skills",
+        "ai-writing",
+        "antigravity",
+        "claude-code",
+        "codex",
+        "developer-tools",
+        "fiction",
+        "grok"
+      ]
+    },
+    {
+      "name": "design-judge-skills",
+      "description": "Evidence-driven Agent Skills for design award research, evaluation, award matching, entry writing, and submission readiness.",
+      "source": "github",
+      "id": "github:SeanJ1ang/design-judge-skills",
+      "key": "SeanJ1ang/design-judge-skills",
+      "title": "design-judge-skills",
+      "author": "SeanJ1ang",
+      "repo": "SeanJ1ang/design-judge-skills",
+      "ref": "main",
+      "url": "https://github.com/SeanJ1ang/design-judge-skills",
+      "stars": 711,
+      "tags": [
+        "agent-skills",
+        "claude-code",
+        "codex",
+        "design-awards",
+        "design-evaluation",
+        "design-research",
+        "hermes-agent",
+        "industrial-design"
+      ]
+    },
+    {
+      "name": "econ-writing-skill",
+      "description": "Agent Skill that transforms AI assistants into expert economics paper writers. Synthesizes 50+ guides by Cochrane, McCloskey, Shapiro, Head, Bellemare, Goldin, Kremer. Compatible with Claude Code and OpenAI Codex.",
+      "source": "github",
+      "id": "github:hanlulong/econ-writing-skill",
+      "key": "hanlulong/econ-writing-skill",
+      "title": "econ-writing-skill",
+      "author": "hanlulong",
+      "repo": "hanlulong/econ-writing-skill",
+      "ref": "main",
+      "url": "https://github.com/hanlulong/econ-writing-skill",
+      "stars": 683,
+      "tags": [
+        "academic-writing",
+        "agent-skills",
+        "ai",
+        "claude-code",
+        "codex",
+        "economics",
+        "latex",
+        "research-tools"
+      ]
+    },
+    {
+      "name": "im-not-ai",
+      "description": "AI가 쓴 한글을 사람 글처럼 윤문하는 Claude 스킬 — Korean AI-text humanizer: detects and rewrites translationese, mechanical parallelism, and 71 other AI tells",
+      "source": "github",
+      "id": "github:epoko77-ai/im-not-ai",
+      "key": "epoko77-ai/im-not-ai",
+      "title": "im-not-ai",
+      "author": "epoko77-ai",
+      "repo": "epoko77-ai/im-not-ai",
+      "ref": "main",
+      "url": "https://github.com/epoko77-ai/im-not-ai",
+      "stars": 6309,
+      "tags": [
+        "agent-skills",
+        "ai-detection",
+        "claude",
+        "claude-code",
+        "claude-skill",
+        "humanizer",
+        "korean",
+        "korean-nlp"
+      ]
+    },
+    {
+      "name": "Writing Hookify Rules",
+      "description": "Hook rules can be hard to write because events, fields, and regex syntax must align. This skill gives clear templates and examples for building Hookify rules for Claude workflows.",
+      "source": "skillstore",
+      "id": "skillstore:anthropics-writing-hookify-rules",
+      "key": "anthropics-writing-hookify-rules",
+      "title": "Create Hookify Rule Guides",
+      "author": "anthropics",
+      "repo": "anthropics/claude-plugins-official",
+      "ref": "main",
+      "path": "plugins/hookify/skills/writing-rules",
+      "url": "https://skillstore.io/skills/anthropics-writing-hookify-rules",
+      "installs": 19,
+      "tags": [
+        "coding",
+        "scripts",
+        "external_commands",
+        "env_access"
+      ]
+    },
+    {
+      "name": "writing-bots",
+      "description": "Blockchain event bots require precise triggers, network settings, and safety controls. This skill guides Silverback bot design, project structure, testing, and operation.",
+      "source": "skillstore",
+      "id": "skillstore:apeworx-writing-bots",
+      "key": "apeworx-writing-bots",
+      "title": "Build Safer Silverback Blockchain Bots",
+      "author": "ApeWorX",
+      "repo": "ApeWorX/skills",
+      "ref": "main",
+      "path": "silverback/writing-bots",
+      "url": "https://skillstore.io/skills/apeworx-writing-bots",
+      "installs": 17,
+      "tags": [
+        "coding",
+        "external_commands",
+        "network",
+        "env_access"
+      ]
+    },
+    {
+      "name": "yomiyasu",
+      "description": "AI生成の日本語を自然な日本語へ推敲するAgent Skill / Agent Skill for Refining AI-Generated Japanese into Natural Japanese",
+      "source": "github",
+      "id": "github:nanaism/yomiyasu",
+      "key": "nanaism/yomiyasu",
+      "title": "yomiyasu",
+      "author": "nanaism",
+      "repo": "nanaism/yomiyasu",
+      "ref": "main",
+      "url": "https://github.com/nanaism/yomiyasu",
+      "stars": 2642,
+      "tags": [
+        "agent-skills",
+        "ai-writing",
+        "antigravity",
+        "claude-code",
+        "codex",
+        "cursor",
+        "gemini",
+        "japanese"
+      ]
+    }
+  ]
+}
