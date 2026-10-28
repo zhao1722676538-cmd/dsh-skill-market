@@ -1,5 +1,6 @@
 # dsh-skill-market
 
+这不是插件市场，这是skills市场。
 DeepSeek Harness 的**技能市场**插件：在一个面板里跨四个站点搜索 skill，点一下安装到本机 DSH 技能目录，随时卸载。
 
 - 宿主侧（Node）：注册 4 个模型工具 + 5 个 HTTP 路由 + 一个 `skillMarket` service。
