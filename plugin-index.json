@@ -1,0 +1,41 @@
+{
+  "format": 1,
+  "title": "dsh-skill-market",
+  "metadata": {},
+  "plugins": [
+    {
+      "name": "dsh-skill-market",
+      "title": "dsh-skill-market",
+      "description": "Skill marketplace for DeepSeek Harness: search skillsmp / skillstore / skills.sh / GitHub, install and uninstall skills.",
+      "author": "dsh-skill-market",
+      "homepage": "https://github.com/zhao1722676538-cmd/dsh-skill-market#readme",
+      "repository": {
+        "url": "https://github.com/zhao1722676538-cmd/dsh-skill-market"
+      },
+      "metadata": {
+        "keywords": [
+          "dsh",
+          "dsh-plugin",
+          "deepseek-harness",
+          "skills",
+          "skill-marketplace",
+          "agent-skills"
+        ]
+      },
+      "versions": [
+        {
+          "version": "0.1.0",
+          "publishTimestamp": 1793197712,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/zhao1722676538-cmd/dsh-skill-market.git",
+            "commit": "61235482aca425cdfe6bf43765793e44cd6cfb54"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.3 <0.3.0"
+          }
+        }
+      ]
+    }
+  ]
+}

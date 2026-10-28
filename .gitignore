@@ -1,7 +1,6 @@
 node_modules/
 .work/
 *.log
-plugin-index.json
 .DS_Store
 Thumbs.db
 .dsh/
