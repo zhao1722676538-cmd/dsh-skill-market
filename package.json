@@ -58,8 +58,8 @@
     "LICENSE"
   ],
   "scripts": {
-    "test": "node --test test/",
-    "test:coverage": "node --test --experimental-test-coverage test/",
+    "test": "node --test test/unit.test.mjs test/install.test.mjs",
+    "test:coverage": "node --test --experimental-test-coverage test/unit.test.mjs test/install.test.mjs",
     "check": "node scripts/check-syntax.mjs",
     "build:index": "node scripts/build-index.mjs"
   },
