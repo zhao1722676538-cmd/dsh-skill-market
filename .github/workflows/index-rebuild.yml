@@ -1,0 +1,51 @@
+name: Rebuild skill index
+
+# skill-index.json 是提交进仓库的静态索引；市场数据会变，所以每周重建一次。
+# 只开 PR 不直接推 main：索引内容需要人看一眼再合（也给 CI 一个跑测试的机会）。
+
+on:
+  schedule:
+    - cron: '17 3 * * 1' # 每周一 03:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: index-rebuild
+  cancel-in-progress: false
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Rebuild skill-index.json
+        run: node scripts/rebuild-index.mjs --out skill-index.json
+
+      - name: Open a pull request when the index changed
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if git diff --quiet -- skill-index.json; then
+            echo "index unchanged; nothing to do"
+            exit 0
+          fi
+          branch="chore/rebuild-skill-index-$(date -u +%Y%m%d)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add skill-index.json
+          git commit -m "chore(index): rebuild skill-index.json"
+          git push -u origin "$branch"
+          gh pr create \
+            --title "chore(index): rebuild skill-index.json" \
+            --body "Automated weekly rebuild of the static skill index (same queries, current marketplace data)." \
+            --base main \
+            --head "$branch"
