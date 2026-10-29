@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [20, 22]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Install deps
+        if: hashFiles('package-lock.json') != ''
+        run: npm ci --no-audit --no-fund
+
+      - name: All JSON files parse
+        run: |
+          node -e "const fs=require('fs'),p=require('path');const walk=d=>fs.readdirSync(d,{withFileTypes:true}).flatMap(e=>e.name==='.git'||e.name==='node_modules'?[]:e.isDirectory()?walk(p.join(d,e.name)):e.name.endsWith('.json')?[p.join(d,e.name)]:[]);const files=walk('.');let bad=0;for(const f of files){try{JSON.parse(fs.readFileSync(f,'utf8'))}catch(e){bad++;console.error(f+': '+e.message)}}console.log(files.length+' json file(s) ok');process.exit(bad?1:0)"
+
+      - name: Tests
+        run: npm test
