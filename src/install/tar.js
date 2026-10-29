@@ -20,6 +20,13 @@ import zlib from 'node:zlib'
 
 const BLOCK = 512
 
+/**
+ * 单次解压的硬上限（解压后字节数）。
+ * gzip 的最小压缩比可以到 1:1000，一个几百 KB 的 tar.gz 能撑出几 GB —— 必须在
+ * 解压这一步就截断，不能等 parseTar 之后的 MAX_TOTAL_BYTES 再拦（那时内存已经没了）。
+ */
+export const MAX_UNCOMPRESSED_BYTES = 256 * 1024 * 1024
+
 /** tar 头字段偏移 */
 const F = {
   name: [0, 100],
@@ -265,8 +272,14 @@ export async function readTarGz(buf) {
 
   let raw
   try {
-    raw = zlib.gunzipSync(buf)
+    raw = zlib.gunzipSync(buf, { maxOutputLength: MAX_UNCOMPRESSED_BYTES })
   } catch (cause) {
+    if (cause?.code === 'ERR_BUFFER_TOO_LARGE' || /maxOutputLength|output length/i.test(String(cause?.message))) {
+      throw tarError(
+        'EARCHIVE_TOO_LARGE',
+        `archive expands past ${MAX_UNCOMPRESSED_BYTES / 1024 / 1024} MiB; refusing to decompress it`,
+      )
+    }
     throw tarError('EINVALID_GZIP', `gzip decode failed: ${cause?.message || cause}`)
   }
   return parseTar(raw)

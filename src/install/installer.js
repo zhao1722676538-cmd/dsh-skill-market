@@ -133,18 +133,31 @@ export async function installSkill(entry, opts = {}) {
     }
 
     const installedAt = new Date().toISOString()
-    await mutateRegistry(root, (data) => {
-      data.skills[name] = {
-        source: entry.source,
-        id: entry.id,
-        repo,
-        ref: archive.ref ?? ref,
-        commit: archive.commit ?? null,
-        path: skillDir,
-        installedAt,
-        files: hashes,
-      }
-    })
+    try {
+      await mutateRegistry(root, (data) => {
+        data.skills[name] = {
+          source: entry.source,
+          id: entry.id,
+          repo,
+          ref: archive.ref ?? ref,
+          commit: archive.commit ?? null,
+          path: skillDir,
+          installedAt,
+          files: hashes,
+        }
+      })
+    } catch (err) {
+      // 目录已经换成新版本、注册表却没写成功 → 下次卸载会把它当成「非本插件安装的」而不敢删。
+      // 回滚：删掉新目录、把备份换回去、注册表恢复成旧记录。
+      warnings.push(`registry update failed, restored the previous version: ${err?.message ?? err}`)
+      await fs.rm(target, { recursive: true, force: true }).catch(() => {})
+      if (backup) await fs.rename(backup, target).catch(() => {})
+      await mutateRegistry(root, (data) => {
+        if (managed) data.skills[name] = managed
+        else delete data.skills[name]
+      }).catch(() => {})
+      throw err
+    }
 
     if (backup) {
       await fs.rm(backup, { recursive: true, force: true }).catch((err) => {
@@ -208,6 +221,10 @@ function selectFiles(all, prefix, skillDir, warnings) {
       warnings.push(`skipped unsafe archive path ${JSON.stringify(file.path)}`)
       continue
     }
+    if (!isWindowsSafeRelative(rel)) {
+      warnings.push(`skipped ${JSON.stringify(file.path)}: not a legal file name on Windows`)
+      continue
+    }
     if (file.data.length > MAX_FILE_BYTES) {
       warnings.push(`skipped ${rel}: larger than ${MAX_FILE_BYTES / 1024 / 1024} MiB`)
       continue
@@ -226,6 +243,23 @@ function selectFiles(all, prefix, skillDir, warnings) {
 function isSafeRelative(rel) {
   if (rel === '' || rel.startsWith('/') || rel.includes('\\') || /^[a-zA-Z]:/.test(rel)) return false
   return rel.split('/').every((segment) => segment !== '' && segment !== '.' && segment !== '..')
+}
+
+/** Windows 保留设备名（带不带扩展名都不合法） */
+const WINDOWS_RESERVED_NAME = /^(con|prn|aux|nul|com[1-9]|lpt[1-9])(\..*)?$/i
+
+/**
+ * 归档里的路径在 Windows 上必须能真的建成文件：`con.md`、`a:b.md`、
+ * 以点或空格结尾的名字都会让 fs.writeFile 直接 EINVAL，让整个安装失败。
+ * 这里提前挑出来跳过（带 warning），而不是装到一半崩掉。
+ * @param {string} rel
+ */
+function isWindowsSafeRelative(rel) {
+  return rel.split('/').every((segment) => {
+    if (/[<>:"|?*\u0000-\u001f]/.test(segment)) return false
+    if (/[. ]$/.test(segment)) return false
+    return !WINDOWS_RESERVED_NAME.test(segment)
+  })
 }
 
 /**

@@ -16,7 +16,11 @@ import { readTarGz } from './tar.js'
 const DEFAULT_TIMEOUT_MS = 15000
 const ARCHIVE_TIMEOUT_MS = 90000
 const ARCHIVE_TTL_MS = 10 * 60 * 1000
-const USER_AGENT = 'dsh-skill-market/0.1 (+https://github.com/anthropics/skills)'
+/** 单个 tarball 的体积上限：超过就不下载/不解压，避免被超大仓库拖死 */
+const MAX_ARCHIVE_BYTES = 64 * 1024 * 1024
+/** 缓存里最多留几个仓库（每个条目持有整包 Buffer，必须封顶） */
+const ARCHIVE_CACHE_MAX_ENTRIES = 8
+const USER_AGENT = 'dsh-skill-market/0.1 (+https://github.com/zhao1722676538-cmd/dsh-skill-market)'
 
 /** 默认 HTTP：全局 fetch + 超时；调用方显式传 signal 时以 signal 为准 */
 export function defaultHttp(input, init = {}) {
@@ -87,6 +91,22 @@ export function clearArchiveCache() {
 const archiveCache = new Map()
 
 /**
+ * 惰性过期只看命中的那个 key，过期条目会一直躺着占内存。
+ * 每次写入前扫一遍：先丢过期的，再按插入顺序丢最旧的，保证条目数有上限。
+ */
+function pruneArchiveCache() {
+  const now = Date.now()
+  for (const [key, value] of archiveCache) {
+    if (now - value.at >= ARCHIVE_TTL_MS) archiveCache.delete(key)
+  }
+  while (archiveCache.size >= ARCHIVE_CACHE_MAX_ENTRIES) {
+    const oldest = archiveCache.keys().next()
+    if (oldest.done) break
+    archiveCache.delete(oldest.value)
+  }
+}
+
+/**
  * 下载并解析仓库 tarball。顶层目录（`{repo}-{sha}/`）会被剥掉，
  * 返回的 `files[].path` 都是**仓库相对路径**。
  *
@@ -108,6 +128,7 @@ export async function fetchRepoArchive({ repo, ref } = {}, deps) {
   }
 
   const promise = downloadArchive(cleanRepo, refText, d)
+  pruneArchiveCache()
   archiveCache.set(cacheKey, { at: Date.now(), promise })
   try {
     return await promise
@@ -135,8 +156,22 @@ async function downloadArchive(repo, refText, d) {
     )
   }
 
+  const declared = Number(res.headers?.get?.('content-length') ?? NaN)
+  if (Number.isFinite(declared) && declared > MAX_ARCHIVE_BYTES) {
+    throw ghError(
+      'EARCHIVE_TOO_LARGE',
+      `${repo}@${refText} is ${Math.round(declared / 1024 / 1024)} MiB, over the ${MAX_ARCHIVE_BYTES / 1024 / 1024} MiB limit`,
+    )
+  }
+
   const arrayBuffer = await res.arrayBuffer()
   const buf = Buffer.from(arrayBuffer)
+  if (buf.length > MAX_ARCHIVE_BYTES) {
+    throw ghError(
+      'EARCHIVE_TOO_LARGE',
+      `${repo}@${refText} is ${Math.round(buf.length / 1024 / 1024)} MiB, over the ${MAX_ARCHIVE_BYTES / 1024 / 1024} MiB limit`,
+    )
+  }
   const entries = await readTarGz(buf)
 
   // 顶层目录名，例如 `skills-8f3c2a1d.../`

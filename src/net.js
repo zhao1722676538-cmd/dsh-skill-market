@@ -3,7 +3,7 @@
  * @module dsh-skill-market/net
  */
 
-const DEFAULT_UA = 'dsh-skill-market/0.1 (+https://deepseek-harness.github.io)'
+const DEFAULT_UA = 'dsh-skill-market/0.1 (+https://github.com/zhao1722676538-cmd/dsh-skill-market)'
 
 /**
  * @param {{timeoutMs?: number, userAgent?: string, log?: (msg: string) => void}} [options]

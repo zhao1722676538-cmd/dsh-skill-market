@@ -41,6 +41,16 @@ export const Config = z.object({
 
 export const SOURCE_IDS = Object.keys(SOURCES)
 
+/** net.js 依赖 AbortSignal.any（Node 20.3+）；更老的运行时会在第一次请求时才炸，提前拦。 */
+export const MIN_NODE = '20.3'
+
+function nodeVersionOk() {
+  const [major, minor] = String(process.versions.node)
+    .split('.')
+    .map((part) => Number(part))
+  return major > 20 || (major === 20 && minor >= 3)
+}
+
 /**
  * @param {any} ctx cordis context
  * @param {Partial<typeof Config>} [raw]
@@ -53,6 +63,11 @@ export function apply(ctx, raw = {}) {
 
   if (!settings.enabled) {
     log('disabled by config')
+    return
+  }
+
+  if (!nodeVersionOk()) {
+    warn(`skipped: Node ${process.versions.node} is too old (needs >=${MIN_NODE} for AbortSignal.any + fetch)`)
     return
   }
 

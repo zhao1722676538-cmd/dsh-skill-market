@@ -1,11 +1,14 @@
 # dsh-skill-market
 
-这不是插件市场，这是skills市场。
+[English](README.md) | **简体中文**
+
 DeepSeek Harness 的**技能市场**插件：在一个面板里跨四个站点搜索 skill，点一下安装到本机 DSH 技能目录，随时卸载。
 
 - 宿主侧（Node）：注册 4 个模型工具 + 5 个 HTTP 路由 + 一个 `skillMarket` service。
-- 客户端侧（浏览器）：在「插件」页签里加一个 **Skill Market** 面板（搜索 / 来源筛选 / 安装 / 卸载 / 已安装列表）。
+- 客户端侧（浏览器）：在「插件」页签里加一个 **技能市场** 面板（搜索 / 来源筛选 / 安装 / 卸载 / 已安装列表）。
 - 无构建步骤：`client/client.js` 手写的 CJS bundle，`src/**` 直接是 ESM 源码。
+
+仓库：<https://github.com/zhao1722676538-cmd/dsh-skill-market>
 
 ## 四个来源
 
@@ -41,6 +44,12 @@ node scripts/build-index.mjs -q pdf -q excel -q pptx -q react -q "code review" -
 - 索引过期？重跑生成器即可；`indexTtlMs`（默认 6h）只控制远端索引的重新校验频率。
 - 模型侧也能触发：`skill_market_build_index`（参数 `queries / sources / limit / outPath`）。
 
+本仓库已托管一份现成快照，插件开箱即用：
+
+```
+https://raw.githubusercontent.com/zhao1722676538-cmd/dsh-skill-market/main/skill-index.json
+```
+
 ## 模型工具
 
 | 工具 | 作用 |
@@ -53,6 +62,46 @@ node scripts/build-index.mjs -q pdf -q excel -q pptx -q react -q "code review" -
 
 安装后自动刷新 `ctx.skills`，**无需重启**即可被 skill 工具看到。会校验技能名（禁止 `..`、路径分隔符），已存在的目录不会被静默覆盖。
 
+## 命令行（任何宿主，不只 DSH）
+
+插件壳（面板 + 模型工具）是 DSH 专属的，但「搜索 + 安装」不是。CLI 把 `SKILL.md` 目录树写进宿主会扫描的目录，所以任何能执行 shell 命令的 agent（Codex CLI、Claude Code、纯终端）都能用：
+
+```bash
+node src/cli.js search pdf --limit 5          # 四源合并 + 排序
+node src/cli.js search pdf --index https://raw.githubusercontent.com/zhao1722676538-cmd/dsh-skill-market/main/skill-index.json
+node src/cli.js install anthropics/skills/pdf --to claude
+node src/cli.js install https://github.com/openai/skills/tree/main/skills/playwright --to ~/.agents/skills
+node src/cli.js list --to dsh
+node src/cli.js uninstall pdf --to claude
+```
+
+- `--to dsh|claude|agents|codex|cursor|gemini|copilot|opencode|amp|goose|windsurf|cline|roo|continue|qwen|<路径>` 选技能目录；不传则自动探测已存在的 DSH → `.agents` → `.claude` 根目录。
+- 所有命令都支持 `--json`（给脚本用）；`install` 支持 `--dry-run`（只解析不落盘）。
+- 搜索另有 `--source`、`--limit`、`--offline`；安装另有 `--name`、`--path`、`--ref`、`--overwrite`。
+- 纯网页助手（ChatGPT、Grok）没有本地技能目录，CLI 和插件都不适用。
+
+### 各宿主到底从哪个目录读技能
+
+所有宿主都只是「扫描某个目录下的 `SKILL.md` 文件夹」，装进你的 agent 会扫的那个目录即可（下表是全局作用域）：
+
+| `--to` | 目录 | 说明 |
+|---|---|---|
+| `dsh` | `~/.dsh/skills`（或 `$DSH_HOME/skills`） | DeepSeek Harness；项目级为 `<项目>/.dsh/skills` 与 `<项目>/.agents/skills` |
+| `agents` | `~/.agents/skills`（或 `$AGENTS_HOME/skills`） | 通用约定目录：Codex、Gemini CLI、GitHub Copilot、OpenCode、Amp、Replit 直接读它 |
+| `claude` / `claude-code` | `~/.claude/skills`（或 `$CLAUDE_CONFIG_DIR/skills`） | Claude Code；项目级为 `.claude/skills` |
+| `codex` | `~/.codex/skills`（或 `$CODEX_HOME/skills`） | Codex CLI |
+| `cursor` | `~/.cursor/skills` | Cursor |
+| `gemini` | `~/.gemini/skills` | Gemini CLI |
+| `copilot` | `~/.copilot/skills` | GitHub Copilot |
+| `opencode` | `$XDG_CONFIG_HOME/opencode/skills`（`~/.config/opencode/skills`） | OpenCode |
+| `amp` | `$XDG_CONFIG_HOME/agents/skills` | Amp |
+| `goose` | `$XDG_CONFIG_HOME/goose/skills` | Goose |
+| `windsurf` | `~/.codeium/windsurf/skills` | Windsurf |
+| `cline` / `roo` / `continue` | `~/.cline/skills`、`~/.roo/skills`、`~/.continue/skills` | Cline、Roo Code、Continue |
+| `qwen` | `~/.qwen/skills` | Qwen Code |
+
+其它路径照样能用：`--to "D:/some/agent/skills"`。这张表依据 [vercel-labs/skills v1.3.9 的 `src/agents.ts`](https://github.com/vercel-labs/skills/blob/main/src/agents.ts)（39 个宿主定义）、[Claude Code 技能文档](https://code.claude.com/docs/en/skills)以及 DSH 自身的技能扫描逻辑。
+
 ## 安装本插件
 
 ```bash
@@ -60,7 +109,7 @@ node scripts/install-into-profile.mjs --dry-run   # 先看计划
 node scripts/install-into-profile.mjs             # 复制进 profile 并写入 dsh.profile.bundles
 ```
 
-然后**重启 DSH（或刷新 GUI 后重启宿主进程）**，在「插件」里应出现 Skill Market 面板。卸载插件：
+然后**重启 DSH**，在「插件」里应出现**技能市场**面板。卸载插件：
 
 ```bash
 node scripts/install-into-profile.mjs --uninstall
@@ -83,7 +132,7 @@ node scripts/build-index.mjs --plugin-index --repo https://github.com/<you>/dsh-
 - id: plugin-market
   name: '@deepseek-ai/dsh-plugin-market'
   config:
-    indexes: ['https://your.host/plugin-index.json']
+    indexes: ['https://raw.githubusercontent.com/zhao1722676538-cmd/dsh-skill-market/main/plugin-index.json']
 ```
 
 打开「插件 → Discover」就能看到并一键安装——**不需要 clone、不需要手改 profile**。
@@ -114,6 +163,8 @@ node scripts/build-index.mjs --plugin-index --repo https://github.com/<you>/dsh-
 node --test test/unit.test.mjs          # 纯函数 + 注册表往返 + GitHub 适配器 + 索引存储 + 插件索引回归（27 个用例）
 node --check src/index.js && node --check client/client.js
 ```
+
+发布、索引刷新与排障流程见 [MAINTENANCE.md](MAINTENANCE.md)。
 
 ## 已知限制
 

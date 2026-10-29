@@ -19,6 +19,7 @@ import {
   pluginIndexDocument,
   serializePluginIndex,
 } from '../src/plugin-index.js'
+import { coordinateEntry, formatTable, parseArgs, resolveTarget } from '../src/cli.js'
 
 test('parseGitHubUrl accepts the URL shapes marketplaces hand out', () => {
   assert.deepEqual(parseGitHubUrl('https://github.com/anthropics/skills'), { repo: 'anthropics/skills' })
@@ -445,4 +446,88 @@ test('looksLikeSemverRange accepts ranges and rejects workspace protocol', () =>
   assert.equal(looksLikeSemverRange('^0.2.1'), true)
   assert.equal(looksLikeSemverRange('workspace:*'), false)
   assert.equal(looksLikeSemverRange(''), false)
+})
+
+test('cli parseArgs splits command, positional and flags', () => {
+  const args = parseArgs(['search', 'pdf', 'form', '--limit', '5', '--json', '--index', 'a.json,b.json'])
+  assert.equal(args.command, 'search')
+  assert.deepEqual(args.positional, ['pdf', 'form'])
+  assert.equal(args.flags.limit, '5')
+  assert.equal(args.flags.json, true)
+  assert.deepEqual(args.flags.index, ['a.json', 'b.json'])
+})
+
+test('cli resolveTarget maps names and passes explicit paths through', () => {
+  const seen = []
+  const exists = (p) => {
+    seen.push(p)
+    return false
+  }
+  assert.equal(resolveTarget('claude', { exists }).endsWith(path.join('.claude', 'skills')), true)
+  assert.equal(resolveTarget('nested/base', { exists }), path.resolve('nested/base'))
+  const fallback = resolveTarget(undefined, { exists })
+  assert.equal(fallback.endsWith(path.join('.dsh', 'skills')), true)
+})
+
+test('cli resolveTarget covers the host directory table and its env overrides', () => {
+  const exists = () => false
+  const home = os.homedir()
+  const cases = {
+    dsh: ['.dsh', 'skills'],
+    agents: ['.agents', 'skills'],
+    claude: ['.claude', 'skills'],
+    codex: ['.codex', 'skills'],
+    cursor: ['.cursor', 'skills'],
+    gemini: ['.gemini', 'skills'],
+    copilot: ['.copilot', 'skills'],
+    cline: ['.cline', 'skills'],
+    roo: ['.roo', 'skills'],
+    continue: ['.continue', 'skills'],
+    qwen: ['.qwen', 'skills'],
+    windsurf: ['.codeium', 'windsurf', 'skills'],
+  }
+  for (const [name, parts] of Object.entries(cases)) {
+    assert.equal(resolveTarget(name, { exists }), path.join(home, ...parts), name)
+  }
+  const previous = process.env.CODEX_HOME
+  process.env.CODEX_HOME = path.join(home, 'custom-codex')
+  try {
+    assert.equal(resolveTarget('codex', { exists }), path.join(home, 'custom-codex', 'skills'))
+  } finally {
+    if (previous === undefined) delete process.env.CODEX_HOME
+    else process.env.CODEX_HOME = previous
+  }
+})
+
+test('cli coordinateEntry parses repo, repo/path and GitHub URLs', () => {
+  const plain = coordinateEntry('anthropics/skills/pdf')
+  assert.equal(plain.repo, 'anthropics/skills')
+  assert.equal(plain.path, 'pdf')
+  assert.equal(plain.name, 'pdf')
+
+  const repoOnly = coordinateEntry('tw93/Kami')
+  assert.equal(repoOnly.repo, 'tw93/Kami')
+  assert.equal(repoOnly.path, undefined)
+  assert.equal(repoOnly.name, 'kami')
+
+  const url = coordinateEntry('https://github.com/openai/skills/tree/main/skills/playwright')
+  assert.equal(url.repo, 'openai/skills')
+  assert.equal(url.ref, 'main')
+  assert.equal(url.path, 'skills/playwright')
+  assert.equal(url.name, 'playwright')
+
+  assert.throws(() => coordinateEntry('justoneword'), /expected owner\/repo/)
+  assert.equal(coordinateEntry('anthropics/skills/pdf', { name: 'my-pdf' }).name, 'my-pdf')
+})
+
+test('cli formatTable prints rows and truncation hint', () => {
+  const rows = [
+    { name: 'pdf', source: 'skillsmp', description: 'work with pdf', repo: 'a/b', path: 'skills/pdf' },
+    { name: 'excel', source: 'skillsmp', description: 'work with excel' },
+  ]
+  const text = formatTable(rows)
+  assert.match(text, /pdf/)
+  assert.match(text, /a\/b\/skills\/pdf/)
+  assert.match(formatTable(rows, { max: 1 }), /1 more/)
+  assert.equal(formatTable([]), 'no results')
 })

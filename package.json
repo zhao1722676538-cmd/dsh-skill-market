@@ -13,6 +13,7 @@
     "agent-skills"
   ],
   "author": "dsh-skill-market",
+  "license": "MIT",
   "homepage": "https://github.com/zhao1722676538-cmd/dsh-skill-market#readme",
   "repository": {
     "type": "git",
@@ -23,10 +24,12 @@
     ".": "./src/index.js",
     "./client": "./client/client.js",
     "./cordis.patch.yml": "./cordis.patch.yml",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./cli": "./src/cli.js"
   },
   "engines": {
-    "dsh": ">=0.2.1-rc.3 <0.3.0"
+    "dsh": ">=0.2.1-rc.3 <0.3.0",
+    "node": ">=20.3"
   },
   "dsh": {
     "bundle": {
@@ -47,10 +50,20 @@
     "locale",
     "cordis.patch.yml",
     "icon.svg",
-    "README.md"
+    "README.md",
+    "README.zh-CN.md",
+    "MAINTENANCE.md",
+    "SPEC.md",
+    "PUBLISH.md",
+    "LICENSE"
   ],
   "scripts": {
-    "test": "node --test",
+    "test": "node --test test/",
+    "test:coverage": "node --test --experimental-test-coverage test/",
+    "check": "node scripts/check-syntax.mjs",
     "build:index": "node scripts/build-index.mjs"
+  },
+  "bin": {
+    "dsh-skill-market": "src/cli.js"
   }
 }
