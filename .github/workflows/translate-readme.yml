@@ -1,0 +1,23 @@
+name: Translate README
+
+on:
+  workflow_dispatch:          # 允许你在 Actions 页面手动触发
+  push:
+    branches: [ main ]        # 推送 main 分支时自动触发
+    paths: [ 'README.md' ]   # 仅当 README.md 有改动时才触发
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Adding README - English
+        uses: dephraiim/translate-readme@main
+        with:
+          LANG: en
