@@ -50,7 +50,7 @@
     "README.md"
   ],
   "scripts": {
-    "test": "node --test"
+    "test": "node --test",
     "build:index": "node scripts/build-index.mjs"
   }
 }
