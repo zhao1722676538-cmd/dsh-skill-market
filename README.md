@@ -1,14 +1,14 @@
-# dsh-skill-market
+# skill-market
 
 **English** | [简体中文](README.zh-CN.md)
 
-A **skill marketplace** plugin for DeepSeek Harness: search four skill sites from one panel, install a skill into your local DSH skills directory with one click, uninstall it whenever you want.
+A **skill marketplace** plugin for DeepSeek Harness and codex: search four skill sites from one panel, install a skill into your local DSH skills directory with one click, uninstall it whenever you want.
 
 - **Host side (Node):** 4 model tools + 5 HTTP routes + a `skillMarket` service.
 - **Client side (browser):** a **Skill Market** panel inside the *Plugins* page (search / source filter / install / uninstall / installed list).
 - **No build step:** `client/client.js` is a hand-written CJS bundle, `src/**` is plain ESM.
 
-Repository: <https://github.com/zhao1722676538-cmd/dsh-skill-market>
+Repository: <https://github.com/zhao1722676538-cmd/skill-market>
 
 ## Sources
 
@@ -47,7 +47,7 @@ Every later search becomes a **millisecond-scale local filter** (3–6 ms measur
 A ready-made snapshot is hosted from this repository, so the plugin works out of the box:
 
 ```
-https://raw.githubusercontent.com/zhao1722676538-cmd/dsh-skill-market/main/skill-index.json
+https://raw.githubusercontent.com/zhao1722676538-cmd/skill-market/main/skill-index.json
 ```
 
 ## Model tools
