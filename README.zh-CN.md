@@ -2,177 +2,84 @@
 
 [English](README.md) | **简体中文**
 
-DeepSeek Harness 的**技能市场**插件：在一个面板里跨四个站点搜索 skill，点一下安装到本机 DSH 技能目录，随时卸载。
-
-- 宿主侧（Node）：注册 4 个模型工具 + 5 个 HTTP 路由 + 一个 `skillMarket` service。
-- 客户端侧（浏览器）：在「插件」页签里加一个 **技能市场** 面板（搜索 / 来源筛选 / 安装 / 卸载 / 已安装列表）。
-- 无构建步骤：`client/client.js` 手写的 CJS bundle，`src/**` 直接是 ESM 源码。
+DeepSeek Harness 的 skill 市场插件。在一个面板里搜索 skillsmp、SkillStore、skills.sh 和 GitHub，预览后安装到本地，也可以随时卸载。
 
 仓库：<https://github.com/zhao1722676538-cmd/dsh-skill-market>
 
-## 四个来源
-
-| 来源 id | 站点 | 接口 | 说明 |
-| --- | --- | --- | --- |
-| `skillsmp` | skillsmp.com | `GET /api/v1/skills/search` | Anthropic 生态聚合索引；匿名限流 50/天，可配 token |
-| `skillstore` | skillstore.io | `GET /api/skills?q=` + `/api/skills/{slug}/manifest` | 校验 Ed25519 签名，并把安装固定到 manifest 中的不可变 GitHub commit |
-| `skillssh` | skills.sh | `GET /api/search?q=` | 按安装量排序的 registry，条目形如 `anthropics/skills/pdf` |
-| `github` | api.github.com | search repo/code + zipball 安装 | 兜底来源：任意仓库里的 `*/SKILL.md` 都能装 |
-
-结果会按 `repo + skill 名` 去重合并（`tags` 记录见过的来源），再按安装量/star 与查询相关性排序。
-
-## 索引驱动搜索（推荐）
-
-默认是「实时打四个站」：慢、要 GitHub token、还会被匿名限额卡。可以改成插件市场的形态——**一份静态索引 + 本地过滤**：
+## 快速开始
 
 ```bash
-# 1. 抓一份索引（可重复，用你关心的主题）
-node scripts/build-index.mjs -q pdf -q excel -q pptx -q react -q "code review" -q testing -q image -q docs
-# → C:\Users\<you>\.dsh\cache\skill-market\skill-index.json（156 条，约 90KB，12 秒）
-
-# 2. 在 profile 的 cordis.patch.yml 里指过去
-#    - id: skill-market
-#      name: 'dsh-skill-market'
-#      config:
-#        indexes: ['C:\\Users\\<you>\\.dsh\\cache\\skill-market\\skill-index.json']
+node scripts/install-into-profile.mjs --dry-run
+node scripts/install-into-profile.mjs
 ```
 
-之后每次搜索都是**毫秒级的本地过滤**（实测 3–6ms），不联网、不消耗 GitHub 额度、不需要 token：
+重启 DSH，然后打开 **插件 → 技能市场**。
 
-- 索引未命中时按 `indexFallbackLive` 回落实时搜索（默认开），不会「搜不到就没了」。
-- `indexes` 支持多个位置：`http(s)://` 索引 URL（可自托管，带 ETag/Last-Modified 与 TTL 缓存）、`file://` 或本地路径。
-- 索引过期？重跑生成器即可；`indexTtlMs`（默认 6h）只控制远端索引的重新校验频率。
-- 模型侧也能触发：`skill_market_build_index`（参数 `queries / sources / limit / outPath`）。
-
-本仓库已托管一份现成快照，插件开箱即用：
-
-```
-https://raw.githubusercontent.com/zhao1722676538-cmd/dsh-skill-market/main/skill-index.json
-```
-
-## 模型工具
-
-| 工具 | 作用 |
-| --- | --- |
-| `skill_market_search` | 跨源搜索，返回 `id / name / repo / path / installs / stars / risk`，以及 `mode`（`index` / `index+live` / `live`） |
-| `skill_market_build_index` | 把四源搜索结果抓成一份静态索引 JSON（索引用它生成；写文件后把路径配进 `indexes`） |
-| `skill_market_install` | 接受搜索结果的 `id`，或 `owner/repo`、`owner/repo/path`、GitHub URL；先传 `preview=true` 查看文件、脚本、联网提示、风险和本地变更，确认后写入 `$DSH_HOME/skills/<name>` |
-| `skill_market_uninstall` | 按名字卸载（先查注册表，再查目录） |
-| `skill_market_list` | 已安装技能 + 来源 + 支持的来源清单 |
-
-安装后自动刷新 `ctx.skills`，**无需重启**即可被 skill 工具看到。会校验技能名（禁止 `..`、路径分隔符），已存在的目录不会被静默覆盖。
-
-## 命令行（任何宿主，不只 DSH）
-
-插件壳（面板 + 模型工具）是 DSH 专属的，但「搜索 + 安装」不是。CLI 把 `SKILL.md` 目录树写进宿主会扫描的目录，所以任何能执行 shell 命令的 agent（Codex CLI、Claude Code、纯终端）都能用：
-
-```bash
-node src/cli.js search pdf --limit 5          # 四源合并 + 排序
-node src/cli.js search pdf --index https://raw.githubusercontent.com/zhao1722676538-cmd/dsh-skill-market/main/skill-index.json
-node src/cli.js install anthropics/skills/pdf --to claude
-node src/cli.js install https://github.com/openai/skills/tree/main/skills/playwright --to ~/.agents/skills
-node src/cli.js list --to dsh
-node src/cli.js uninstall pdf --to claude
-```
-
-- `--to dsh|claude|agents|codex|cursor|gemini|copilot|opencode|amp|goose|windsurf|cline|roo|continue|qwen|<路径>` 选技能目录；不传则自动探测已存在的 DSH → `.agents` → `.claude` 根目录。
-- 所有命令都支持 `--json`（给脚本用）；`install --dry-run` 会真实下载和解析仓库、定位 `SKILL.md` 并输出安装预览，但不落盘。
-- 搜索另有 `--source`、`--limit`、`--offline`；安装另有 `--name`、`--path`、`--ref`、`--overwrite`。
-- 纯网页助手（ChatGPT、Grok）没有本地技能目录，CLI 和插件都不适用。
-
-### 各宿主到底从哪个目录读技能
-
-所有宿主都只是「扫描某个目录下的 `SKILL.md` 文件夹」，装进你的 agent 会扫的那个目录即可（下表是全局作用域）：
-
-| `--to` | 目录 | 说明 |
-|---|---|---|
-| `dsh` | `~/.dsh/skills`（或 `$DSH_HOME/skills`） | DeepSeek Harness；项目级为 `<项目>/.dsh/skills` 与 `<项目>/.agents/skills` |
-| `agents` | `~/.agents/skills`（或 `$AGENTS_HOME/skills`） | 通用约定目录：Codex、Gemini CLI、GitHub Copilot、OpenCode、Amp、Replit 直接读它 |
-| `claude` / `claude-code` | `~/.claude/skills`（或 `$CLAUDE_CONFIG_DIR/skills`） | Claude Code；项目级为 `.claude/skills` |
-| `codex` | `~/.codex/skills`（或 `$CODEX_HOME/skills`） | Codex CLI |
-| `cursor` | `~/.cursor/skills` | Cursor |
-| `gemini` | `~/.gemini/skills` | Gemini CLI |
-| `copilot` | `~/.copilot/skills` | GitHub Copilot |
-| `opencode` | `$XDG_CONFIG_HOME/opencode/skills`（`~/.config/opencode/skills`） | OpenCode |
-| `amp` | `$XDG_CONFIG_HOME/agents/skills` | Amp |
-| `goose` | `$XDG_CONFIG_HOME/goose/skills` | Goose |
-| `windsurf` | `~/.codeium/windsurf/skills` | Windsurf |
-| `cline` / `roo` / `continue` | `~/.cline/skills`、`~/.roo/skills`、`~/.continue/skills` | Cline、Roo Code、Continue |
-| `qwen` | `~/.qwen/skills` | Qwen Code |
-
-其它路径照样能用：`--to "D:/some/agent/skills"`。这张表依据 [vercel-labs/skills v1.3.9 的 `src/agents.ts`](https://github.com/vercel-labs/skills/blob/main/src/agents.ts)（39 个宿主定义）、[Claude Code 技能文档](https://code.claude.com/docs/en/skills)以及 DSH 自身的技能扫描逻辑。
-
-## 安装本插件
-
-```bash
-node scripts/install-into-profile.mjs --dry-run   # 先看计划
-node scripts/install-into-profile.mjs             # 复制进 profile 并写入 dsh.profile.bundles
-```
-
-然后**重启 DSH**，在「插件」里应出现**技能市场**面板。卸载插件：
+卸载插件：
 
 ```bash
 node scripts/install-into-profile.mjs --uninstall
 ```
 
-## 让别人一键装（发布到 DSH 插件市场）
+仓库也包含 [DSH 插件市场索引](plugin-index.json)，托管为 HTTPS 原始文件后，可以直接从 **插件 → Discover** 安装。
 
-插件市场不存代码，只读一份 **format 1 的索引 JSON**，里面的每条记录带「安装坐标」。本仓库能直接产出这份索引：
+## 使用方法
+
+在面板中搜索，点击 **检查并安装**，查看文件、脚本、联网提示和风险预览，确认后安装。
+
+CLI 支持在任意兼容宿主中完成同样操作：
 
 ```bash
-# 在你的 git checkout 里跑，自动读 package.json 和 HEAD commit
-node scripts/build-index.mjs --plugin-index --repo https://github.com/<you>/dsh-skill-market
-# → ./plugin-index.json
+node src/cli.js search pdf --limit 5
+node src/cli.js install anthropics/skills/pdf --to codex --dry-run
+node src/cli.js install anthropics/skills/pdf --to codex
+node src/cli.js list --to codex
+node src/cli.js uninstall pdf --to codex
 ```
 
-会自动带上：包名、版本、描述、`engines.dsh`、40 位 commit、commit 时间、仓库地址、keywords。
-然后把它托管成 **https URL**（Gist raw / GitHub Pages / 任意静态站都行），别人在设置里加一行：
+`--dry-run` 会真实下载并解析仓库、定位 `SKILL.md`，输出安全预览但不写入文件。
 
-```yaml
-- id: plugin-market
-  name: '@deepseek-ai/dsh-plugin-market'
-  config:
-    indexes: ['https://raw.githubusercontent.com/zhao1722676538-cmd/dsh-skill-market/main/plugin-index.json']
-```
+## 四个来源
 
-打开「插件 → Discover」就能看到并一键安装——**不需要 clone、不需要手改 profile**。
-
-要点：
-
-- git 源**必须钉死 40 位 commit**，所以每次发版都要重新生成索引并更新托管文件（`--commit` 可手工指定）。
-- monorepo 用 `--path packages/xxx`；已经发到 npm 的话加 `--npm`，索引就写 `name@version` 而不是 git 坐标。
-- 产物用的是官方 `@deepseek-ai/dsh-plugin-market-index` 校验器同一个格式；本仓库的单测只做等价的结构校验。
-
-## 配置（插件设置里）
-
-| key | 默认 | 说明 |
+| 来源 | 站点 | 说明 |
 | --- | --- | --- |
-| `installRoot` | `$DSH_HOME/skills` | 安装目标目录 |
-| `allowOverwrite` | `false` | 允许覆盖同名已装技能 |
-| `sources` | 全部 | 启用哪些来源 |
-| `indexes` | `[]` | 索引位置列表（本地路径 / `file://` / `http(s)` 索引 URL）；非空即进入索引驱动模式 |
-| `indexTtlMs` | `21600000`（6h） | 远端索引的 TTL；过期才重新校验（带 ETag，304 不重下） |
-| `indexFallbackLive` | `true` | 索引未命中时是否回落实时搜索 |
-| `indexCacheDir` | `$DSH_HOME/cache/skill-market` | 远端索引与生成索引的默认缓存目录 |
-| `skillsmpApiKey` | — | skillsmp 的 Bearer token（提高限额） |
-| `githubToken` | — | GitHub token：匿名搜索只有 10 次/分钟，填 token 后 5000 次/小时，并解锁 `filename:SKILL.md` 代码搜索 |
+| `skillsmp` | skillsmp.com | Anthropic 生态聚合索引 |
+| `skillstore` | skillstore.io | 校验 Ed25519 manifest，并固定不可变 GitHub commit |
+| `skillssh` | skills.sh | 按安装量排序的技能注册表 |
+| `github` | GitHub | 仓库与代码搜索兜底 |
+
+搜索结果会去重，并按安装量、star 和查询相关性排序。单个来源失败不会影响其他来源。
+
+## 安全行为
+
+- 安装使用暂存目录和事务化写入。
+- 已有本地修改不会被静默覆盖，必须显式 `overwrite=true`。
+- 无法校验当前文件树时会拒绝卸载。
+- 拒绝路径穿越、符号链接、超大归档、gzip bomb 和 Windows 非法文件名。
+- SkillStore 签名只证明 artifact 完整性，不代表技能已被证明安全。
+
+## 可选：索引模式
+
+生成静态索引，避免每次搜索都请求外部站点：
+
+```bash
+node scripts/build-index.mjs -q pdf -q excel -q react -q testing -q docs
+```
+
+把插件配置中的 `indexes` 指向生成文件。索引未命中时可回退到实时搜索。仓库也提供[现成快照](skill-index.json)。
+
+## 更多文档
+
+- [宿主目录、CLI 细节、完整配置与限制](docs/REFERENCE.zh-CN.md)
+- [发布与一键安装](PUBLISH.md)
+- [维护、刷新与排障](MAINTENANCE.md)
 
 ## 开发
 
 ```bash
-node --test test/unit.test.mjs          # 纯函数 + 注册表往返 + GitHub 适配器 + 索引存储 + 插件索引回归（27 个用例）
-node --check src/index.js && node --check client/client.js
+npm test
+npm run check
+npm run check:json
 ```
 
-发布、索引刷新与排障流程见 [MAINTENANCE.md](MAINTENANCE.md)。
-
-## 已知限制
-
-- 安装走 GitHub 归档下载（`codeload`），需要能访问 github.com；大仓库首次下载可能十几秒到半分钟。
-- `github` 源匿名只有 **10 次搜索/分钟**：一次搜索只发一个请求，并在进程内缓存 5 分钟；触发限流时面板/工具会给出「等约 1 分钟或填 githubToken」的提示，而不是空结果。
-- GitHub 仓库里有多个 `SKILL.md` 时安装会报歧义并列出候选目录，重跑时用 `path=` 指定（面板里就是条目自带的 path）。
-- SkillStore 的签名验证只证明 manifest/artifact 完整性并固定 commit，不代表该 skill 已被证明安全。
-- `skillsmp` 匿名额度较小。
-- 索引是**快照**：生成后新上架的 skill 不在里面（未命中会回落实时搜索）；想保持新鲜就定期重跑生成器，或把索引托管成 URL 让宿主按 TTL 自动校验。
-- 客户端面板只调用本插件的同源路由，不直接访问第三方站点。
-- 只做「技能」；插件市场（`dsh-plugin-market`）保持独立。
+需要 Node.js 20.3 或更高版本，使用 MIT License。
