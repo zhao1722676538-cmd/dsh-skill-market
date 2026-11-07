@@ -52,25 +52,26 @@ window.__ModuleLoader__.load({
 			{ id: "all", label: "全部来源" },
 			{ id: "skillsmp", label: "skillsmp" },
 			{ id: "skillstore", label: "skillstore" },
-			{ id: "skills", label: "skills.sh" },
+			{ id: "skillssh", label: "skills.sh" },
 			{ id: "github", label: "GitHub" }
 		];
 
 		const SOURCE_LABEL = {
 			skillsmp: "skillsmp",
 			skillstore: "skillstore",
-			skills: "skills.sh",
+			skillssh: "skills.sh",
 			github: "GitHub"
 		};
 
 		function EntryRow(props) {
 			const { entry, installedIds, onInstall, onUninstall, busy } = props;
-			const installed = installedIds.has(entry.id);
+			const installed = installedIds.has(entry.id) || installedIds.has(entry.name);
 			const [confirming, setConfirming] = useState(false);
+			const [preview, setPreview] = useState(null);
 			const meta = [SOURCE_LABEL[entry.source] || entry.source];
 			if (entry.installs) meta.push(entry.installs.toLocaleString() + " 次安装");
 			if (entry.stars) meta.push(entry.stars + " stars");
-			if (entry.trust) meta.push("trust: " + entry.trust);
+			if (entry.risk) meta.push("risk: " + entry.risk);
 			return h(
 				"li",
 				{ className: "dsh-sm-entry", "data-installed": installed ? "true" : "false" },
@@ -84,7 +85,27 @@ window.__ModuleLoader__.load({
 						{ className: "dsh-sm-entry-meta" },
 						meta.map((m, i) => h(primitives.Tag, { key: i, tone: entry.source }, m)),
 						entry.path ? h(primitives.Tag, { key: "p" }, entry.path) : null
-					)
+					),
+					preview
+						? h(
+								"div",
+								{ className: "dsh-sm-preview" },
+								h(
+									"div",
+									null,
+									"将安装 " +
+										preview.fileCount +
+										" 个文件（" +
+										preview.totalBytes +
+										" bytes），风险：" +
+										(preview.risk || "unknown")
+								),
+								h("div", null, "脚本文件：" + (preview.scripts || []).length + "；可能联网：" + (preview.networkHints || []).length),
+								(preview.changes || []).length
+									? h("div", null, "本地变更：" + preview.changes.slice(0, 6).join("，"))
+									: null
+							)
+						: null
 				),
 				h(
 					"div",
@@ -114,15 +135,29 @@ window.__ModuleLoader__.load({
 									{ size: "small", onClick: () => setConfirming(true), disabled: !!busy },
 									"卸载"
 								)
+						: preview
+							? h(
+									"span",
+									null,
+									h(
+										primitives.Button,
+										{ size: "small", tone: "primary", disabled: !!busy, onClick: () => onInstall(entry, false) },
+										busy ? "安装中…" : "确认安装"
+									),
+									h(primitives.Button, { size: "small", onClick: () => setPreview(null) }, "取消")
+								)
 						: h(
 								primitives.Button,
 								{
 									size: "small",
 									tone: "primary",
 									disabled: !!busy,
-									onClick: () => onInstall(entry)
+									onClick: async () => {
+										const data = await onInstall(entry, true);
+										if (data && data.preview) setPreview(data.preview);
+									}
 								},
-								busy ? "安装中…" : "安装"
+								busy ? "检查中…" : "检查并安装"
 							)
 				)
 			);
@@ -196,7 +231,7 @@ window.__ModuleLoader__.load({
 			);
 
 			const runInstall = useCallback(
-				async (entry) => {
+				async (entry, previewOnly = false) => {
 					setBusyId(entry.id);
 					setError(null);
 					try {
@@ -209,12 +244,14 @@ window.__ModuleLoader__.load({
 								repo: entry.repo,
 								path: entry.path,
 								ref: entry.ref
-							}
+							},
+							preview: previewOnly
 						});
+						if (previewOnly) return data;
 						setFresh(!!data.fresh);
 						showFlash(
 							"ok",
-							"已安装 " + data.skill.name + " → " + data.skill.dir + (data.rescan ? "（已触发重载）" : "（需重载技能列表）")
+							"已安装 " + data.skill.name + " → " + data.skill.dir + (data.fresh ? "（已触发重载）" : "（需重载技能列表）")
 						);
 						await refreshInstalled();
 					} catch (err) {
@@ -222,6 +259,7 @@ window.__ModuleLoader__.load({
 					} finally {
 						setBusyId(null);
 					}
+					return null;
 				},
 				[refreshInstalled, showFlash]
 			);
@@ -383,6 +421,7 @@ window.__ModuleLoader__.load({
 				".dsh-sm-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}",
 				".dsh-sm-entry{display:flex;gap:12px;justify-content:space-between;align-items:flex-start;padding:10px 12px;border-radius:8px;border:1px solid rgba(127,127,127,.22)}",
 				".dsh-sm-entry[data-installed=true]{border-color:rgba(46,160,67,.45)}",
+				".dsh-sm-preview{margin-top:8px;padding:8px;border:1px solid rgba(210,153,34,.38);border-radius:6px;background:rgba(210,153,34,.08);font-size:12px;line-height:1.6}",
 				".dsh-sm-entry-main{min-width:0;display:flex;flex-direction:column;gap:4px}",
 				".dsh-sm-entry-title{font-size:13px}",
 				".dsh-sm-entry-desc{margin:0;font-size:12px;opacity:.72;overflow-wrap:anywhere}",

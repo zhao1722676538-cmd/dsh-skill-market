@@ -57,6 +57,16 @@ async function copyPackage(dest) {
   }
 }
 
+async function writeJsonAtomic(file, value) {
+  const temporary = `${file}.${process.pid}.${Date.now()}.tmp`
+  await fs.writeFile(temporary, `${JSON.stringify(value, null, 2)}\n`, 'utf8')
+  await fs.rename(temporary, file)
+}
+
+function transactionToken() {
+  return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`
+}
+
 async function main() {
   const args = parseArgs(process.argv.slice(2))
   if (args.help) {
@@ -86,12 +96,21 @@ async function main() {
       console.log('dry-run: would remove plugin files and its bundle-list entry')
       return
     }
-    await fs.rm(target, { recursive: true, force: true })
     const next = bundles.filter((entry) => entry !== PLUGIN_NAME)
-    if (next.length !== bundles.length) {
-      manifest.dsh.profile.bundles = next
-      await fs.writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8')
+    const token = transactionToken()
+    const backup = path.join(profileDir, 'node_modules', `.${PLUGIN_NAME}.uninstall-${token}`)
+    const moved = await exists(target)
+    if (moved) await fs.rename(target, backup)
+    try {
+      if (next.length !== bundles.length) {
+        manifest.dsh.profile.bundles = next
+        await writeJsonAtomic(manifestPath, manifest)
+      }
+    } catch (err) {
+      if (moved) await fs.rename(backup, target).catch(() => {})
+      throw err
     }
+    if (moved) await fs.rm(backup, { recursive: true, force: true })
     console.log(`removed ${PLUGIN_NAME}; restart the app to unload it`)
     return
   }
@@ -101,13 +120,46 @@ async function main() {
     return
   }
 
-  await fs.rm(target, { recursive: true, force: true })
-  await fs.mkdir(target, { recursive: true })
-  await copyPackage(target)
-  if (!listed) {
-    manifest.dsh.profile.bundles = [...bundles, PLUGIN_NAME]
-    await fs.writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8')
-    console.log('appended to dsh.profile.bundles')
+  const token = transactionToken()
+  const nodeModules = path.dirname(target)
+  const stage = path.join(nodeModules, `.${PLUGIN_NAME}.stage-${token}`)
+  const backup = path.join(nodeModules, `.${PLUGIN_NAME}.backup-${token}`)
+  let hadTarget = false
+  let installedNew = false
+  let keepBackup = false
+  try {
+    await fs.mkdir(nodeModules, { recursive: true })
+    await fs.rm(stage, { recursive: true, force: true })
+    await fs.mkdir(stage, { recursive: true })
+    await copyPackage(stage)
+    if (!(await exists(path.join(stage, 'package.json'))) || !(await exists(path.join(stage, 'src', 'index.js')))) {
+      throw new Error('staged package is incomplete')
+    }
+
+    hadTarget = await exists(target)
+    if (hadTarget) await fs.rename(target, backup)
+    await fs.rename(stage, target)
+    installedNew = true
+
+    if (!listed) {
+      manifest.dsh.profile.bundles = [...bundles, PLUGIN_NAME]
+      await writeJsonAtomic(manifestPath, manifest)
+      console.log('appended to dsh.profile.bundles')
+    }
+  } catch (err) {
+    if (installedNew) await fs.rm(target, { recursive: true, force: true }).catch(() => {})
+    if (hadTarget) {
+      await fs.rename(backup, target).catch(() => {
+        keepBackup = true
+      })
+    }
+    if (keepBackup) {
+      err.message += `; the previous version remains at ${backup} and must be restored manually`
+    }
+    throw err
+  } finally {
+    await fs.rm(stage, { recursive: true, force: true }).catch(() => {})
+    if (installedNew && !keepBackup) await fs.rm(backup, { recursive: true, force: true }).catch(() => {})
   }
   console.log(`\ninstalled → ${target}`)
   console.log('restart DeepSeek Harness to load the plugin (host tools + the "技能市场" tab).')

@@ -24,7 +24,7 @@ import { SOURCES, searchAll } from './sources/index.js'
 import { parseGitHubUrl, repoOf } from './sources/util.js'
 import { installSkill, uninstallSkill, listInstalled } from './install/installer.js'
 import { createHttp } from './net.js'
-import { parseIndexDocument, searchIndex } from './index-store.js'
+import { MAX_INDEX_BYTES, parseIndexDocument, searchIndex } from './index-store.js'
 import { resolveInstallRoot } from './registry.js'
 
 const SOURCE_IDS = Object.keys(SOURCES)
@@ -92,7 +92,7 @@ install
   --to <target|path>          ${Object.keys(TARGETS).join(' | ')} or any directory
                               (default: auto-detected DSH skills dir)
   --overwrite                 Replace a directory this tool does not manage
-  --dry-run                   Resolve and report without writing anything
+  --dry-run                   Resolve, inspect and preview without writing anything
   --json                      Machine-readable output
 
 list / uninstall
@@ -185,7 +185,15 @@ export function coordinateEntry(coordinate, flags = {}) {
     const parsed = parseGitHubUrl(raw)
     if (!parsed) throw new Error(`not a GitHub coordinate: ${raw}`)
     const name = flags.name?.trim() || suggestName(parsed.path, parsed.repo)
-    return { name, repo: parsed.repo, path: flags.path?.trim() || parsed.path, ref: flags.ref?.trim() || parsed.ref, source: 'github', id: `github:${parsed.repo}` }
+    return {
+      name,
+      installName: flags.name?.trim() || undefined,
+      repo: parsed.repo,
+      path: flags.path?.trim() || parsed.path,
+      ref: flags.ref?.trim() || parsed.ref,
+      source: 'github',
+      id: `github:${parsed.repo}`,
+    }
   }
   const segments = raw.split('/').map((part) => part.trim()).filter(Boolean)
   if (segments.length < 2) throw new Error(`expected owner/repo[/path], got: ${raw}`)
@@ -193,7 +201,15 @@ export function coordinateEntry(coordinate, flags = {}) {
   if (!repo) throw new Error(`invalid repository: ${segments[0]}/${segments[1]}`)
   const rest = segments.slice(2).join('/')
   const name = flags.name?.trim() || suggestName(rest, repo)
-  return { name, repo, path: flags.path?.trim() || rest || undefined, ref: flags.ref?.trim() || undefined, source: 'github', id: `github:${repo}` }
+  return {
+    name,
+    installName: flags.name?.trim() || undefined,
+    repo,
+    path: flags.path?.trim() || rest || undefined,
+    ref: flags.ref?.trim() || undefined,
+    source: 'github',
+    id: `github:${repo}`,
+  }
 }
 
 /**
@@ -215,9 +231,17 @@ function suggestName(dirPath, repo) {
  * @returns {Promise<{entries: any[], meta: any}>}
  */
 export async function loadIndex(location, deps) {
-  const text = /^https?:\/\//i.test(location)
-    ? await deps.http(location).then((response) => response.text())
-    : await fs.promises.readFile(location.replace(/^file:\/\//i, ''), 'utf8')
+  let text
+  if (/^https?:\/\//i.test(location)) {
+    const response = await deps.http(location)
+    if (!response.ok) throw new Error(`index request failed: HTTP ${response.status}`)
+    text = await response.text()
+  } else {
+    text = await fs.promises.readFile(location.replace(/^file:\/\//i, ''), 'utf8')
+  }
+  if (Buffer.byteLength(text) > MAX_INDEX_BYTES) {
+    throw new Error(`index exceeds the ${MAX_INDEX_BYTES} byte limit`)
+  }
   return parseIndexDocument(text, location)
 }
 
@@ -305,6 +329,9 @@ export async function run(args, context = {}) {
       : undefined
     const limit = Math.max(1, Math.min(50, Number(flags.limit) || 10))
     const indexLocations = Array.isArray(flags.index) ? flags.index : []
+    if (flags.offline === true && indexLocations.length === 0) {
+      return fail('--offline requires at least one --index location', 2) ?? 2
+    }
 
     let items = []
     let mode = 'live'
@@ -356,16 +383,39 @@ export async function run(args, context = {}) {
       return fail(err?.message ?? String(err), 2) ?? 2
     }
     const installRoot = resolveTarget(flags.to)
-    if (flags['dry-run'] === true) {
-      const payload = { dryRun: true, name: entry.name, repo: entry.repo, path: entry.path, ref: entry.ref, target: installRoot }
-      if (json) printJson(payload)
-      else process.stdout.write(`would install ${entry.name} from ${entry.repo}${entry.path ? `/${entry.path}` : ''} → ${installRoot}\n`)
-      return 0
-    }
     try {
-      const result = await installSkill(entry, { installRoot, deps, overwrite: flags.overwrite === true })
+      const dryRun = flags['dry-run'] === true
+      const result = await installSkill(entry, {
+        installRoot,
+        deps,
+        overwrite: flags.overwrite === true,
+        dryRun,
+      })
       if (json) {
-        printJson({ ok: true, name: result.name, dir: result.dir, files: result.files, repo: result.repo, commit: result.commit, updated: result.updated, warnings: result.warnings })
+        printJson({
+          ok: true,
+          dryRun,
+          name: result.name,
+          dir: result.dir,
+          files: result.files,
+          repo: result.repo,
+          path: result.path,
+          ref: result.ref,
+          commit: result.commit,
+          updated: result.updated,
+          warnings: result.warnings,
+          preview: result.preview,
+        })
+      } else if (dryRun) {
+        const preview = result.preview ?? {}
+        process.stdout.write(
+          `would install ${result.name} from ${result.repo}${result.path ? `/${result.path}` : ''} → ${result.dir}\n` +
+            `  commit: ${result.commit ?? result.ref ?? 'unresolved'}\n` +
+            `  files: ${preview.fileCount ?? result.files}, bytes: ${preview.totalBytes ?? '?'}\n` +
+            `  risk: ${preview.risk ?? 'unknown'}, scripts: ${(preview.scripts ?? []).length}, ` +
+            `network hints: ${(preview.networkHints ?? []).length}, state: ${preview.verification ?? 'unknown'}\n`,
+        )
+        for (const warning of result.warnings ?? []) log(`warning: ${warning}`)
       } else {
         process.stdout.write(`installed ${result.name}${result.repo ? ` from ${result.repo}@${String(result.commit ?? '').slice(0, 12)}` : ''} (${result.files} files) → ${result.dir}\n`)
         for (const warning of result.warnings ?? []) log(`warning: ${warning}`)

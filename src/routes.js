@@ -116,7 +116,10 @@ export function mountRoutes(options) {
   route('/install', async (body, req) => {
     requireMethod(req, ['POST'])
     const entry = await service.resolveEntry(body?.entry ?? body ?? {})
-    const result = await service.install(entry, { overwrite: body?.overwrite === true })
+    const result = await service.install(entry, {
+      overwrite: body?.overwrite === true,
+      dryRun: body?.preview === true,
+    })
     return {
       skill: {
         name: result.name,
@@ -126,6 +129,8 @@ export function mountRoutes(options) {
         commit: result.commit ?? null,
       },
       fresh: result.refreshed === true,
+      dryRun: body?.preview === true,
+      preview: result.preview,
       hint: service.installHint(result),
     }
   })

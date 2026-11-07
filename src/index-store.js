@@ -41,6 +41,8 @@ import { dedupe, rank } from './sources/index.js'
 import { slugify } from './sources/util.js'
 
 export const INDEX_VERSION = 1
+export const MAX_INDEX_BYTES = 20 * 1024 * 1024
+export const MAX_INDEX_ENTRIES = 50_000
 
 /** @param {string} location */
 export function isRemoteLocation(location) {
@@ -112,6 +114,9 @@ export function parseIndexDocument(text, origin = 'index') {
   }
   const list = Array.isArray(parsed) ? parsed : Array.isArray(parsed?.skills) ? parsed.skills : null
   if (!list) throw new Error('index document has no "skills" array')
+  if (list.length > MAX_INDEX_ENTRIES) {
+    throw new Error(`index contains ${list.length} entries, over the ${MAX_INDEX_ENTRIES} entry limit`)
+  }
   const entries = []
   let skipped = 0
   for (const raw of list) {
@@ -135,22 +140,28 @@ export function parseIndexDocument(text, origin = 'index') {
  * @param {{version?: number, generatedAt?: string, queries?: string[], sources?: string[], skills: any[]}} index
  */
 export function serializeIndex(index) {
-  const skills = (index.skills ?? []).map((skill) => ({
-    name: skill.name,
-    description: skill.description ?? '',
-    source: skill.source,
-    id: skill.id,
-    key: skill.key,
-    title: skill.title,
-    author: skill.author,
-    repo: skill.repo,
-    ref: skill.ref,
-    path: skill.path,
-    url: skill.url,
-    installs: skill.installs,
-    stars: skill.stars,
-    tags: skill.tags,
-  }))
+  const skills = (index.skills ?? [])
+    .map((skill) => ({
+      name: skill.name,
+      description: skill.description ?? '',
+      source: skill.source,
+      id: skill.id,
+      key: skill.key,
+      title: skill.title,
+      author: skill.author,
+      repo: skill.repo,
+      ref: skill.ref,
+      path: skill.path,
+      url: skill.url,
+      installs: skill.installs,
+      stars: skill.stars,
+      tags: skill.tags,
+    }))
+    .sort((left, right) => {
+      const leftKey = `${left.repo ?? ''}\0${left.path ?? ''}\0${left.name ?? ''}\0${left.id ?? ''}`
+      const rightKey = `${right.repo ?? ''}\0${right.path ?? ''}\0${right.name ?? ''}\0${right.id ?? ''}`
+      return leftKey.localeCompare(rightKey)
+    })
   const document = {
     version: index.version ?? INDEX_VERSION,
     generatedAt: index.generatedAt ?? new Date().toISOString(),
@@ -256,7 +267,7 @@ export function createIndexStore(options = {}) {
   async function loadOne(location, opts) {
     if (isFileLocation(location)) {
       const filePath = localPathOf(location)
-      const text = await fs.readFile(filePath, 'utf8')
+      const text = await readFileLimited(filePath, MAX_INDEX_BYTES)
       const { entries } = parseIndexDocument(text, filePath)
       return { entries, from: 'disk' }
     }
@@ -278,7 +289,7 @@ export function createIndexStore(options = {}) {
     const fresh = meta !== null && !opts.refresh && Date.now() - Number(meta.fetchedAt ?? 0) < ttlMs
     if (fresh) {
       try {
-        const text = await fs.readFile(bodyPath, 'utf8')
+        const text = await readFileLimited(bodyPath, MAX_INDEX_BYTES)
         const { entries } = parseIndexDocument(text, location)
         return { entries, from: 'cache' }
       } catch {
@@ -293,7 +304,7 @@ export function createIndexStore(options = {}) {
 
     const response = await http(location, { headers })
     if (response.status === 304 && meta !== null) {
-      const text = await fs.readFile(bodyPath, 'utf8')
+      const text = await readFileLimited(bodyPath, MAX_INDEX_BYTES)
       await fs.mkdir(cacheDir, { recursive: true })
       await fs.writeFile(
         metaPath,
@@ -303,7 +314,7 @@ export function createIndexStore(options = {}) {
       return { entries, from: 'cache' }
     }
     if (!response.ok) throw new Error(`index request failed: HTTP ${response.status}`)
-    const text = await response.text()
+    const text = await readResponseTextLimited(response, MAX_INDEX_BYTES)
     const { entries } = parseIndexDocument(text, location)
 
     await fs.mkdir(cacheDir, { recursive: true })
@@ -325,6 +336,35 @@ export function createIndexStore(options = {}) {
   }
 
   return { load, locations, cacheDir, ttlMs }
+}
+
+async function readFileLimited(file, maxBytes) {
+  const stat = await fs.stat(file)
+  if (!stat.isFile()) throw new Error(`${file} is not a regular file`)
+  if (stat.size > maxBytes) throw new Error(`${file} is ${stat.size} bytes, over the ${maxBytes} byte index limit`)
+  return fs.readFile(file, 'utf8')
+}
+
+async function readResponseTextLimited(response, maxBytes) {
+  if (response?.body && typeof response.body.getReader === 'function') {
+    const reader = response.body.getReader()
+    const chunks = []
+    let total = 0
+    while (true) {
+      const { done, value } = await reader.read()
+      if (done) break
+      total += value.byteLength
+      if (total > maxBytes) {
+        await reader.cancel().catch(() => {})
+        throw new Error(`remote index exceeds the ${maxBytes} byte limit`)
+      }
+      chunks.push(Buffer.from(value))
+    }
+    return Buffer.concat(chunks, total).toString('utf8')
+  }
+  const text = await response.text()
+  if (Buffer.byteLength(text) > maxBytes) throw new Error(`remote index exceeds the ${maxBytes} byte limit`)
+  return text
 }
 
 /**

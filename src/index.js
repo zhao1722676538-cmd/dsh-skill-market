@@ -279,73 +279,95 @@ function createService(options) {
     async resolveEntry(args = {}) {
       const repo = typeof args.repo === 'string' ? args.repo.trim() : ''
       const hintName = normalizeSkillName(typeof args.name === 'string' ? args.name : '')
+      const source = normalizeSourceId(args.source)
 
+      let entry
       if (repo.includes('/')) {
-        return {
-          source: normalizeSourceId(args.source),
+        entry = {
+          source,
           id: typeof args.id === 'string' && args.id !== '' ? args.id : `github:${repo}`,
           name: hintName || normalizeSkillName(repo.split('/').pop() ?? '') || 'skill',
+          installName: hintName || undefined,
           description: '',
           repo,
           ref: typeof args.ref === 'string' && args.ref !== '' ? args.ref : undefined,
           path: typeof args.path === 'string' && args.path !== '' ? normalizeRepoPath(args.path) : undefined,
         }
-      }
+      } else {
+        const id = typeof args.id === 'string' ? args.id.trim() : ''
+        const skillshId = id.replace(/^skillssh:/i, '')
 
-      const source = normalizeSourceId(args.source)
-      const id = typeof args.id === 'string' ? args.id.trim() : ''
-
-      // skills.sh ids look like "owner/repo/skill-id" and carry the repo directly.
-      if (source === 'skillssh' && id.split('/').filter(Boolean).length >= 3) {
-        const parts = id.split('/').filter(Boolean)
-        return {
-          source,
-          id,
-          name: hintName || normalizeSkillName(parts[parts.length - 1]) || 'skill',
-          description: '',
-          repo: `${parts[0]}/${parts[1]}`,
-          ref: typeof args.ref === 'string' && args.ref !== '' ? args.ref : undefined,
-          path: undefined,
+        // skills.sh ids look like "owner/repo/skill-id" and carry the repo directly.
+        if (source === 'skillssh' && skillshId.split('/').filter(Boolean).length >= 3) {
+          const parts = skillshId.split('/').filter(Boolean)
+          entry = {
+            source,
+            id,
+            name: hintName || normalizeSkillName(parts[parts.length - 1]) || 'skill',
+            installName: hintName || undefined,
+            description: '',
+            repo: `${parts[0]}/${parts[1]}`,
+            ref: typeof args.ref === 'string' && args.ref !== '' ? args.ref : undefined,
+            path: undefined,
+          }
+        } else {
+          const query = hintName || id || repo
+          if (query === '') {
+            throw new Error(
+              'need a skill to install: pass `repo` ("owner/name"), or `source` + `id` (or `name`) from skill_market_search',
+            )
+          }
+          const outcome = await service.search({ query, sources: source ? [source] : settings.sources, limit: 15 })
+          const hit =
+            (id !== '' ? outcome.items.find((item) => item.id === id) : undefined) ??
+            (hintName !== '' ? outcome.items.find((item) => normalizeSkillName(item.name) === hintName) : undefined) ??
+            (id !== '' ? outcome.items.find((item) => item.id.endsWith(id)) : undefined)
+          const errors = outcome.reports.filter((report) => !report.ok).map((report) => `${report.source}: ${report.error}`)
+          if (!hit) {
+            throw new Error(
+              `cannot resolve an install coordinate for ${source ?? 'any source'}:${id || query}` +
+                (errors.length > 0 ? ` (${errors.join(' | ')})` : '') +
+                '. Pass `repo` explicitly, e.g. repo="anthropics/skills" path="skills/pdf" name="pdf".',
+            )
+          }
+          entry = { ...hit, installName: hintName || undefined }
         }
       }
 
-      const query = hintName || id || repo
-      if (query === '') {
-        throw new Error('need a skill to install: pass `repo` ("owner/name"), or `source` + `id` (or `name`) from skill_market_search')
+      const resolver = SOURCES[entry.source]?.resolve
+      if (typeof resolver === 'function') {
+        entry = await resolver(entry, deps)
       }
-      const outcome = await service.search({ query, sources: source ? [source] : settings.sources, limit: 15 })
-      const hit =
-        (id !== '' ? outcome.items.find((item) => item.id === id) : undefined) ??
-        (hintName !== '' ? outcome.items.find((item) => normalizeSkillName(item.name) === hintName) : undefined) ??
-        (id !== '' ? outcome.items.find((item) => item.id.endsWith(id)) : undefined)
-      if (!hit || !hit.repo) {
-        const errors = outcome.reports.filter((report) => !report.ok).map((report) => `${report.source}: ${report.error}`)
+      if (!entry.repo) {
         throw new Error(
-          `cannot resolve an install coordinate for ${source ?? 'any source'}:${id || query}` +
-            (errors.length > 0 ? ` (${errors.join(' | ')})` : '') +
-            '. Pass `repo` explicitly, e.g. repo="anthropics/skills" path="skills/pdf" name="pdf".',
+          `cannot resolve an install coordinate for ${entry.source ?? 'any source'}:${entry.id ?? entry.name ?? 'skill'}. ` +
+            'Pass `repo` explicitly, e.g. repo="anthropics/skills" path="skills/pdf" name="pdf".',
         )
       }
       return {
-        ...hit,
-        name: hintName || normalizeSkillName(hit.name) || 'skill',
-        ref: typeof args.ref === 'string' && args.ref !== '' ? args.ref : hit.ref,
+        ...entry,
+        name: hintName || normalizeSkillName(entry.name) || 'skill',
+        installName: hintName || undefined,
+        ref: typeof args.ref === 'string' && args.ref !== '' ? args.ref : entry.ref,
       }
     },
 
     /**
      * @param {any} entry
-     * @param {{overwrite?: boolean}} [opts]
+     * @param {{overwrite?: boolean, dryRun?: boolean}} [opts]
      */
     async install(entry, opts = {}) {
       const result = await installSkill(entry, {
         installRoot: settings.installRoot,
         deps,
         overwrite: opts.overwrite === true || settings.allowOverwrite,
+        dryRun: opts.dryRun === true,
       })
-      const refreshed = await refreshSkills(ctx, warn)
-      result.refreshed = refreshed
-      log(`installed ${result.name} from ${result.repo ?? entry.source}@${result.commit ?? '?'} → ${result.dir}`)
+      if (opts.dryRun !== true) {
+        const refreshed = await refreshSkills(ctx, warn)
+        result.refreshed = refreshed
+        log(`installed ${result.name} from ${result.repo ?? entry.source}@${result.commit ?? '?'} → ${result.dir}`)
+      }
       return result
     },
 
@@ -382,6 +404,13 @@ function createService(options) {
 
     /** @param {any} result */
     installHint(result) {
+      if (result?.preview) {
+        return (
+          `Preview: ${result.preview.fileCount} files, ${result.preview.totalBytes} bytes, ` +
+          `${result.preview.scripts.length} script file(s), ${result.preview.networkHints.length} network hint(s), ` +
+          `risk=${result.preview.risk}. Review this before installing.`
+        )
+      }
       if (result?.refreshed) return 'The skills registry was refreshed; the skill is usable in this turn.'
       return 'Restart DeepSeek Harness if the skill does not show up in the skill list.'
     },

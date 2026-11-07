@@ -15,7 +15,7 @@ Repository: <https://github.com/zhao1722676538-cmd/dsh-skill-market>
 | id | Site | API | Notes |
 | --- | --- | --- | --- |
 | `skillsmp` | skillsmp.com | `GET /api/v1/skills/search` | Aggregated Anthropic-ecosystem index; anonymous quota 50/day, token supported |
-| `skillstore` | skillstore.io | `GET /api/skills?q=` + `/api/skills/{slug}/manifest` | Ships risk levels and a signed manifest pinned to an immutable GitHub commit |
+| `skillstore` | skillstore.io | `GET /api/skills?q=` + `/api/skills/{slug}/manifest` | Verifies the Ed25519 manifest and pins installation to its immutable GitHub commit |
 | `skillssh` | skills.sh | `GET /api/search?q=` | Registry sorted by install count; entries look like `anthropics/skills/pdf` |
 | `github` | api.github.com | repo/code search + zipball install | Fallback: any `*/SKILL.md` in any repository can be installed |
 
@@ -56,7 +56,7 @@ https://raw.githubusercontent.com/zhao1722676538-cmd/dsh-skill-market/main/skill
 | --- | --- |
 | `skill_market_search` | Cross-source search; returns `id / name / repo / path / installs / stars / risk` plus `mode` (`index` / `index+live` / `live`) |
 | `skill_market_build_index` | Harvests the four sources into one static index JSON (then wire its path into `indexes`) |
-| `skill_market_install` | Accepts a search-result `id`, `owner/repo`, `owner/repo/path`, or a GitHub URL; resolves the skill directory and writes it to `$DSH_HOME/skills/<name>` |
+| `skill_market_install` | Accepts a search-result `id`, `owner/repo`, `owner/repo/path`, or a GitHub URL. Use `preview=true` to inspect files, scripts, network hints, risk, and local changes before writing to `$DSH_HOME/skills/<name>` |
 | `skill_market_uninstall` | Removes a skill by name (registry first, then directory) |
 | `skill_market_list` | Installed skills with their source, plus the enabled source list |
 
@@ -76,7 +76,7 @@ node src/cli.js uninstall pdf --to claude
 ```
 
 - `--to dsh|claude|agents|codex|cursor|gemini|copilot|opencode|amp|goose|windsurf|cline|roo|continue|qwen|<path>` selects the skills directory; without it the CLI auto-detects an existing DSH → `.agents` → `.claude` root.
-- `--json` on every command for scripting; `--dry-run` on `install` to resolve without writing.
+- `--json` on every command for scripting; `--dry-run` on `install` performs the real archive and `SKILL.md` resolution, then returns a preview without writing.
 - `--source`, `--limit`, `--offline` for search; `--name`, `--path`, `--ref`, `--overwrite` for install.
 - Web-only assistants (ChatGPT, Grok) have no local skills directory, so neither this CLI nor the plugin applies there.
 
@@ -170,6 +170,7 @@ Maintenance workflow (publish, index refresh, troubleshooting): see [MAINTENANCE
 - Installation downloads a GitHub archive (`codeload`), so github.com must be reachable; the first download of a large repo can take from ten seconds to half a minute.
 - The `github` source is limited to **10 searches/minute** anonymously: one search issues a single request and caches for 5 minutes in-process; when throttled, the panel/tool says "wait about a minute or set `githubToken`" instead of returning empty results.
 - If a repository contains several `SKILL.md` files, install reports the ambiguity and lists candidates; re-run with `path=` (the panel entry already carries a path).
+- SkillStore signature verification proves manifest/artifact integrity and pins the commit; it does not certify that the skill is safe.
 - The `skillsmp` anonymous quota is small.
 - An index is a **snapshot**: skills published later are missing from it (a miss falls back to live search). Re-run the builder periodically, or host the index and let the host revalidate it by TTL.
 - The client panel only calls this plugin's same-origin routes; it never contacts third-party sites directly.

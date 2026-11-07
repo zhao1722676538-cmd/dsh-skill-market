@@ -5,13 +5,26 @@ import path from 'node:path'
 import test from 'node:test'
 
 import { dedupe, rank } from '../src/sources/index.js'
-import { createIndexStore, parseIndexDocument, searchIndex, serializeIndex } from '../src/index-store.js'
+import {
+  createIndexStore,
+  MAX_INDEX_ENTRIES,
+  parseIndexDocument,
+  searchIndex,
+  serializeIndex,
+} from '../src/index-store.js'
 import { buildIndex } from '../src/index-build.js'
 import { search as githubSearch } from '../src/sources/github.js'
 import { parseGitHubUrl, repoOf, slugify, clamp, pageWindow } from '../src/sources/util.js'
 import { locateSkillDir, normalizeRepo } from '../src/install/github.js'
 import { parseFrontmatter } from '../src/install/installer.js'
-import { readRegistry, resolveInstallRoot, validateSkillName, writeRegistry } from '../src/registry.js'
+import {
+  mutateRegistry,
+  readRegistry,
+  registryPath,
+  resolveInstallRoot,
+  validateSkillName,
+  writeRegistry,
+} from '../src/registry.js'
 import {
   buildPluginIndex,
   looksLikeSemverRange,
@@ -125,6 +138,26 @@ test('registry round-trips through a temporary install root', async () => {
   }
 })
 
+test('a corrupt registry is backed up and blocks every destructive mutation', async () => {
+  const root = path.join(os.tmpdir(), `dsh-skill-market-corrupt-${process.pid}-${Date.now()}`)
+  const registry = registryPath(root)
+  try {
+    await fs.mkdir(path.dirname(registry), { recursive: true })
+    await fs.writeFile(registry, '{"version":1,"skills":', 'utf8')
+    const read = await readRegistry(root)
+    assert.equal(read.corrupt, true)
+    assert.ok(read.backupPath)
+    assert.equal(await fs.readFile(read.backupPath, 'utf8'), '{"version":1,"skills":')
+    await assert.rejects(
+      () => mutateRegistry(root, (data) => { data.skills.pdf = { repo: 'a/b' } }),
+      (err) => err.code === 'EREGISTRY_CORRUPT' && err.backupPath === read.backupPath,
+    )
+    assert.equal(await fs.readFile(registry, 'utf8'), '{"version":1,"skills":')
+  } finally {
+    await fs.rm(root, { recursive: true, force: true })
+  }
+})
+
 /** A stand-in for deps.http that answers GitHub search with canned items. */
 function githubHttp(items, calls) {
   return async (input) => {
@@ -208,6 +241,11 @@ test('parseIndexDocument accepts a document or a bare array and stamps missing i
   assert.equal(fromArray.entries[0].id, 'skillsmp:excel')
   assert.throws(() => parseIndexDocument('{"nope":true}'), /no "skills" array/)
   assert.throws(() => parseIndexDocument('not json'), /not valid JSON/)
+})
+
+test('parseIndexDocument refuses oversized index documents', () => {
+  const skills = Array.from({ length: MAX_INDEX_ENTRIES + 1 }, (_, index) => ({ name: `skill-${index}` }))
+  assert.throws(() => parseIndexDocument(JSON.stringify({ version: 1, skills })), /entry limit/)
 })
 
 test('searchIndex filters locally: every token must match, sources and limit apply', () => {
@@ -326,6 +364,16 @@ test('serializeIndex round-trips through parseIndexDocument', () => {
   assert.equal(again.entries[0].repo, 'a/b')
   assert.equal(again.entries[0].installs, 3)
   assert.deepEqual(JSON.parse(text).queries, ['pdf'])
+})
+
+test('serializeIndex sorts skills so unchanged indexes remain byte-stable', () => {
+  const skills = [
+    { name: 'z', source: 'github', id: 'github:z', repo: 'z/z' },
+    { name: 'a', source: 'github', id: 'github:a', repo: 'a/a' },
+  ]
+  const first = serializeIndex({ generatedAt: '2026-01-01T00:00:00.000Z', skills })
+  const second = serializeIndex({ generatedAt: '2026-01-01T00:00:00.000Z', skills: skills.slice().reverse() })
+  assert.equal(first, second)
 })
 
 test('buildIndex needs at least one query', async () => {

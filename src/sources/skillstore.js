@@ -19,11 +19,12 @@
 
 import { httpJson } from '../net.js'
 import { firstNumber, firstString, pageWindow, parseGitHubUrl } from './util.js'
+import { verifySkillStoreManifest } from './skillstore-signature.js'
 
 export const id = 'skillstore'
 export const label = 'SkillStore'
 export const home = 'https://skillstore.io'
-export const capabilities = { search: true, browse: false, detail: true }
+export const capabilities = { search: true, browse: false, detail: true, verifiedArtifacts: true, resolve: true }
 
 const SEARCH = `${home}/api/skills`
 
@@ -50,22 +51,28 @@ export async function search(q, deps) {
 }
 
 /**
- * Fill `repo/ref/path` from the signed manifest when search omitted them.
+ * Verify the signed install manifest and fill `repo/ref/path` from its immutable
+ * artifact coordinates. Verification is mandatory for installs from this source.
  * @param {import('../types.js').SkillEntry} entry
  * @param {import('../types.js').SourceDeps} deps
  */
 export async function resolve(entry, deps) {
-  if (entry?.repo) return entry
   const slug = entry?.key || entry?.id?.replace(/^skillstore:/, '')
-  if (!slug) return entry
-  try {
-    const manifest = await httpJson(deps.http, `${SEARCH}/${encodeURIComponent(slug)}/manifest`, { timeoutMs: 12000 })
-    const coords = parseGitHubUrl(manifest?.repo ?? manifest?.source?.repo ?? manifest?.source?.url)
-    if (!coords?.repo) return entry
-    return { ...entry, repo: coords.repo, ref: coords.ref ?? manifest?.ref ?? manifest?.source?.ref, path: coords.path }
-  } catch (err) {
-    deps.log?.(`skillstore: manifest lookup failed for ${slug}: ${err?.message ?? err}`)
-    return entry
+  if (!slug || slug.includes('/') || slug.startsWith('github:')) {
+    throw new Error('SkillStore install requires the slug from a skill_market_search result')
+  }
+  const manifest = await httpJson(deps.http, `${SEARCH}/${encodeURIComponent(slug)}/manifest`, { timeoutMs: 12000 })
+  const verified = verifySkillStoreManifest(manifest, { expectedSlug: slug })
+  return {
+    ...entry,
+    repo: verified.repo,
+    ref: verified.ref,
+    path: verified.path,
+    verified: true,
+    artifactSha256: verified.artifactSha256,
+    treeHash: verified.treeHash,
+    signedAt: verified.signedAt,
+    installName: entry.installName,
   }
 }
 

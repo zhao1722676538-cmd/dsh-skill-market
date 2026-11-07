@@ -1,0 +1,48 @@
+name: Refresh plugin index
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - plugin-index.json
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: plugin-index
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+      - run: npm test
+      - run: npm run check
+      - run: npm run check:json
+      - run: node scripts/build-index.mjs --plugin-index
+      - run: npm run check:release
+
+      - name: Commit refreshed index
+        run: |
+          if git diff --quiet -- plugin-index.json; then
+            echo "plugin-index.json is already current"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add plugin-index.json
+          git commit -m "chore: refresh plugin index"
+          git push

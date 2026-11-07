@@ -13,9 +13,10 @@ import path from 'node:path'
 import { test } from 'node:test'
 import zlib from 'node:zlib'
 
-import { clearArchiveCache } from '../src/install/github.js'
+import { clearArchiveCache, fetchRepoArchive } from '../src/install/github.js'
 import { installSkill, listInstalled, uninstallSkill } from '../src/install/installer.js'
 import { MAX_UNCOMPRESSED_BYTES, parseTar, readTarGz } from '../src/install/tar.js'
+import { resolve as resolveGithubSource } from '../src/sources/github.js'
 
 const SHA = '0123456789abcdef0123456789abcdef01234567'
 const BLOCK = 512
@@ -272,6 +273,44 @@ test('installSkill writes the skill directory and records per-file hashes', asyn
   }
 })
 
+test('dry-run resolves the archive and preview without writing, and honours an explicit name', async () => {
+  const installRoot = await tempRoot()
+  clearArchiveCache()
+  try {
+    const result = await installSkill(skillEntry({ installName: 'my-pdf' }), {
+      installRoot,
+      dryRun: true,
+      deps: {
+        http: fakeHttp({
+          archive: repoTarball([
+            ...skillFiles,
+            { path: 'pdf/scripts/convert.js', data: 'fetch("https://example.test")\n' },
+          ]),
+        }),
+      },
+    })
+    assert.equal(result.name, 'my-pdf')
+    assert.equal(result.files, 3)
+    assert.equal(result.preview.fileCount, 3)
+    assert.deepEqual(result.preview.scripts, ['scripts/convert.js'])
+    assert.deepEqual(result.preview.networkHints, ['scripts/convert.js'])
+    assert.match(result.preview.treeSha256, /^[0-9a-f]{64}$/)
+    await assert.rejects(fs.access(path.join(installRoot, 'my-pdf')))
+  } finally {
+    await fs.rm(installRoot, { recursive: true, force: true })
+  }
+})
+
+test('github repository results resolve to their single SKILL.md directory', async () => {
+  clearArchiveCache()
+  const entry = await resolveGithubSource(
+    { source: 'github', id: 'github:demo/skills', name: 'pdf', repo: 'demo/skills' },
+    { http: fakeHttp({ archive: repoTarball(skillFiles) }) },
+  )
+  assert.equal(entry.path, 'pdf')
+  assert.equal(entry.commit, SHA)
+})
+
 test('installSkill refuses to clobber an unmanaged directory unless overwrite is set', async () => {
   const installRoot = await tempRoot()
   clearArchiveCache()
@@ -291,6 +330,37 @@ test('installSkill refuses to clobber an unmanaged directory unless overwrite is
     })
     assert.equal(forced.updated, true)
     await assert.rejects(fs.access(path.join(installRoot, 'pdf', 'hand-written.md')))
+  } finally {
+    await fs.rm(installRoot, { recursive: true, force: true })
+  }
+})
+
+test('installSkill refuses to replace local edits in a managed skill', async () => {
+  const installRoot = await tempRoot()
+  clearArchiveCache()
+  try {
+    await installSkill(skillEntry(), {
+      installRoot,
+      deps: { http: fakeHttp({ archive: repoTarball(skillFiles) }) },
+    })
+    await fs.writeFile(path.join(installRoot, 'pdf', 'reference.md'), 'locally edited\n')
+
+    const preview = await installSkill(skillEntry(), {
+      installRoot,
+      dryRun: true,
+      deps: { http: fakeHttp({ archive: repoTarball(skillFiles) }) },
+    })
+    assert.equal(preview.preview.verification, 'modified')
+    assert.ok(preview.preview.changes.includes('changed: reference.md'))
+
+    await assert.rejects(
+      installSkill(skillEntry(), {
+        installRoot,
+        deps: { http: fakeHttp({ archive: repoTarball(skillFiles) }) },
+      }),
+      (err) => err.code === 'EEXIST_MODIFIED' && err.conflicts.includes('changed: reference.md'),
+    )
+    assert.equal(await fs.readFile(path.join(installRoot, 'pdf', 'reference.md'), 'utf8'), 'locally edited\n')
   } finally {
     await fs.rm(installRoot, { recursive: true, force: true })
   }
@@ -365,6 +435,32 @@ test('installSkill rejects an archive whose declared size is over the limit', as
   }
 })
 
+test('archive download is capped while streaming even without content-length', async () => {
+  clearArchiveCache()
+  const http = async () => ({
+    ok: true,
+    status: 200,
+    headers: new Map(),
+    body: {
+      getReader() {
+        let sent = false
+        return {
+          async read() {
+            if (sent) return { done: true, value: undefined }
+            sent = true
+            return { done: false, value: { byteLength: 65 * 1024 * 1024 } }
+          },
+          async cancel() {},
+        }
+      },
+    },
+  })
+  await assert.rejects(
+    fetchRepoArchive({ repo: 'demo/skills', ref: SHA }, { http }),
+    (err) => err.code === 'EARCHIVE_TOO_LARGE' && /while downloading/.test(err.message),
+  )
+})
+
 /* ------------------------------------------------------------------ */
 /* uninstallSkill                                                      */
 /* ------------------------------------------------------------------ */
@@ -423,6 +519,34 @@ test('uninstallSkill removes a clean install and its registry record', async () 
 
     const registry = JSON.parse(await fs.readFile(path.join(installRoot, '.skill-market', 'registry.json'), 'utf8'))
     assert.equal(registry.skills.pdf, undefined)
+  } finally {
+    await fs.rm(installRoot, { recursive: true, force: true })
+  }
+})
+
+test('uninstallSkill refuses to delete when the current tree cannot be verified', async () => {
+  const installRoot = await tempRoot()
+  clearArchiveCache()
+  try {
+    await installSkill(skillEntry(), {
+      installRoot,
+      deps: { http: fakeHttp({ archive: repoTarball(skillFiles) }) },
+    })
+    await Promise.all(
+      Array.from({ length: 451 }, (_, index) =>
+        fs.writeFile(path.join(installRoot, 'pdf', `extra-${index}.txt`), `extra ${index}\n`),
+      ),
+    )
+
+    const blocked = await uninstallSkill('pdf', { installRoot })
+    assert.equal(blocked.ok, false)
+    assert.equal(blocked.reason, 'unverifiable')
+    assert.match(blocked.error, /450 files/)
+    await fs.access(path.join(installRoot, 'pdf'))
+
+    const forced = await uninstallSkill('pdf', { installRoot, force: true })
+    assert.equal(forced.ok, true)
+    await assert.rejects(fs.access(path.join(installRoot, 'pdf')))
   } finally {
     await fs.rm(installRoot, { recursive: true, force: true })
   }

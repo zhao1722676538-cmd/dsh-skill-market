@@ -15,11 +15,12 @@ concurrency:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
+        os: [ubuntu-latest, windows-latest]
         node: ['20', '22']
     steps:
       - uses: actions/checkout@v4
@@ -27,15 +28,20 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
+          cache: npm
 
-      # 没有依赖、没有构建步骤，但每个入口文件都必须先能解析
+      - name: Install dependencies
+        run: npm ci
+
       - name: Syntax check
         run: npm run check
 
-      - name: Unit tests
+      - name: Unit and integration tests
         run: npm test
 
-      # 全仓 JSON（含 skill-index.json / plugin-index.json）都必须能被解析
-      - name: All JSON files parse
-        run: |
-          node -e "const fs=require('fs'),p=require('path');const walk=d=>fs.readdirSync(d,{withFileTypes:true}).flatMap(e=>e.name==='.git'||e.name==='node_modules'?[]:e.isDirectory()?walk(p.join(d,e.name)):e.name.endsWith('.json')?[p.join(d,e.name)]:[]);const files=walk('.');let bad=0;for(const f of files){try{JSON.parse(fs.readFileSync(f,'utf8'))}catch(e){bad++;console.error(f+': '+e.message)}}console.log(files.length+' json file(s) ok');process.exit(bad?1:0)"
+      - name: JSON contracts
+        run: npm run check:json
+
+      - name: Coverage
+        if: runner.os == 'Linux' && matrix.node == '22'
+        run: npm run test:coverage

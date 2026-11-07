@@ -19,7 +19,8 @@ const ARCHIVE_TTL_MS = 10 * 60 * 1000
 /** 单个 tarball 的体积上限：超过就不下载/不解压，避免被超大仓库拖死 */
 const MAX_ARCHIVE_BYTES = 64 * 1024 * 1024
 /** 缓存里最多留几个仓库（每个条目持有整包 Buffer，必须封顶） */
-const ARCHIVE_CACHE_MAX_ENTRIES = 8
+const ARCHIVE_CACHE_MAX_ENTRIES = 4
+const ARCHIVE_CACHE_MAX_BYTES = 128 * 1024 * 1024
 const USER_AGENT = 'dsh-skill-market/0.1 (+https://github.com/zhao1722676538-cmd/dsh-skill-market)'
 
 /** 默认 HTTP：全局 fetch + 超时；调用方显式传 signal 时以 signal 为准 */
@@ -87,22 +88,24 @@ export function clearArchiveCache() {
   archiveCache.clear()
 }
 
-/** @type {Map<string, {at:number, promise:Promise<any>}>} 进程内 10 分钟缓存 */
+/** @type {Map<string, {at:number, bytes:number, promise:Promise<any>}>} */
 const archiveCache = new Map()
 
 /**
  * 惰性过期只看命中的那个 key，过期条目会一直躺着占内存。
  * 每次写入前扫一遍：先丢过期的，再按插入顺序丢最旧的，保证条目数有上限。
  */
-function pruneArchiveCache() {
+function pruneArchiveCache(keepKey = null) {
   const now = Date.now()
   for (const [key, value] of archiveCache) {
-    if (now - value.at >= ARCHIVE_TTL_MS) archiveCache.delete(key)
+    if (key !== keepKey && now - value.at >= ARCHIVE_TTL_MS) archiveCache.delete(key)
   }
-  while (archiveCache.size >= ARCHIVE_CACHE_MAX_ENTRIES) {
-    const oldest = archiveCache.keys().next()
-    if (oldest.done) break
-    archiveCache.delete(oldest.value)
+  let bytes = [...archiveCache.values()].reduce((sum, value) => sum + (value.bytes || 0), 0)
+  while (archiveCache.size > ARCHIVE_CACHE_MAX_ENTRIES || bytes > ARCHIVE_CACHE_MAX_BYTES) {
+    const oldest = [...archiveCache.entries()].find(([key]) => key !== keepKey)
+    if (!oldest) break
+    archiveCache.delete(oldest[0])
+    bytes -= oldest[1].bytes || 0
   }
 }
 
@@ -128,8 +131,17 @@ export async function fetchRepoArchive({ repo, ref } = {}, deps) {
   }
 
   const promise = downloadArchive(cleanRepo, refText, d)
-  pruneArchiveCache()
-  archiveCache.set(cacheKey, { at: Date.now(), promise })
+  pruneArchiveCache(cacheKey)
+  if (archiveCache.size >= ARCHIVE_CACHE_MAX_ENTRIES) {
+    const oldest = archiveCache.keys().next()
+    if (!oldest.done) archiveCache.delete(oldest.value)
+  }
+  const cacheEntry = { at: Date.now(), bytes: 0, promise }
+  archiveCache.set(cacheKey, cacheEntry)
+  promise.then((result) => {
+    cacheEntry.bytes = result?.dataBytes ?? 0
+    pruneArchiveCache(cacheKey)
+  }).catch(() => {})
   try {
     return await promise
   } catch (err) {
@@ -164,14 +176,7 @@ async function downloadArchive(repo, refText, d) {
     )
   }
 
-  const arrayBuffer = await res.arrayBuffer()
-  const buf = Buffer.from(arrayBuffer)
-  if (buf.length > MAX_ARCHIVE_BYTES) {
-    throw ghError(
-      'EARCHIVE_TOO_LARGE',
-      `${repo}@${refText} is ${Math.round(buf.length / 1024 / 1024)} MiB, over the ${MAX_ARCHIVE_BYTES / 1024 / 1024} MiB limit`,
-    )
-  }
+  const buf = await readResponseBuffer(res, MAX_ARCHIVE_BYTES, `${repo}@${refText}`)
   const entries = await readTarGz(buf)
 
   // 顶层目录名，例如 `skills-8f3c2a1d.../`
@@ -201,6 +206,7 @@ async function downloadArchive(repo, refText, d) {
 
   return {
     files: stripped,
+    dataBytes: stripped.reduce((sum, entry) => sum + (entry.data?.length ?? 0), 0),
     commit,
     repo,
     ref: refText,
@@ -208,6 +214,38 @@ async function downloadArchive(repo, refText, d) {
     archiveBytes: buf.length,
     commitSource,
   }
+}
+
+async function readResponseBuffer(response, maxBytes, label) {
+  if (response?.body && typeof response.body.getReader === 'function') {
+    const reader = response.body.getReader()
+    const chunks = []
+    let total = 0
+    while (true) {
+      const { done, value } = await reader.read()
+      if (done) break
+      total += value.byteLength
+      if (total > maxBytes) {
+        await reader.cancel().catch(() => {})
+        throw ghError(
+          'EARCHIVE_TOO_LARGE',
+          `${label} exceeded the ${maxBytes / 1024 / 1024} MiB archive limit while downloading`,
+        )
+      }
+      chunks.push(Buffer.from(value))
+    }
+    return Buffer.concat(chunks, total)
+  }
+
+  const arrayBuffer = await response.arrayBuffer()
+  const buffer = Buffer.from(arrayBuffer)
+  if (buffer.length > maxBytes) {
+    throw ghError(
+      'EARCHIVE_TOO_LARGE',
+      `${label} is ${Math.round(buffer.length / 1024 / 1024)} MiB, over the ${maxBytes / 1024 / 1024} MiB limit`,
+    )
+  }
+  return buffer
 }
 
 /** 通过 REST API 把 branch/tag 解析成 sha；匿名 60/h，失败返回 null（不致命） */

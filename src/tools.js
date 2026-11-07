@@ -105,6 +105,7 @@ export function registerTools(ctx, service) {
                   risk: { type: 'string' },
                   url: { type: 'string' },
                   installable: { type: 'boolean', required: true },
+                  resolutionRequired: { type: 'boolean', required: true },
                 },
               },
             },
@@ -150,6 +151,7 @@ export function registerTools(ctx, service) {
             risk: item.risk,
             url: item.url,
             installable: Boolean(item.repo),
+            resolutionRequired: Boolean(item.repo && !item.path),
           })),
           reports: outcome.reports,
         }
@@ -249,7 +251,9 @@ export function registerTools(ctx, service) {
       description:
         `Install one skill from a marketplace into the local skills directory, then make it usable immediately. ${INSTALL_NOTE} ` +
         'Pass either `repo` (+ optional `path`/`ref`) for a GitHub source, or `source`+`id` from a search result. ' +
-        '`name` is the directory name / skill name to install as (lowercase, digits, dot, dash, underscore).',
+        '`name` is the directory name / skill name to install as (lowercase, digits, dot, dash, underscore). ' +
+        'Call once with `preview=true` to resolve, inspect, and show the user the files, scripts, network hints, risk, and update diff; ' +
+        'then call again without `preview` only after the user agrees.',
       parameters: {
         name: { type: 'string', required: true, description: 'Skill name to install as, e.g. "pdf".' },
         source: { type: 'string', enum: SOURCE_IDS, description: 'Marketplace the entry came from.' },
@@ -258,6 +262,7 @@ export function registerTools(ctx, service) {
         path: { type: 'string', description: 'Directory inside the repository that holds SKILL.md (optional; auto-located).' },
         ref: { type: 'string', description: 'Commit/branch/tag to install from (default: repository default branch).' },
         overwrite: { type: 'boolean', description: 'Replace an existing directory that this plugin does not manage.' },
+        preview: { type: 'boolean', description: 'Resolve and return a safety preview without writing anything.' },
       },
       output: {
         schema: {
@@ -265,6 +270,7 @@ export function registerTools(ctx, service) {
           additionalProperties: false,
           properties: {
             ok: { type: 'boolean', required: true },
+            dryRun: { type: 'boolean' },
             name: { type: 'string', required: true },
             dir: { type: 'string' },
             files: { type: 'number' },
@@ -272,21 +278,24 @@ export function registerTools(ctx, service) {
             commit: { type: 'string' },
             source: { type: 'string' },
             warnings: { type: 'array', items: { type: 'string' } },
+            preview: { type: 'object' },
             hint: { type: 'string' },
           },
         },
         render: textRender(
           (value) =>
-            `Installed skill "${value.name}"${value.repo ? ` from ${value.repo}@${(value.commit ?? '').slice(0, 12)}` : ''}` +
+            `${value.dryRun ? 'Previewed' : 'Installed'} skill "${value.name}"${value.repo ? ` from ${value.repo}@${(value.commit ?? '').slice(0, 12)}` : ''}` +
             `${value.files ? ` (${value.files} files)` : ''} → ${value.dir ?? '(unknown)'}. ${value.hint ?? ''}`.trim(),
         ),
       },
       execute: async (args, exec) => {
         exec.signal.throwIfAborted()
         const entry = await service.resolveEntry(args)
-        const result = await service.install(entry, { overwrite: args.overwrite === true })
+        const dryRun = args.preview === true
+        const result = await service.install(entry, { overwrite: args.overwrite === true, dryRun })
         return {
           ok: true,
+          dryRun,
           name: result.name,
           dir: result.dir,
           files: result.files,
@@ -294,6 +303,7 @@ export function registerTools(ctx, service) {
           commit: result.commit,
           source: entry.source,
           warnings: result.warnings ?? [],
+          preview: result.preview,
           hint: service.installHint(result),
         }
       },

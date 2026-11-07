@@ -50,8 +50,20 @@ const run = (label, file, argv, opts = {}) => {
 const started = Date.now()
 
 if (!skipTest) {
-  run('unit tests', 'test/unit.test.mjs', [], { stdio: 'inherit' })
-  run('install tests', 'test/install.test.mjs', [], { stdio: 'inherit' })
+  console.log('\n=== all tests ===')
+  execFileSync(
+    process.execPath,
+    [
+      '--test',
+      'test/unit.test.mjs',
+      'test/install.test.mjs',
+      'test/skillstore.test.mjs',
+      'test/sources.test.mjs',
+      'test/profile-install.test.mjs',
+      'test/cli.test.mjs',
+    ],
+    { stdio: 'inherit' },
+  )
 }
 
 // 1. skill index (the searchable snapshot)

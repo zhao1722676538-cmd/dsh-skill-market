@@ -38,11 +38,23 @@ export function stagingDir(installRoot) {
   return path.join(installRoot, '.staging')
 }
 
+async function backupCorruptRegistry(file, text) {
+  const digest = crypto.createHash('sha256').update(text).digest('hex').slice(0, 16)
+  const backup = `${file}.corrupt-${digest}.json`
+  try {
+    await fs.access(backup)
+  } catch {
+    await fs.copyFile(file, backup)
+  }
+  return backup
+}
+
 /**
- * Read the registry, tolerating a missing or corrupt file (a corrupt registry is
- * reported through `warnings` instead of breaking installation forever).
+ * Read the registry. A corrupt file is copied aside and reported as `corrupt`
+ * so callers can fail closed instead of silently replacing ownership records.
  * @param {string} installRoot
- * @returns {Promise<{data: {version: number, skills: Record<string, any>}, warnings: string[]}>}
+ * @returns {Promise<{data: {version: number, skills: Record<string, any>}, warnings: string[],
+ *   corrupt?: boolean, backupPath?: string}>}
  */
 export async function readRegistry(installRoot) {
   const file = registryPath(installRoot)
@@ -56,12 +68,40 @@ export async function readRegistry(installRoot) {
   }
   try {
     const parsed = JSON.parse(text)
-    const skills = parsed && typeof parsed.skills === 'object' && parsed.skills !== null ? parsed.skills : {}
+    if (!parsed || typeof parsed !== 'object' || !parsed.skills || typeof parsed.skills !== 'object' || Array.isArray(parsed.skills)) {
+      throw new Error('registry must contain a "skills" object')
+    }
+    const skills = parsed.skills
     return { data: { version: 1, skills }, warnings }
   } catch (err) {
-    warnings.push(`registry at ${file} is corrupt and was ignored: ${err?.message ?? err}`)
-    return { data: { version: 1, skills: {} }, warnings }
+    let backupPath
+    try {
+      backupPath = await backupCorruptRegistry(file, text)
+      warnings.push(`registry at ${file} is corrupt; preserved a copy at ${backupPath}: ${err?.message ?? err}`)
+    } catch (backupError) {
+      warnings.push(
+        `registry at ${file} is corrupt and could not be backed up: ${err?.message ?? err}; ` +
+          `${backupError?.message ?? backupError}`,
+      )
+    }
+    return { data: { version: 1, skills: {} }, warnings, corrupt: true, backupPath }
   }
+}
+
+/**
+ * Refuse destructive registry operations when the original file could not be
+ * trusted. The corrupt original and best-effort backup remain on disk.
+ * @param {{corrupt?: boolean, backupPath?: string, warnings?: string[]}} read
+ */
+export function assertRegistryReadable(read) {
+  if (!read?.corrupt) return
+  const detail = read.warnings?.join('; ') || 'registry could not be parsed'
+  const error = new Error(
+    `${detail}. Registry changes are blocked to avoid losing installed-skill ownership records.`,
+  )
+  error.code = 'EREGISTRY_CORRUPT'
+  if (read.backupPath) error.backupPath = read.backupPath
+  throw error
 }
 
 /**
@@ -91,7 +131,9 @@ export async function mutateRegistry(installRoot, mutate) {
   const previous = locks.get(key) ?? Promise.resolve()
   /** @type {Promise<unknown>} */
   const run = previous.catch(() => {}).then(async () => {
-    const { data } = await readRegistry(key)
+    const read = await readRegistry(key)
+    assertRegistryReadable(read)
+    const { data } = read
     const result = await mutate(data)
     await writeRegistry(key, data)
     return result

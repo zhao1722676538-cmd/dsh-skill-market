@@ -43,5 +43,9 @@ if (okQueries === 0) {
   process.exit(1)
 }
 
-await fs.writeFile(out, serializeIndex(index), 'utf8')
+const nextComparable = JSON.stringify(JSON.parse(serializeIndex({ ...index, generatedAt: null })))
+const previousComparable = JSON.stringify({ ...previous, generatedAt: null })
+if (nextComparable === previousComparable) index.generatedAt = previous.generatedAt
+const text = serializeIndex(index)
+await fs.writeFile(out, text, 'utf8')
 console.log(`wrote ${index.skills.length} skills (${okQueries}/${index.reports.length} queries ok)`)

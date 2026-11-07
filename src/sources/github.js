@@ -15,12 +15,13 @@
  */
 
 import { httpJson } from '../net.js'
+import { fetchRepoArchive, locateSkillDir, normalizeDeps } from '../install/github.js'
 import { firstNumber, firstString, repoOf } from './util.js'
 
 export const id = 'github'
 export const label = 'GitHub'
 export const home = 'https://github.com'
-export const capabilities = { search: true, browse: false, detail: false }
+export const capabilities = { search: true, browse: false, detail: false, resolve: true }
 
 const API = 'https://api.github.com'
 const TOPICS = ['agent-skills', 'claude-skills', 'skills']
@@ -124,6 +125,34 @@ export async function search(q, deps) {
   return entries
 }
 
+/**
+ * Resolve a repository-level search result to one immutable skill directory.
+ * The downloaded archive is reused by installSkill through its process cache.
+ * @param {import('../types.js').SkillEntry} entry
+ * @param {import('../types.js').SourceDeps} deps
+ */
+export async function resolve(entry, deps) {
+  const repo = repoOf(entry?.repo)
+  if (!repo || entry?.path) return entry
+  const d = normalizeDeps(deps)
+  const archive = await fetchRepoArchive({ repo, ref: entry.ref }, d)
+  const located = locateSkillDir(archive.files, { hintPath: entry.path, name: entry.name })
+  if (!located) throw new Error(`${repo} contains no SKILL.md`)
+  if (located.ambiguous) {
+    throw new Error(
+      `${repo} has several SKILL.md candidates: ${located.ambiguous.join(', ')}. ` +
+        'Re-run with a more specific path.',
+    )
+  }
+  return {
+    ...entry,
+    repo,
+    path: located.dir,
+    ref: archive.ref ?? entry.ref,
+    commit: archive.commit ?? entry.commit,
+  }
+}
+
 /** @param {any} item */
 function toEntry(item) {
   const repo = repoOf(item?.full_name)
@@ -169,4 +198,4 @@ function fin(entry) {
   return Object.fromEntries(Object.entries(entry).filter(([, value]) => value !== undefined))
 }
 
-export default { id, label, home, capabilities, search }
+export default { id, label, home, capabilities, search, resolve }

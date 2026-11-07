@@ -58,9 +58,12 @@
     "LICENSE"
   ],
   "scripts": {
-    "test": "node --test test/unit.test.mjs test/install.test.mjs",
-    "test:coverage": "node --test --experimental-test-coverage test/unit.test.mjs test/install.test.mjs",
+    "test": "node --test test/unit.test.mjs test/install.test.mjs test/skillstore.test.mjs test/sources.test.mjs test/profile-install.test.mjs test/cli.test.mjs",
+    "test:coverage": "node --test --experimental-test-coverage test/unit.test.mjs test/install.test.mjs test/skillstore.test.mjs test/sources.test.mjs test/profile-install.test.mjs test/cli.test.mjs",
     "check": "node scripts/check-syntax.mjs",
+    "check:json": "node scripts/check-json.mjs",
+    "check:release": "node scripts/check-release.mjs",
+    "verify:skillstore": "node scripts/verify-skillstore.mjs",
     "build:index": "node scripts/build-index.mjs"
   },
   "bin": {

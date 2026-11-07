@@ -15,7 +15,7 @@ DeepSeek Harness 的**技能市场**插件：在一个面板里跨四个站点�
 | 来源 id | 站点 | 接口 | 说明 |
 | --- | --- | --- | --- |
 | `skillsmp` | skillsmp.com | `GET /api/v1/skills/search` | Anthropic 生态聚合索引；匿名限流 50/天，可配 token |
-| `skillstore` | skillstore.io | `GET /api/skills?q=` + `/api/skills/{slug}/manifest` | 带风险等级/签名清单，manifest 指向不可变 GitHub commit |
+| `skillstore` | skillstore.io | `GET /api/skills?q=` + `/api/skills/{slug}/manifest` | 校验 Ed25519 签名，并把安装固定到 manifest 中的不可变 GitHub commit |
 | `skillssh` | skills.sh | `GET /api/search?q=` | 按安装量排序的 registry，条目形如 `anthropics/skills/pdf` |
 | `github` | api.github.com | search repo/code + zipball 安装 | 兜底来源：任意仓库里的 `*/SKILL.md` 都能装 |
 
@@ -56,7 +56,7 @@ https://raw.githubusercontent.com/zhao1722676538-cmd/dsh-skill-market/main/skill
 | --- | --- |
 | `skill_market_search` | 跨源搜索，返回 `id / name / repo / path / installs / stars / risk`，以及 `mode`（`index` / `index+live` / `live`） |
 | `skill_market_build_index` | 把四源搜索结果抓成一份静态索引 JSON（索引用它生成；写文件后把路径配进 `indexes`） |
-| `skill_market_install` | 接受搜索结果的 `id`，或 `owner/repo`、`owner/repo/path`、GitHub URL；解析出技能目录后写入 `$DSH_HOME/skills/<name>` |
+| `skill_market_install` | 接受搜索结果的 `id`，或 `owner/repo`、`owner/repo/path`、GitHub URL；先传 `preview=true` 查看文件、脚本、联网提示、风险和本地变更，确认后写入 `$DSH_HOME/skills/<name>` |
 | `skill_market_uninstall` | 按名字卸载（先查注册表，再查目录） |
 | `skill_market_list` | 已安装技能 + 来源 + 支持的来源清单 |
 
@@ -76,7 +76,7 @@ node src/cli.js uninstall pdf --to claude
 ```
 
 - `--to dsh|claude|agents|codex|cursor|gemini|copilot|opencode|amp|goose|windsurf|cline|roo|continue|qwen|<路径>` 选技能目录；不传则自动探测已存在的 DSH → `.agents` → `.claude` 根目录。
-- 所有命令都支持 `--json`（给脚本用）；`install` 支持 `--dry-run`（只解析不落盘）。
+- 所有命令都支持 `--json`（给脚本用）；`install --dry-run` 会真实下载和解析仓库、定位 `SKILL.md` 并输出安装预览，但不落盘。
 - 搜索另有 `--source`、`--limit`、`--offline`；安装另有 `--name`、`--path`、`--ref`、`--overwrite`。
 - 纯网页助手（ChatGPT、Grok）没有本地技能目录，CLI 和插件都不适用。
 
@@ -171,6 +171,7 @@ node --check src/index.js && node --check client/client.js
 - 安装走 GitHub 归档下载（`codeload`），需要能访问 github.com；大仓库首次下载可能十几秒到半分钟。
 - `github` 源匿名只有 **10 次搜索/分钟**：一次搜索只发一个请求，并在进程内缓存 5 分钟；触发限流时面板/工具会给出「等约 1 分钟或填 githubToken」的提示，而不是空结果。
 - GitHub 仓库里有多个 `SKILL.md` 时安装会报歧义并列出候选目录，重跑时用 `path=` 指定（面板里就是条目自带的 path）。
+- SkillStore 的签名验证只证明 manifest/artifact 完整性并固定 commit，不代表该 skill 已被证明安全。
 - `skillsmp` 匿名额度较小。
 - 索引是**快照**：生成后新上架的 skill 不在里面（未命中会回落实时搜索）；想保持新鲜就定期重跑生成器，或把索引托管成 URL 让宿主按 TTL 自动校验。
 - 客户端面板只调用本插件的同源路由，不直接访问第三方站点。

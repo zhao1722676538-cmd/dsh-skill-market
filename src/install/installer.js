@@ -9,17 +9,18 @@
  * @module dsh-skill-market/install/installer
  */
 
+import crypto from 'node:crypto'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 
 import {
+  assertRegistryReadable,
   backupDir,
   hashDir,
   isInside,
   mutateRegistry,
   readRegistry,
   resolveInstallRoot,
-  sha256,
   stagingDir,
   validateSkillName,
 } from '../registry.js'
@@ -67,19 +68,27 @@ export async function installSkill(entry, opts = {}) {
   }
 
   const manifest = parseFrontmatter(files.find((file) => file.path.toLowerCase() === 'skill.md').data.toString('utf8'))
-  const rawName = manifest.name || entry.name || path.basename(prefix || repo)
   let name
-  try {
-    name = validateSkillName(rawName)
-  } catch {
-    name = validateSkillName(entry.name ?? path.basename(prefix || repo) ?? 'skill')
-    warnings.push(`SKILL.md declared an invalid name ${JSON.stringify(rawName)}; falling back to ${name}`)
+  const requestedName = entry.installName ?? opts.installName
+  if (requestedName !== undefined && requestedName !== null && String(requestedName).trim() !== '') {
+    name = validateSkillName(requestedName)
+  } else {
+    const rawName = manifest.name || entry.name || path.basename(prefix || repo)
+    try {
+      name = validateSkillName(rawName)
+    } catch {
+      name = validateSkillName(entry.name ?? path.basename(prefix || repo) ?? 'skill')
+      warnings.push(`SKILL.md declared an invalid name ${JSON.stringify(rawName)}; falling back to ${name}`)
+    }
   }
 
   const target = path.join(root, name)
   if (!isInside(root, target)) throw new Error(`refusing to install outside ${root}: ${target}`)
 
-  const { data: registry } = await readRegistry(root)
+  const registryRead = await readRegistry(root)
+  assertRegistryReadable(registryRead)
+  const { data: registry } = registryRead
+  warnings.push(...registryRead.warnings)
   const managed = registry.skills[name]
   const exists = await pathExists(target)
   if (exists && !managed && opts.overwrite !== true) {
@@ -91,8 +100,32 @@ export async function installSkill(entry, opts = {}) {
       { code: 'EEXIST_UNMANAGED' },
     )
   }
+  const existingInspection = exists && managed
+    ? await inspectInstalledChanges(target, managed)
+    : { verification: exists ? 'unmanaged' : 'new', changes: [] }
+  if (opts.dryRun !== true && opts.overwrite !== true) {
+    if (existingInspection.verification === 'unverifiable') {
+      throw Object.assign(
+        new Error(
+          `${target} exists but its current files could not be verified; refusing to replace it. ` +
+            'Rerun the preview, inspect the directory, and pass overwrite=true only if replacement is intended.',
+        ),
+        { code: 'EEXIST_UNVERIFIABLE' },
+      )
+    }
+    if (existingInspection.changes.length > 0) {
+      throw Object.assign(
+        new Error(
+          `${target} has local changes that would be replaced: ${existingInspection.changes.join(', ')}. ` +
+            'Pass overwrite=true only after reviewing them.',
+        ),
+        { code: 'EEXIST_MODIFIED', conflicts: existingInspection.changes },
+      )
+    }
+  }
 
   if (opts.dryRun === true) {
+    const preview = await buildInstallPreview(files, target, { exists, managed, entry, existingInspection })
     return {
       ok: true,
       name,
@@ -105,6 +138,7 @@ export async function installSkill(entry, opts = {}) {
       source: entry.source,
       updated: Boolean(exists),
       warnings,
+      preview,
     }
   }
 
@@ -291,7 +325,9 @@ export async function uninstallSkill(name, opts = {}) {
     return { ok: false, name: String(name ?? ''), reason: 'unknown', dir: undefined }
   }
 
-  const { data: registry } = await readRegistry(root)
+  const registryRead = await readRegistry(root)
+  assertRegistryReadable(registryRead)
+  const { data: registry } = registryRead
   const record = registry.skills[clean]
   const dir = path.join(root, clean)
 
@@ -307,17 +343,44 @@ export async function uninstallSkill(name, opts = {}) {
     return { ok: false, name: clean, reason: 'missing', dir }
   }
 
-  const current = await hashDir(dir, { limitFiles: MAX_FILES + 50, limitBytes: MAX_TOTAL_BYTES + 1024 }).catch(() => null)
+  let current
+  let verificationError
+  try {
+    current = await hashDir(dir, { limitFiles: MAX_FILES + 50, limitBytes: MAX_TOTAL_BYTES + 1024 })
+  } catch (err) {
+    verificationError = err?.message ?? String(err)
+    if (opts.force !== true) {
+      return {
+        ok: false,
+        name: clean,
+        reason: 'unverifiable',
+        dir,
+        error: verificationError,
+      }
+    }
+  }
   if (current && opts.force !== true) {
     const conflicts = diffFiles(record.files ?? [], current)
     if (conflicts.length > 0) return { ok: false, name: clean, reason: 'modified', dir, conflicts }
   }
 
-  await fs.rm(dir, { recursive: true, force: true })
-  await mutateRegistry(root, (data) => {
-    delete data.skills[clean]
+  const token = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`
+  const backup = path.join(backupDir(root), `${clean}-uninstall-${token}`)
+  await fs.mkdir(path.dirname(backup), { recursive: true })
+  await fs.rename(dir, backup)
+  try {
+    await mutateRegistry(root, (data) => {
+      delete data.skills[clean]
+    })
+  } catch (err) {
+    await fs.rename(backup, dir).catch(() => {})
+    throw err
+  }
+  const warnings = []
+  await fs.rm(backup, { recursive: true, force: true }).catch((err) => {
+    warnings.push(`removed the skill but could not clean backup ${backup}: ${err?.message ?? err}`)
   })
-  return { ok: true, name: clean, dir, removed: [dir] }
+  return { ok: true, name: clean, dir, removed: [dir], warnings }
 }
 
 /**
@@ -327,7 +390,9 @@ export async function uninstallSkill(name, opts = {}) {
  */
 export async function listInstalled(opts = {}) {
   const root = resolveInstallRoot(opts.installRoot)
-  const { data: registry } = await readRegistry(root)
+  const registryRead = await readRegistry(root)
+  assertRegistryReadable(registryRead)
+  const { data: registry } = registryRead
   const out = []
   for (const [name, record] of Object.entries(registry.skills)) {
     const dir = path.join(root, name)
@@ -343,6 +408,64 @@ export async function listInstalled(opts = {}) {
     })
   }
   return out.sort((a, b) => a.name.localeCompare(b.name))
+}
+
+const SCRIPT_FILE = /\.(?:js|mjs|cjs|ts|tsx|jsx|ps1|sh|bash|zsh|bat|cmd|py|rb|pl|php|go|rs|lua)$/i
+const TEXT_FILE = /\.(?:md|txt|json|ya?ml|toml|js|mjs|cjs|ts|tsx|jsx|ps1|sh|bash|zsh|bat|cmd|py|rb|pl|php|go|rs|lua)$/i
+
+/**
+ * Produce a deterministic, non-writing install preview. It intentionally limits
+ * the returned file list so a large skill cannot flood the agent context.
+ * @param {{path:string,data:Buffer}[]} files
+ * @param {string} target
+ * @param {{exists:boolean, managed:any, entry:any, existingInspection?: {verification:string, changes:string[]}}} state
+ */
+async function buildInstallPreview(files, target, state) {
+  const totalBytes = files.reduce((sum, file) => sum + file.data.length, 0)
+  const scripts = files.filter((file) => SCRIPT_FILE.test(file.path)).map((file) => file.path)
+  const networkHints = []
+  let inspectedTextBytes = 0
+  const networkPattern = /\b(?:https?:\/\/|curl\b|wget\b|Invoke-WebRequest\b|npm\s+(?:install|exec)\b|npx\b|pip\s+install\b|requests\.)/i
+  for (const file of files) {
+    if (!TEXT_FILE.test(file.path) || inspectedTextBytes >= 4 * 1024 * 1024) continue
+    const sample = file.data.subarray(0, Math.min(file.data.length, 256 * 1024))
+    inspectedTextBytes += sample.length
+    if (networkPattern.test(sample.toString('utf8'))) networkHints.push(file.path)
+  }
+
+  const changes = state.existingInspection?.changes ?? []
+  const verification = state.existingInspection?.verification ?? 'new'
+
+  const digest = crypto.createHash('sha256')
+  for (const file of files.sort((a, b) => a.path.localeCompare(b.path))) {
+    digest.update(file.path)
+    digest.update('\0')
+    digest.update(file.data)
+    digest.update('\0')
+  }
+
+  return {
+    fileCount: files.length,
+    totalBytes,
+    treeSha256: digest.digest('hex'),
+    files: files.map((file) => file.path),
+    scripts,
+    networkHints: [...new Set(networkHints)],
+    licenseFiles: files.map((file) => file.path).filter((name) => /(^|\/)licen[cs]e(?:\.|$)/i.test(name)),
+    risk: typeof state.entry?.risk === 'string' && state.entry.risk !== '' ? state.entry.risk : 'unknown',
+    verification,
+    changes,
+  }
+}
+
+async function inspectInstalledChanges(target, managed) {
+  try {
+    const current = await hashDir(target, { limitFiles: MAX_FILES + 50, limitBytes: MAX_TOTAL_BYTES + 1024 })
+    const changes = diffFiles(managed.files ?? [], current)
+    return { verification: changes.length === 0 ? 'unchanged' : 'modified', changes }
+  } catch (err) {
+    return { verification: 'unverifiable', changes: [], error: err?.message ?? String(err) }
+  }
 }
 
 /**
